@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[24,)"
+issueTrackerURL="https://github.com/sp614x/optifine/issues"
+[[mods]]
+modId="optifine"
+version="1.14.3"
+displayName="OptiFine"
+displayURL="https://www.optifine.net/home"
+authors="sp614x"
+description='''
+OptiFine is a Minecraft optimization mod.
+It allows Minecraft to run faster and look better with full support for HD textures and many configuration options.
+'''
+[[dependencies.optifine]]
+    modId="forge"
+    mandatory=true
+    versionRange="[24,)"
+    ordering="NONE"
+    side="CLIENT"

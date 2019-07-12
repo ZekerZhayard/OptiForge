@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.md-5:SpecialSource:1.8.5"
+    }
+}
+apply plugin: "base"
+apply plugin: "java"
+
+version = "srg"
+group = "optifine"
+archivesBaseName = "${optifineJarName}"
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8"
+
+jar {
+    from {
+        (zipTree("libs/${optifineJarName}.jar") + zipTree("libs/launchwrapper-2.0.jar")).matching {
+            exclude "net/minecraftforge/**"
+        }
+    }
+    exclude "net/minecraftforge/**"
+}
+
+import net.md_5.specialsource.Jar
+import net.md_5.specialsource.JarMapping
+import net.md_5.specialsource.JarRemapper
+import net.md_5.specialsource.provider.JarProvider
+import net.md_5.specialsource.provider.JointProvider
+
+task afterBuild {
+    doLast {
+        def mapping = new JarMapping()
+        def inputJar = Jar.init(file("build/libs/${optifineJarName}-srg.jar"))
+        def inheritanceProviders = new JointProvider()
+        inheritanceProviders.add(new JarProvider(inputJar))
+        inheritanceProviders.add(new JarProvider(Jar.init(file("libs/${minecraftVersion}.jar"))))
+        mapping.loadMappings(file("libs/${minecraftVersion}.srg"))
+        mapping.setFallbackInheritanceProvider(inheritanceProviders)
+        new JarRemapper(null, mapping).remapJar(inputJar, file("output/${optifineJarName}-srg.jar"))
+    }
+}
+build.finalizedBy(afterBuild)

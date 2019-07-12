@@ -1,0 +1,9 @@
+build
+.gradle
+
+# idea
+.idea
+*.iml
+
+# eclipse
+*.project
