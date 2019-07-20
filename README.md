@@ -2,11 +2,11 @@
 
 **NOTE**: 
 - This is NOT a Minecraft Forge mod, but only a tool that can build a special OptiFine jar file which can be loaded with Forge as a mod.
-- This tool only supports Minecraft 1.14.3 now (2019.7.12).
+- This tool only supports Minecraft 1.14.3 now (2019.7.21).
 - The special OptiFine version may cause many issues that are beyond my ability to fix them.
 
 ### How to Use
-1. [Download](https://www.optifine.net/downloads) OptiFine 1.14.3.
+1. [Download](https://www.optifine.net/downloads) OptiFine 1.14.3 HD U F2 pre3.
 1. Run OptiFine jar you just downloaded.
 1. Select `.minecraft` folder which contains Minecraft 1.14.3 and click `Extract` button.
 1. [Download](https://github.com/ZekerZhayard/OptiForge/archive/1.14.3.zip) this repositry and unzip it.
