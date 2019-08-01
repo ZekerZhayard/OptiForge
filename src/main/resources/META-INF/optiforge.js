@@ -64,27 +64,43 @@ function logNdE(str) {
 
 function initializeCoreMod() {
     return {
-        "ClientChunkProvider_func_212849_a_": {
+        "Matrix4f": {
+            "target": {
+                "type": "CLASS",
+                "name": "net.minecraft.client.renderer.Matrix4f"
+            },
+            "transformer": function (cn) {
+                logClS(cn.name);
+                var mn = new MethodNode(Opcodes.ACC_PUBLIC, "get", "(II)F", null, null);
+                mn.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                mn.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/Matrix4f", "field_195888_a", "[F"));
+                mn.instructions.add(new VarInsnNode(Opcodes.ILOAD, 1));
+                mn.instructions.add(new InsnNode(Opcodes.ICONST_4));
+                mn.instructions.add(new VarInsnNode(Opcodes.ILOAD, 2));
+                mn.instructions.add(new InsnNode(Opcodes.IMUL));
+                mn.instructions.add(new InsnNode(Opcodes.IADD));
+                mn.instructions.add(new InsnNode(Opcodes.FALOAD));
+                mn.instructions.add(new InsnNode(Opcodes.FRETURN));
+                cn.methods.add(mn);
+                logClE(cn.name);
+                return cn;
+            }
+        },
+        "ModelRotation_getMatrixVec": {
             "target": {
                 "type": "METHOD",
-                "class": "net.minecraft.client.multiplayer.ClientChunkProvider",
-                "methodName": "func_212849_a_",
-                "methodDesc": "(IILnet/minecraft/world/chunk/ChunkStatus;Z)Lnet/minecraft/world/chunk/Chunk;"
+                "class": "net.minecraft.client.renderer.model.ModelRotation",
+                "methodName": "getMatrixVec",
+                "methodDesc": "()Ljavax/vecmath/Matrix4f;"
             },
             "transformer": function (mn) {
                 logMdS(mn.name);
                 for (var iterator = mn.instructions.iterator(); iterator.hasNext();) {
                     var ain = iterator.next();
-                    if (ain.getOpcode() == Opcodes.ALOAD && ain.getNext().getOpcode() == Opcodes.ARETURN) {
-                        logNdS(ain.getOpcode() + " " + ain.var);
-                        mn.instructions.insertBefore(ain, new FieldInsnNode(Opcodes.GETSTATIC, "net/minecraftforge/common/MinecraftForge", "EVENT_BUS", "Lnet/minecraftforge/eventbus/api/IEventBus;"));
-                        mn.instructions.insertBefore(ain, new TypeInsnNode(Opcodes.NEW, "net/minecraftforge/event/world/ChunkEvent$Load"));
-                        mn.instructions.insertBefore(ain, new InsnNode(Opcodes.DUP));
-                        mn.instructions.insertBefore(ain, new VarInsnNode(Opcodes.ALOAD, ain.var));
-                        mn.instructions.insertBefore(ain, new MethodInsnNode(Opcodes.INVOKESPECIAL, "net/minecraftforge/event/world/ChunkEvent$Load", "<init>", "(Lnet/minecraft/world/chunk/IChunk;)V", false));
-                        mn.instructions.insertBefore(ain, new MethodInsnNode(Opcodes.INVOKEINTERFACE, "net/minecraftforge/eventbus/api/IEventBus", "post", "(Lnet/minecraftforge/eventbus/api/Event;)Z", true));
-                        mn.instructions.insertBefore(ain, new InsnNode(Opcodes.POP));
-                        logNdE(ain.getOpcode() + " " + ain.var);
+                    if (ain.getOpcode() == Opcodes.INVOKEVIRTUAL && ain.owner == "net/minecraftforge/common/model/TRSRTransformation" && ain.name == "getMatrix" && ain.desc == "()Ljavax/vecmath/Matrix4f;") {
+                        logNdS(ain.getOpcode() + " " + ain.owner + " " + ain.name);
+                        ain.name = "getMatrixVec";
+                        logNdE(ain.getOpcode() + " " + ain.owner + " " + ain.name);
                     }
                 }
                 logMdE(mn.name);

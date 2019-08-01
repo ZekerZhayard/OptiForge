@@ -3,7 +3,7 @@ loaderVersion="[24,)"
 issueTrackerURL="https://github.com/sp614x/optifine/issues"
 [[mods]]
 modId="optifine"
-version="1.14.3"
+version="1.14.4"
 displayName="OptiFine"
 displayURL="https://www.optifine.net/home"
 authors="sp614x"

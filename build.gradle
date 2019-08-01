@@ -18,10 +18,11 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 jar {
     from {
-        (zipTree("libs/${optifineJarName}.jar") + zipTree("libs/launchwrapper-of-2.1.jar")).matching {
+        (zipTree("libs/${optifineJarName}.jar")).matching {
             exclude "net/minecraftforge/**"
         }
     }
+    exclude "javax/**"
     exclude "net/minecraftforge/**"
 }
 
