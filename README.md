@@ -14,6 +14,6 @@
 1. [Download](https://github.com/MinecraftForge/MCPConfig/archive/master.zip) MCPConfig and unzip it.
 1. Run the command `./gradlew 1.14.4:makeSRG` in MCPConfig.
 1. Move `build/versions/1.14.4/data/joined.srg` to `libs` folder and rename it to `1.14.4.srg`
-1. Modify `minecraftVersion` and `optifineJarName` in `gradl.properties`
+1. Modify `minecraftVersion` and `optifineJarName` in `gradle.properties`
 1. Run the command `./gradlew build` in this repository.
 1. You will get the special OptiFine jar in `output` folder and you can install it as a Forge mod.
