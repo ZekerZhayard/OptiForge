@@ -1,5 +1,7 @@
 # OptiForge
 
+## OptiFine has been compatible with Forge since 1.14.4 HD U F4 pre1
+
 **NOTE**: 
 - This is NOT a Minecraft Forge mod, but only a tool that can build a special OptiFine jar file which can be loaded with Forge as a mod.
 - This tool supports Minecraft 1.14.3 and 1.14.4 now (2019.8.1).
