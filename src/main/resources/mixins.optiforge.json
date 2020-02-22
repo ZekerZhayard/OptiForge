@@ -19,6 +19,7 @@
     "net.minecraft.client.renderer.MixinLightTexture",
     "net.minecraft.client.renderer.MixinMatrix3f",
     "net.minecraft.client.renderer.MixinMatrix4f",
+    "net.minecraft.client.renderer.MixinOverlayRenderer",
     "net.minecraft.client.renderer.MixinRenderState$LineState",
     "net.minecraft.client.renderer.MixinWorldRenderer",
     "net.minecraft.client.renderer.chunk.MixinChunkRenderDispatcher$ChunkRender$ChunkRenderTask",
