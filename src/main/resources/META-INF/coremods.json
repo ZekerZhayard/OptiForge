@@ -1,4 +1,5 @@
 {
   "Matrix4fTransformer": "META-INF/transformers/net.minecraft.client.renderer.Matrix4fTransformer.js",
+  "OverlayRendererTransformer": "META-INF/transformers/net.minecraft.client.renderer.OverlayRendererTransformer.js",
   "EntityRendererManagerTransformer": "META-INF/transformers/net.minecraft.client.renderer.entity.EntityRendererManagerTransformer.js"
 }
