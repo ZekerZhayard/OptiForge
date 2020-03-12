@@ -2,8 +2,9 @@ package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.rendere
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
+import com.google.common.collect.MapMaker;
 import net.minecraft.client.renderer.texture.LayeredTexture;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.resources.IResource;
@@ -17,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(LayeredTexture.class)
 public abstract class MixinLayeredTexture {
-    private ConcurrentHashMap<Thread, String> optiforge_stringMap = new ConcurrentHashMap<>();
+    private ConcurrentMap<Thread, String> optiforge_stringMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @ModifyVariable(
         method = "Lnet/minecraft/client/renderer/texture/LayeredTexture;loadTexture(Lnet/minecraft/resources/IResourceManager;)V",
@@ -56,6 +57,6 @@ public abstract class MixinLayeredTexture {
         allow = 1
     )
     private NativeImage redirect$loadTexture$1(InputStream inputStreamIn, IResourceManager manager) throws IOException {
-        return MinecraftForgeClient.getImageLayer(new ResourceLocation(this.optiforge_stringMap.remove(Thread.currentThread())), manager);
+        return MinecraftForgeClient.getImageLayer(new ResourceLocation(this.optiforge_stringMap.get(Thread.currentThread())), manager);
     }
 }

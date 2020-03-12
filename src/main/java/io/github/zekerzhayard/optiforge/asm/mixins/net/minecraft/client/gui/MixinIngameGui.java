@@ -1,7 +1,8 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.gui;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
+import com.google.common.collect.MapMaker;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.IngameGui;
 import net.minecraft.item.Item;
@@ -18,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class MixinIngameGui {
     @Shadow
     protected ItemStack highlightingItemStack;
-    private ConcurrentHashMap<Thread, ItemStack> optiforge_itemStackMap = new ConcurrentHashMap<>();
+    private ConcurrentMap<Thread, ItemStack> optiforge_itemStackMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Redirect(
         method = {
@@ -117,7 +118,7 @@ public abstract class MixinIngameGui {
         allow = 1
     )
     private boolean redirect$tick$0(Object itemStackDisplayName, Object highlightingItemStackDisplayName) {
-        ItemStack itemStack = this.optiforge_itemStackMap.remove(Thread.currentThread());
+        ItemStack itemStack = this.optiforge_itemStackMap.get(Thread.currentThread());
         return itemStackDisplayName.equals(highlightingItemStackDisplayName) && itemStack.getHighlightTip(itemStack.getDisplayName().getUnformattedComponentText()).equals(this.highlightingItemStack.getHighlightTip(this.highlightingItemStack.getDisplayName().getUnformattedComponentText()));
     }
 }

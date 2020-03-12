@@ -1,7 +1,8 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
+import com.google.common.collect.MapMaker;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.zekerzhayard.optiforge.asm.imixins.net.minecraft.client.renderer.texture.IMixinTexture;
 import net.minecraft.block.BlockState;
@@ -36,8 +37,8 @@ public abstract class MixinWorldRenderer {
     @Shadow
     private ClientWorld world;
 
-    private ConcurrentHashMap<Thread, IRenderTypeBuffer.Impl> optiforge_iRenderTypeBuffer$ImplMap = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<Thread, BlockPos> optiforge_blockPosMap = new ConcurrentHashMap<>();
+    private ConcurrentMap<Thread, IRenderTypeBuffer.Impl> optiforge_iRenderTypeBuffer$ImplMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
+    private ConcurrentMap<Thread, BlockPos> optiforge_blockPosMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Redirect(
         method = "Lnet/minecraft/client/renderer/WorldRenderer;setupTerrain(Lnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/culling/ClippingHelperImpl;ZIZ)V",
@@ -102,7 +103,7 @@ public abstract class MixinWorldRenderer {
         allow = 1
     )
     private boolean redirect$updateCameraAndRender$1(BlockState blockState, MatrixStack matrixStackIn, float partialTicks, long finishTimeNano, boolean drawBlockOutline, ActiveRenderInfo activeRenderInfoIn, GameRenderer gameRendererIn, LightTexture lightmapIn, Matrix4f projectionIn) {
-        return ForgeHooksClient.onDrawBlockHighlight((WorldRenderer) (Object) this, activeRenderInfoIn, this.mc.objectMouseOver, partialTicks, matrixStackIn, this.optiforge_iRenderTypeBuffer$ImplMap.remove(Thread.currentThread())) || blockState.isAir(this.world, this.optiforge_blockPosMap.remove(Thread.currentThread()));
+        return ForgeHooksClient.onDrawBlockHighlight((WorldRenderer) (Object) this, activeRenderInfoIn, this.mc.objectMouseOver, partialTicks, matrixStackIn, this.optiforge_iRenderTypeBuffer$ImplMap.get(Thread.currentThread())) || blockState.isAir(this.world, this.optiforge_blockPosMap.get(Thread.currentThread()));
     }
 
     @Redirect(

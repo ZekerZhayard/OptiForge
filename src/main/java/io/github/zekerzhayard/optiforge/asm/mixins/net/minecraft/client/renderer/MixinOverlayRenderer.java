@@ -1,7 +1,8 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
+import com.google.common.collect.MapMaker;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -22,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(OverlayRenderer.class)
 public abstract class MixinOverlayRenderer {
-    private static ConcurrentHashMap<Thread, PlayerEntity> optiforge_playerEntityMap = new ConcurrentHashMap<>();
+    private static ConcurrentMap<Thread, PlayerEntity> optiforge_playerEntityMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Shadow
     private static void renderTexture(Minecraft minecraftIn, TextureAtlasSprite spriteIn, MatrixStack matrixStackIn) {
@@ -75,7 +76,7 @@ public abstract class MixinOverlayRenderer {
         allow = 1
     )
     private static boolean redirect$renderOverlays$2(ClientPlayerEntity player, Minecraft minecraftIn, MatrixStack matrixStackIn) {
-        PlayerEntity playerEntity = MixinOverlayRenderer.optiforge_playerEntityMap.remove(Thread.currentThread());
+        PlayerEntity playerEntity = MixinOverlayRenderer.optiforge_playerEntityMap.get(Thread.currentThread());
         return player.isBurning() && !ForgeEventFactory.renderFireOverlay(playerEntity, matrixStackIn);
     }
 

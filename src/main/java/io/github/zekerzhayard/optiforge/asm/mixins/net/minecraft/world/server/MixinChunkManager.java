@@ -1,8 +1,9 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.world.server;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
+import com.google.common.collect.MapMaker;
 import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongSet;
@@ -41,7 +42,7 @@ public abstract class MixinChunkManager {
     @Shadow
     private ServerWorld world;
 
-    private ConcurrentHashMap<Thread, Boolean> optiforge_booleanMap = new ConcurrentHashMap<>();
+    private ConcurrentMap<Thread, Boolean> optiforge_booleanMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Inject(
         method = "Lnet/minecraft/world/server/ChunkManager;tick(Ljava/util/function/BooleanSupplier;)V",
@@ -116,7 +117,7 @@ public abstract class MixinChunkManager {
         allow = 1
     )
     private void inject$lambda$null$25$0(CallbackInfoReturnable<IChunk> cir) {
-        if (this.optiforge_booleanMap.remove(Thread.currentThread())) {
+        if (this.optiforge_booleanMap.get(Thread.currentThread())) {
             MinecraftForge.EVENT_BUS.post(new ChunkEvent.Load(cir.getReturnValue()));
         }
     }

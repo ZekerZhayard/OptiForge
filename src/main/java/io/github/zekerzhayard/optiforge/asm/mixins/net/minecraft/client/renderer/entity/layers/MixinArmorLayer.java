@@ -1,7 +1,8 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer.entity.layers;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
+import com.google.common.collect.MapMaker;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -26,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ArmorLayer.class)
 public abstract class MixinArmorLayer<T extends LivingEntity, M extends BipedModel<T>, A extends BipedModel<T>> {
-    private ConcurrentHashMap<Thread, ItemStack> optiforge_itemStackMap = new ConcurrentHashMap<>();
+    private ConcurrentMap<Thread, ItemStack> optiforge_itemStackMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Shadow
     protected abstract ResourceLocation getArmorResource(ArmorItem armor, boolean legSlotIn, String suffixOverlayIn);
@@ -56,7 +57,7 @@ public abstract class MixinArmorLayer<T extends LivingEntity, M extends BipedMod
         allow = 3
     )
     private void redirect$renderArmorPart$0(ArmorLayer<T, M, A> armorLayer, MatrixStack _matrixStackIn, IRenderTypeBuffer _bufferIn, int _packedLightIn, ArmorItem armorItemIn, boolean glintIn, A modelIn, boolean legSlotIn, float red, float green, float blue, String overlayIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, T entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, EquipmentSlotType slotIn, int packedLightIn) {
-        this.renderArmor(_matrixStackIn, _bufferIn, _packedLightIn, glintIn, modelIn, red, green, blue, this.getArmorResource(entityLivingBaseIn, this.optiforge_itemStackMap.remove(Thread.currentThread()), slotIn, overlayIn));
+        this.renderArmor(_matrixStackIn, _bufferIn, _packedLightIn, glintIn, modelIn, red, green, blue, this.getArmorResource(entityLivingBaseIn, this.optiforge_itemStackMap.get(Thread.currentThread()), slotIn, overlayIn));
     }
 
     @Inject(
