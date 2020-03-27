@@ -63,7 +63,7 @@ public abstract class MixinIngameGui {
         allow = 1
     )
     private Object redirect$renderPotionEffects$2(Object obj, @Coerce Object method, Object[] params) {
-        ((EffectInstance) params[0]).renderHUDEffect((AbstractGui) params[1], (int) params[2], (int) params[3], (float) params[4], (float) params[5]);
+        ((EffectInstance) params[0]).renderHUDEffect((AbstractGui) params[1], (int) params[2], (int) params[3], (int) params[4], (float) params[5]);
         return null;
     }
 
