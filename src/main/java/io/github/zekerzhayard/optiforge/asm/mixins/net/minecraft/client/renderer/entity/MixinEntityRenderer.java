@@ -29,7 +29,7 @@ public abstract class MixinEntityRenderer<T extends Entity> {
         allow = 1
     )
     private void inject$render$0(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, CallbackInfo ci) {
-        RenderNameplateEvent renderNameplateEvent = new RenderNameplateEvent(entityIn, entityIn.getDisplayName().getFormattedText(), matrixStackIn, bufferIn);
+        RenderNameplateEvent renderNameplateEvent = new RenderNameplateEvent(entityIn, entityIn.getDisplayName().getFormattedText(), (EntityRenderer<?>) (Object) this, matrixStackIn, bufferIn, packedLightIn);
         MinecraftForge.EVENT_BUS.post(renderNameplateEvent);
         if (renderNameplateEvent.getResult() != Event.Result.DENY && (renderNameplateEvent.getResult() == Event.Result.ALLOW || this.canRenderName(entityIn))) {
             this.renderName(entityIn, renderNameplateEvent.getContent(), matrixStackIn, bufferIn, packedLightIn);
