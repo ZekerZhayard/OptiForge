@@ -20,7 +20,7 @@ function initializeCoreMod() {
                             var ain = j.next();
                             if (ain.getOpcode() === Opcodes.ARETURN) {
                                 mn.instructions.insertBefore(ain, new VarInsnNode(Opcodes.ALOAD, 1));
-                                mn.instructions.insertBefore(ain, new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/util/math/BlockPos$Mutable", "toImmutable", "()Lnet/minecraft/util/math/BlockPos;"));
+                                mn.instructions.insertBefore(ain, new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/util/math/BlockPos$Mutable", "func_185334_h", "()Lnet/minecraft/util/math/BlockPos;"));
                                 mn.instructions.insertBefore(ain, new MethodInsnNode(Opcodes.INVOKESTATIC, "org/apache/commons/lang3/tuple/Pair", "of", "(Ljava/lang/Object;Ljava/lang/Object;)Lorg/apache/commons/lang3/tuple/Pair;"));
                                 break;
                             }
