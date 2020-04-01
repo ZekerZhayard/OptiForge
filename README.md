@@ -2,7 +2,7 @@
 
 *Compatibility: (2020-03-28)*  
 &emsp;*OptiForge-0.1.6*  
-&emsp;*Forge-1.15.2-31.1.30 or above*  
+&emsp;*Forge-1.15.2-31.1.32 or above*  
 &emsp;*OptiFine-1.15.2-G1-pre7 or above*  
 
 ## How to Use

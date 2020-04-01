@@ -13,6 +13,7 @@
     "net.minecraft.client.renderer.MixinActiveRenderInfo",
     "net.minecraft.client.renderer.MixinBlockModelRenderer",
     "net.minecraft.client.renderer.MixinBlockRendererDispatcher",
+    "net.minecraft.client.renderer.MixinBufferBuilder",
     "net.minecraft.client.renderer.MixinFirstPersonRenderer",
     "net.minecraft.client.renderer.MixinFogRenderer",
     "net.minecraft.client.renderer.MixinGameRenderer",
