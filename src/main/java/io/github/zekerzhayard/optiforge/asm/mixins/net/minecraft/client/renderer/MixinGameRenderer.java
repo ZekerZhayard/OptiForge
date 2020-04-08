@@ -56,13 +56,27 @@ public abstract class MixinGameRenderer {
         method = "Lnet/minecraft/client/renderer/GameRenderer;renderWorld(FJLcom/mojang/blaze3d/matrix/MatrixStack;)V",
         at = @At(
             value = "INVOKE",
+            target = "Lnet/optifine/reflect/ReflectorMethod;exists()Z",
+            remap = false
+        ),
+        require = 1,
+        allow = 1
+    )
+    private boolean redirect$renderWorld$1(@Coerce Object method) {
+        return true;
+    }
+
+    @Redirect(
+        method = "Lnet/minecraft/client/renderer/GameRenderer;renderWorld(FJLcom/mojang/blaze3d/matrix/MatrixStack;)V",
+        at = @At(
+            value = "INVOKE",
             target = "Lnet/optifine/reflect/Reflector;callVoid(Lnet/optifine/reflect/ReflectorMethod;[Ljava/lang/Object;)V",
             remap = false
         ),
         require = 1,
         allow = 1
     )
-    private void redirect$renderWorld$1(@Coerce Object method, Object[] params, float partialTicks, long finishTimeNano, MatrixStack matrixStackIn) {
+    private void redirect$renderWorld$2(@Coerce Object method, Object[] params, float partialTicks, long finishTimeNano, MatrixStack matrixStackIn) {
         ForgeHooksClient.dispatchRenderLast((WorldRenderer) params[0], (MatrixStack) params[1], partialTicks, this.optiforge_matrix4fMap.get(Thread.currentThread()), (long) params[2]);
     }
 }
