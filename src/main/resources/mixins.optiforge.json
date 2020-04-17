@@ -43,8 +43,8 @@
     "net.minecraft.world.server.MixinChunkManager"
   ],
   "refmap": "mixins.optiforge.refmap.json",
+  "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin",
   "injectors": {
-    "defaultRequire": 1,
     "maxShiftBy": 2
   }
 }

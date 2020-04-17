@@ -1,10 +1,8 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer;
 
-import java.util.concurrent.ConcurrentMap;
-
-import com.google.common.collect.MapMaker;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.zekerzhayard.optiforge.asm.imixins.net.minecraft.client.renderer.texture.IMixinTexture;
+import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -25,7 +23,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(WorldRenderer.class)
@@ -36,9 +33,6 @@ public abstract class MixinWorldRenderer {
 
     @Shadow
     private ClientWorld world;
-
-    private ConcurrentMap<Thread, IRenderTypeBuffer.Impl> optiforge_iRenderTypeBuffer$ImplMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
-    private ConcurrentMap<Thread, BlockPos> optiforge_blockPosMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Redirect(
         method = "Lnet/minecraft/client/renderer/WorldRenderer;setupTerrain(Lnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/culling/ClippingHelperImpl;ZIZ)V",
@@ -66,33 +60,6 @@ public abstract class MixinWorldRenderer {
         ((IMixinTexture) texture).setBlurMipmap(blurIn, mipmapIn);
     }
 
-    @ModifyVariable(
-        method = "Lnet/minecraft/client/renderer/WorldRenderer;updateCameraAndRender(Lcom/mojang/blaze3d/matrix/MatrixStack;FJZLnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lnet/minecraft/client/renderer/Matrix4f;)V",
-        at = @At("STORE"),
-        ordinal = 0,
-        require = 1,
-        allow = 1
-    )
-    private IRenderTypeBuffer.Impl modifyVariable$updateCameraAndRender$0(IRenderTypeBuffer.Impl bufferSource) {
-        this.optiforge_iRenderTypeBuffer$ImplMap.put(Thread.currentThread(), bufferSource);
-        return bufferSource;
-    }
-
-    @ModifyVariable(
-        method = "Lnet/minecraft/client/renderer/WorldRenderer;updateCameraAndRender(Lcom/mojang/blaze3d/matrix/MatrixStack;FJZLnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lnet/minecraft/client/renderer/Matrix4f;)V",
-        at = @At(
-            value = "STORE",
-            ordinal = 3
-        ),
-        ordinal = 0,
-        require = 1,
-        allow = 1
-    )
-    private BlockPos modifyVariable$updateCameraAndRender$1(BlockPos blockPos) {
-        this.optiforge_blockPosMap.put(Thread.currentThread(), blockPos);
-        return blockPos;
-    }
-
     @Redirect(
         method = "Lnet/minecraft/client/renderer/WorldRenderer;updateCameraAndRender(Lcom/mojang/blaze3d/matrix/MatrixStack;FJZLnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lnet/minecraft/client/renderer/Matrix4f;)V",
         at = @At(
@@ -103,7 +70,17 @@ public abstract class MixinWorldRenderer {
         allow = 1
     )
     private boolean redirect$updateCameraAndRender$1(BlockState blockState, MatrixStack matrixStackIn, float partialTicks, long finishTimeNano, boolean drawBlockOutline, ActiveRenderInfo activeRenderInfoIn, GameRenderer gameRendererIn, LightTexture lightmapIn, Matrix4f projectionIn) {
-        return ForgeHooksClient.onDrawBlockHighlight((WorldRenderer) (Object) this, activeRenderInfoIn, this.mc.objectMouseOver, partialTicks, matrixStackIn, this.optiforge_iRenderTypeBuffer$ImplMap.get(Thread.currentThread())) || blockState.isAir(this.world, this.optiforge_blockPosMap.get(Thread.currentThread()));
+        return false;
+    }
+
+    @RedirectSurrogate(
+        loacalVariableOrdinals = {
+            0,
+            0
+        }
+    )
+    private boolean redirect$updateCameraAndRender$1(BlockState blockState, MatrixStack matrixStackIn, float partialTicks, long finishTimeNano, boolean drawBlockOutline, ActiveRenderInfo activeRenderInfoIn, GameRenderer gameRendererIn, LightTexture lightmapIn, Matrix4f projectionIn, IRenderTypeBuffer.Impl renderTypeBuffer, BlockPos blockPos) {
+        return ForgeHooksClient.onDrawBlockHighlight((WorldRenderer) (Object) this, activeRenderInfoIn, this.mc.objectMouseOver, partialTicks, matrixStackIn, renderTypeBuffer) || blockState.isAir(this.world, blockPos);
     }
 
     @Redirect(

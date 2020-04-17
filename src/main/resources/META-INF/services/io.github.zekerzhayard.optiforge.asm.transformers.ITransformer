@@ -1,0 +1,11 @@
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.gui.IngameGuiTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.GameRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.Matrix4fTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.OverlayRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.texture.LayeredTextureTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.WorldRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.EntityRendererManagerTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemFrameRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.layers.ArmorLayerTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.entity.MobEntityTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.world.server.ChunkManagerTransformer

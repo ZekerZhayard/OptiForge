@@ -1,9 +1,7 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer.entity;
 
-import java.util.concurrent.ConcurrentMap;
-
-import com.google.common.collect.MapMaker;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.entity.item.ItemFrameEntity;
@@ -14,14 +12,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ItemFrameRenderer.class)
 public abstract class MixinItemFrameRenderer {
-    private ConcurrentMap<Thread, ItemStack> optiforge_itemStackMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
-    private ConcurrentMap<Thread, MapData> optiforge_mapDataMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
-
     @Redirect(
         method = "Lnet/minecraft/client/renderer/entity/ItemFrameRenderer;render(Lnet/minecraft/entity/item/ItemFrameEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V",
         at = @At(
@@ -33,25 +27,26 @@ public abstract class MixinItemFrameRenderer {
         allow = 1
     )
     private Item redirect$render$0(ItemStack itemStack) {
-        this.optiforge_itemStackMap.put(Thread.currentThread(), itemStack);
         return null;
     }
 
-    @ModifyVariable(
+    @Redirect(
         method = "Lnet/minecraft/client/renderer/entity/ItemFrameRenderer;render(Lnet/minecraft/entity/item/ItemFrameEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V",
-        at = @At("STORE"),
-        ordinal = 0,
+        at = @At(
+            value = "CONSTANT",
+            args = "classValue=net/minecraft/item/FilledMapItem",
+            ordinal = 1
+        ),
         require = 1,
         allow = 1
     )
-    private boolean modifyVariable$render$0(boolean flag, ItemFrameEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        Thread currentThread = Thread.currentThread();
-        MapData mapdata = FilledMapItem.getMapData(this.optiforge_itemStackMap.get(currentThread), entityIn.world);
-        boolean b = mapdata != null;
-        if (b) {
-            this.optiforge_mapDataMap.put(currentThread, mapdata);
-        }
-        return b;
+    private boolean redirect$render$1(Object item, Class<?> filledMapItemClass, ItemFrameEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        return false;
+    }
+
+    @RedirectSurrogate(loacalVariableOrdinals = 0)
+    private MapData redirect$render$1(Object item, Class<?> filledMapItemClass, ItemFrameEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, ItemStack itemStack) {
+        return FilledMapItem.getMapData(itemStack, entityIn.world);
     }
 
     @Redirect(
@@ -64,7 +59,7 @@ public abstract class MixinItemFrameRenderer {
         require = 1,
         allow = 1
     )
-    private MapData redirect$render$1(ItemStack itemStack, World world) {
-        return this.optiforge_mapDataMap.get(Thread.currentThread());
+    private MapData redirect$render$2(ItemStack itemStack, World world) {
+        return null;
     }
 }

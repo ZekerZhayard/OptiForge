@@ -1,16 +1,14 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.world.server;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentMap;
 
-import com.google.common.collect.MapMaker;
 import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.server.ChunkHolder;
 import net.minecraft.world.server.ChunkManager;
@@ -20,14 +18,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.event.world.ChunkEvent;
-import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
@@ -41,8 +37,6 @@ public abstract class MixinChunkManager {
     @Final
     @Shadow
     private ServerWorld world;
-
-    private ConcurrentMap<Thread, Boolean> optiforge_booleanMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Inject(
         method = "Lnet/minecraft/world/server/ChunkManager;tick(Ljava/util/function/BooleanSupplier;)V",
@@ -60,7 +54,6 @@ public abstract class MixinChunkManager {
         }
     }
 
-    @Dynamic
     @Inject(
         method = "Lnet/minecraft/world/server/ChunkManager;lambda$scheduleSave$10(Lnet/minecraft/world/server/ChunkHolder;Ljava/util/concurrent/CompletableFuture;JLnet/minecraft/world/chunk/IChunk;)V",
         at = @At(
@@ -75,7 +68,6 @@ public abstract class MixinChunkManager {
         MinecraftForge.EVENT_BUS.post(new ChunkEvent.Unload(chunk));
     }
 
-    @Dynamic
     @Inject(
         method = "Lnet/minecraft/world/server/ChunkManager;lambda$func_223172_f$14(Lnet/minecraft/util/math/ChunkPos;)Lcom/mojang/datafixers/util/Either;",
         at = @At(
@@ -91,35 +83,20 @@ public abstract class MixinChunkManager {
         MinecraftForge.EVENT_BUS.post(new ChunkEvent.Load(chunk));
     }
 
-    @Dynamic
-    @Redirect(
+    @Inject(
         method = "Lnet/minecraft/world/server/ChunkManager;lambda$null$25(Lnet/minecraft/world/server/ChunkHolder;Lnet/minecraft/world/chunk/IChunk;)Lnet/minecraft/world/chunk/IChunk;",
         at = @At(
             value = "INVOKE",
-            target = "Lit/unimi/dsi/fastutil/longs/LongSet;add(J)Z"
+            shift = At.Shift.AFTER,
+            target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V"
         ),
+        locals = LocalCapture.CAPTURE_FAILSOFT,
         remap = false,
         require = 1,
         allow = 1
     )
-    private boolean redirect$lambda$null$25$0(LongSet loadedPositions, long key) {
-        boolean b = loadedPositions.add(key);
-        this.optiforge_booleanMap.put(Thread.currentThread(), b);
-        return b;
-    }
-
-    @Dynamic
-    @Inject(
-        method = "Lnet/minecraft/world/server/ChunkManager;lambda$null$25(Lnet/minecraft/world/server/ChunkHolder;Lnet/minecraft/world/chunk/IChunk;)Lnet/minecraft/world/chunk/IChunk;",
-        at = @At("TAIL"),
-        remap = false,
-        require = 1,
-        allow = 1
-    )
-    private void inject$lambda$null$25$0(CallbackInfoReturnable<IChunk> cir) {
-        if (this.optiforge_booleanMap.get(Thread.currentThread())) {
-            MinecraftForge.EVENT_BUS.post(new ChunkEvent.Load(cir.getReturnValue()));
-        }
+    private void inject$lambda$null$25$0(ChunkHolder chunkHolder, IChunk _chunk, CallbackInfoReturnable<IChunk> cir, ChunkPos chunkPos, Chunk chunk) {
+        MinecraftForge.EVENT_BUS.post(new ChunkEvent.Load(chunk));
     }
 
     @ModifyVariable(

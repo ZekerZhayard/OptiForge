@@ -1,9 +1,7 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer;
 
-import java.util.concurrent.ConcurrentMap;
-
-import com.google.common.collect.MapMaker;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -16,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.apache.commons.lang3.tuple.Pair;
+import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,16 +22,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(OverlayRenderer.class)
 public abstract class MixinOverlayRenderer {
-    private static ConcurrentMap<Thread, PlayerEntity> optiforge_playerEntityMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
-
     @Shadow
     private static void renderTexture(Minecraft minecraftIn, TextureAtlasSprite spriteIn, MatrixStack matrixStackIn) {
 
-    }
-
-    @Shadow(remap = false)
-    private static Pair<BlockState, BlockPos> getOverlayBlock(PlayerEntity playerIn) {
-        return null;
     }
 
     @Redirect(
@@ -45,7 +37,6 @@ public abstract class MixinOverlayRenderer {
         allow = 1
     )
     private static BlockState redirect$renderOverlays$0(PlayerEntity playerEntity, Minecraft minecraftIn, MatrixStack matrixStackIn) {
-        MixinOverlayRenderer.optiforge_playerEntityMap.put(Thread.currentThread(), playerEntity);
         Pair<BlockState, BlockPos> overlay = MixinOverlayRenderer.getOverlayBlock(playerEntity);
         if (overlay != null && !ForgeEventFactory.renderBlockOverlay(playerEntity, matrixStackIn, RenderBlockOverlayEvent.OverlayType.BLOCK, overlay.getLeft(), overlay.getRight())) {
             MixinOverlayRenderer.renderTexture(minecraftIn, minecraftIn.getBlockRendererDispatcher().getBlockModelShapes().getTexture(overlay.getLeft(), minecraftIn.world, overlay.getRight()), matrixStackIn);
@@ -63,7 +54,12 @@ public abstract class MixinOverlayRenderer {
         allow = 1
     )
     private static boolean redirect$renderOverlays$1(ClientPlayerEntity player, Tag<Fluid> tagIn, Minecraft minecraftIn, MatrixStack matrixStackIn) {
-        return player.areEyesInFluid(tagIn) && !ForgeEventFactory.renderWaterOverlay(MixinOverlayRenderer.optiforge_playerEntityMap.get(Thread.currentThread()), matrixStackIn);
+        return false;
+    }
+
+    @RedirectSurrogate(loacalVariableOrdinals = 0)
+    private static boolean redirect$renderOverlays$1(ClientPlayerEntity player, Tag<Fluid> tagIn, Minecraft minecraftIn, MatrixStack matrixStackIn, PlayerEntity playerEntity) {
+        return player.areEyesInFluid(tagIn) && !ForgeEventFactory.renderWaterOverlay(playerEntity, matrixStackIn);
     }
 
     @Redirect(
@@ -76,12 +72,20 @@ public abstract class MixinOverlayRenderer {
         allow = 1
     )
     private static boolean redirect$renderOverlays$2(ClientPlayerEntity player, Minecraft minecraftIn, MatrixStack matrixStackIn) {
-        PlayerEntity playerEntity = MixinOverlayRenderer.optiforge_playerEntityMap.get(Thread.currentThread());
+        return false;
+    }
+
+    @RedirectSurrogate(loacalVariableOrdinals = 0)
+    private static boolean redirect$renderOverlays$2(ClientPlayerEntity player, Minecraft minecraftIn, MatrixStack matrixStackIn, PlayerEntity playerEntity) {
         return player.isBurning() && !ForgeEventFactory.renderFireOverlay(playerEntity, matrixStackIn);
     }
 
-    // getViewBlockingState
-    private static BlockState func_230018_a_(PlayerEntity playerIn) {
+    @Intrinsic
+    private static BlockState getViewBlockingState(PlayerEntity playerIn) {
         return MixinOverlayRenderer.getOverlayBlock(playerIn).getLeft();
+    }
+
+    private static Pair<BlockState, BlockPos> getOverlayBlock(PlayerEntity playerIn) {
+        return null;
     }
 }

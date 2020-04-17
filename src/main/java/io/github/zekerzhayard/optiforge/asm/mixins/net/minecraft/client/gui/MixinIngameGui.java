@@ -1,8 +1,6 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.gui;
 
-import java.util.concurrent.ConcurrentMap;
-
-import com.google.common.collect.MapMaker;
+import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.IngameGui;
 import net.minecraft.item.Item;
@@ -12,14 +10,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(IngameGui.class)
 public abstract class MixinIngameGui {
     @Shadow
     protected ItemStack highlightingItemStack;
-    private ConcurrentMap<Thread, ItemStack> optiforge_itemStackMap = new MapMaker().initialCapacity(1).concurrencyLevel(1).weakKeys().weakValues().makeMap();
 
     @Redirect(
         method = {
@@ -95,18 +91,6 @@ public abstract class MixinIngameGui {
         return ((Item) obj).getFontRenderer((ItemStack) params[0]);
     }
 
-    @ModifyVariable(
-        method = "Lnet/minecraft/client/gui/IngameGui;tick()V",
-        at = @At("STORE"),
-        ordinal = 0,
-        require = 1,
-        allow = 1
-    )
-    private ItemStack modifyVariable$tick$0(ItemStack itemStack) {
-        this.optiforge_itemStackMap.put(Thread.currentThread(), itemStack);
-        return itemStack;
-    }
-
     @Redirect(
         method = "Lnet/minecraft/client/gui/IngameGui;tick()V",
         at = @At(
@@ -118,7 +102,11 @@ public abstract class MixinIngameGui {
         allow = 1
     )
     private boolean redirect$tick$0(Object itemStackDisplayName, Object highlightingItemStackDisplayName) {
-        ItemStack itemStack = this.optiforge_itemStackMap.get(Thread.currentThread());
+        return false;
+    }
+
+    @RedirectSurrogate(loacalVariableOrdinals = 0)
+    private boolean redirect$tick$0(Object itemStackDisplayName, Object highlightingItemStackDisplayName, ItemStack itemStack) {
         return itemStackDisplayName.equals(highlightingItemStackDisplayName) && itemStack.getHighlightTip(itemStack.getDisplayName().getUnformattedComponentText()).equals(this.highlightingItemStack.getHighlightTip(this.highlightingItemStack.getDisplayName().getUnformattedComponentText()));
     }
 }

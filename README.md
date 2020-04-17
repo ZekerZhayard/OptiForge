@@ -1,7 +1,7 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
-*Compatibility: (2020-04-08)*  
-&emsp;*OptiForge-0.1.8*  
+*Compatibility: (2020-04-17)*  
+&emsp;*OptiForge-0.1.9*  
 &emsp;*Forge-1.15.2-31.1.39 or newer version*  
 &emsp;*OptiFine-1.15.2-G1-pre7 or newer version*  
 
