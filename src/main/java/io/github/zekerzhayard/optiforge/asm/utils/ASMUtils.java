@@ -9,7 +9,9 @@ import java.util.stream.Stream;
 import com.google.common.collect.Lists;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
@@ -73,5 +75,17 @@ public class ASMUtils {
 
     public static boolean isRedirectSurrogateMethod(MethodNode mn, String mixinClassName) {
         return isMixinMethod(mn, mixinClassName) && mn.visibleAnnotations.stream().anyMatch(an -> an.desc.equals(Type.getDescriptor(RedirectSurrogate.class)));
+    }
+
+    public static FieldInsnNode findFirstFieldInsnNode(MethodNode mn, int opcode, String owner, String name, String desc) {
+        for (AbstractInsnNode ain : mn.instructions.toArray()) {
+            if (ain instanceof FieldInsnNode && ain.getOpcode() == opcode) {
+                FieldInsnNode fin = (FieldInsnNode) ain;
+                if (fin.owner.equals(owner) && fin.name.equals(name) && fin.desc.equals(desc)) {
+                    return fin;
+                }
+            }
+        }
+        return null;
     }
 }
