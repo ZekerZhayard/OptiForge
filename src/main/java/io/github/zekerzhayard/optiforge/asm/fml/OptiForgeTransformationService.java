@@ -31,14 +31,14 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class OptiForgeTransformationService implements ITransformationService {
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static String NAME = "optiforge";
+    private static String name = "optiforge";
 
     private static boolean checked;
 
     static {
         try {
             // This can make sure this class is always ordered after FMLServiceProvider.
-            FieldUtils.writeDeclaredField(NAME, "hash", "fml".hashCode() + 1, true);
+            FieldUtils.writeDeclaredField(name, "hash", "fml".hashCode() + 1, true);
         } catch (IllegalAccessException e) {
             LOGGER.error("", e);
         }
@@ -47,7 +47,7 @@ public class OptiForgeTransformationService implements ITransformationService {
     @Nonnull
     @Override
     public String name() {
-        return NAME;
+        return name;
     }
 
     // This method is called after FMLServiceProvider#argumentValues, but before FMLServiceProvider#runScan,
