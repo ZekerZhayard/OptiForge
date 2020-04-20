@@ -20,7 +20,6 @@ public class OverlayRendererTransformer implements ITransformer {
 
     @Override
     public ClassNode postTransform(ClassNode cn, String mixinClassName) {
-        ASMUtils.replaceRedirectSurrogateMethod(cn, mixinClassName);
         cn.methods.remove(Bytecode.findMethod(cn, "getOverlayBlock", "(Lnet/minecraft/entity/player/PlayerEntity;)Lorg/apache/commons/lang3/tuple/Pair;"));
         MethodNode mn1 = Objects.requireNonNull(Bytecode.findMethod(cn, "func_230018_a_", "(Lnet/minecraft/entity/player/PlayerEntity;)Lnet/minecraft/block/BlockState;"));
         mn1.name = "getOverlayBlock";

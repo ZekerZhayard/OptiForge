@@ -3,7 +3,6 @@ package io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.r
 import java.util.Objects;
 
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformer;
-import io.github.zekerzhayard.optiforge.asm.utils.ASMUtils;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -57,12 +56,6 @@ public class ItemFrameRendererTransformer implements ITransformer {
                 }
             }
         }
-        return cn;
-    }
-
-    @Override
-    public ClassNode postTransform(ClassNode cn, String mixinClassName) {
-        ASMUtils.replaceRedirectSurrogateMethod(cn, mixinClassName);
         return cn;
     }
 }
