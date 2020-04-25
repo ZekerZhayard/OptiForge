@@ -1,10 +1,11 @@
 {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/optiforge",
     "promos": {
-        "1.15.2-latest": "0.1.11",
-        "1.15.2-recommended": "0.1.11"
+        "1.15.2-latest": "0.1.12",
+        "1.15.2-recommended": "0.1.12"
     },
     "1.15.2": {
+        "0.1.12": "Support OptiForge running under development environment. Add the function about removing OptiFine class locator if MixinBootstrap didn't install.",
         "0.1.11": "Use a very hacky method to fix https://github.com/cpw/modlauncher/issues/37. Add version checkers.",
         "0.1.10": "Fix #16.",
         "0.1.9": "Fix #14.",
