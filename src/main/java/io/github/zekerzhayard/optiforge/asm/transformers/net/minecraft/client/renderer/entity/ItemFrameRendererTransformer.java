@@ -3,6 +3,7 @@ package io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.r
 import java.util.Objects;
 
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformer;
+import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -21,7 +22,7 @@ public class ItemFrameRendererTransformer implements ITransformer {
 
     @Override
     public ClassNode preTransform(ClassNode cn) {
-        MethodNode mn = Objects.requireNonNull(Bytecode.findMethod(cn, "func_225623_a_", "(Lnet/minecraft/entity/item/ItemFrameEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V"));
+        MethodNode mn = Objects.requireNonNull(Bytecode.findMethod(cn, ASMAPI.mapMethod("func_225623_a_"), "(Lnet/minecraft/entity/item/ItemFrameEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V"));
         LocalVariableNode flag = null, mapdata = null;
         for (LocalVariableNode lvn : mn.localVariables) {
             if (lvn.name.equals("flag") && lvn.desc.equals("Z")) {

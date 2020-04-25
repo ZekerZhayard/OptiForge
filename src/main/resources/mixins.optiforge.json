@@ -42,7 +42,6 @@
     "net.minecraft.network.datasync.MixinEntityDataManager",
     "net.minecraft.world.server.MixinChunkManager"
   ],
-  "refmap": "mixins.optiforge.refmap.json",
   "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin",
   "injectors": {
     "maxShiftBy": 2

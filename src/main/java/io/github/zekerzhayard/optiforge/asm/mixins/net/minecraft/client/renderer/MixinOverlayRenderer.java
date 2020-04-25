@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.apache.commons.lang3.tuple.Pair;
-import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -80,8 +79,7 @@ public abstract class MixinOverlayRenderer {
         return player.isBurning() && !ForgeEventFactory.renderFireOverlay(playerEntity, matrixStackIn);
     }
 
-    @Intrinsic
-    private static BlockState getViewBlockingState(PlayerEntity playerIn) {
+    private static BlockState optiforge_getViewBlockingState(PlayerEntity playerIn) {
         return MixinOverlayRenderer.getOverlayBlock(playerIn).getLeft();
     }
 

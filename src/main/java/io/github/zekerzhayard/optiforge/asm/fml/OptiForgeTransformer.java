@@ -26,33 +26,32 @@ public class OptiForgeTransformer<T> implements ITransformer<ClassNode> {
     @Override
     @SuppressWarnings("unchecked")
     public ClassNode transform(@Nonnull ClassNode input, @Nonnull ITransformerVotingContext context) {
-        if (input.name.equals(this.target.getClassName())) {
-            List<T> elements = new ArrayList<>();
-            switch (this.target.getTargetType()) {
-                case CLASS: {
-                    input = (ClassNode) this.wrappedTransformer.transform((T) input, context);
-                    break;
-                }
-                case METHOD: {
-                    for (MethodNode mn : input.methods) {
-                        if (mn.name.equals(this.target.getElementName()) && mn.desc.equals(this.target.getElementDescriptor())) {
-                            mn = (MethodNode) this.wrappedTransformer.transform((T) mn, context);
-                        }
-                        elements.add((T) mn);
+        List<T> elements = new ArrayList<>();
+        switch (this.target.getTargetType()) {
+            // For insurance purposes, we still need invoke class transformers.
+            case CLASS: {
+                input = (ClassNode) this.wrappedTransformer.transform((T) input, context);
+                break;
+            }
+            case METHOD: {
+                for (MethodNode mn : input.methods) {
+                    if (mn.name.equals(this.target.getElementName()) && mn.desc.equals(this.target.getElementDescriptor())) {
+                        mn = (MethodNode) this.wrappedTransformer.transform((T) mn, context);
                     }
-                    input.methods = (List<MethodNode>) elements;
-                    break;
+                    elements.add((T) mn);
                 }
-                case FIELD: {
-                    for (FieldNode fn : input.fields) {
-                        if (fn.name.equals(this.target.getElementName())) {
-                            fn = (FieldNode) this.wrappedTransformer.transform((T) fn, context);
-                        }
-                        elements.add((T) fn);
+                input.methods = (List<MethodNode>) elements;
+                break;
+            }
+            case FIELD: {
+                for (FieldNode fn : input.fields) {
+                    if (fn.name.equals(this.target.getElementName())) {
+                        fn = (FieldNode) this.wrappedTransformer.transform((T) fn, context);
                     }
-                    input.fields = (List<FieldNode>) elements;
-                    break;
+                    elements.add((T) fn);
                 }
+                input.fields = (List<FieldNode>) elements;
+                break;
             }
         }
         return input;

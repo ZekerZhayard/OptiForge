@@ -1,11 +1,13 @@
 package io.github.zekerzhayard.optiforge.asm.fml;
 
+import java.lang.reflect.Constructor;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -15,6 +17,7 @@ import cpw.mods.modlauncher.ServiceLoaderStreamUtils;
 import cpw.mods.modlauncher.TransformList;
 import cpw.mods.modlauncher.TransformStore;
 import cpw.mods.modlauncher.TransformTargetLabel;
+import cpw.mods.modlauncher.TransformationServiceDecorator;
 import cpw.mods.modlauncher.api.IEnvironment;
 import cpw.mods.modlauncher.api.ITransformationService;
 import cpw.mods.modlauncher.api.ITransformer;
@@ -25,20 +28,31 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldNode;
-import org.objectweb.asm.tree.MethodNode;
 
+// Method invoker orderer:
+//   <clinit>
+//   <init>
+//   name (more than once)
+//   onLoad
+//   arguments (parallel)
+//   argumentValues (parallel)
+//   initialize
+//   runScan
+//   (beginScanning)
+//   transformers
+//   additionalClassesLocator
+//   additionalResourcesLocator
 public class OptiForgeTransformationService implements ITransformationService {
     private final static Logger LOGGER = LogManager.getLogger();
-    private static String name = "optiforge";
+    private final static String NAME;
 
     private static boolean checked;
 
     static {
+        NAME = "optiforge"; // Avoid compiler to replace strings automatically.
         try {
-            // This can make sure this class is always ordered after FMLServiceProvider.
-            FieldUtils.writeDeclaredField(name, "hash", "fml".hashCode() + 1, true);
+            // This can make sure this class is always ordered after all other services.
+            FieldUtils.writeDeclaredField(NAME, "hash", -65536, true);
         } catch (IllegalAccessException e) {
             LOGGER.error("", e);
         }
@@ -47,39 +61,48 @@ public class OptiForgeTransformationService implements ITransformationService {
     @Nonnull
     @Override
     public String name() {
-        return name;
+        return NAME;
     }
 
-    // This method is called after FMLServiceProvider#argumentValues, but before FMLServiceProvider#runScan,
-    // so we can check Forge version and add custom mod locator.
+    // This method is called before FMLServiceProvider#runScan, so we can check Forge version and add custom mod locator.
     @Override
-    public void argumentValues(@Nonnull OptionResult option) {
-        String currentFMLVersion = null;
+    @SuppressWarnings("unchecked")
+    public void initialize(@Nonnull IEnvironment environment) {
+        StringBuilder currentFMLVersion = new StringBuilder();
+        Object transformationServicesHandler = new Object();
         try {
-            Object transformationServicesHandler = FieldUtils.readDeclaredField(Launcher.INSTANCE, "transformationServicesHandler", true);
-            @SuppressWarnings("unchecked")
+            transformationServicesHandler = FieldUtils.readDeclaredField(Launcher.INSTANCE, "transformationServicesHandler", true);
             ServiceLoader<ITransformationService> transformationServices = (ServiceLoader<ITransformationService>) FieldUtils.readDeclaredField(transformationServicesHandler, "transformationServices", true);
-            Optional<ITransformationService> transformationService = ServiceLoaderStreamUtils.map(transformationServices, ts -> ts).filter(ts -> ts.getClass().equals(FMLServiceProvider.class)).findFirst();
-            if (transformationService.isPresent()) {
-                currentFMLVersion = (String) FieldUtils.readDeclaredField(transformationService.get(), "targetForgeVersion", true);
+            ServiceLoaderStreamUtils.map(transformationServices, ts -> ts).filter(ts -> ts.getClass().equals(FMLServiceProvider.class)).findFirst().ifPresent(ts -> {
+                try {
+                    // The method "initialize" is called after "argumentValues", so we can read the field "targetForgeVersion" directly.
+                    currentFMLVersion.append(FieldUtils.readDeclaredField(ts, "targetForgeVersion", true));
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("An unexpected issue occurred when detecting Forge version, ignore this if you are under development environment: ", e);
+        }
+
+        try {
+            Path path = Paths.get(OptiForgeTransformationService.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            // We should check if it is under development environments or loaded required versions successfully.
+            if (checked = Files.isDirectory(path) || currentFMLVersion.length() == 0 || (VersionChecker.IS_LOADED && VersionChecker.checkOptiFineVersion(VersionChecker.DEFAULT_FUNCTION) && VersionChecker.checkMixinVersion(VersionChecker.DEFAULT_FUNCTION) && VersionChecker.checkForgeVersion(VersionChecker.DEFAULT_FUNCTION, currentFMLVersion.toString()))) {
+                // FML can't detect IModLocator when ITransformationService exists in the same jar, so we must add it manually.
+                ModDirTransformerDiscoverer.getExtraLocators().add(path);
+            } else {
+                // If required mods don't exist, we should remove OptiFineTransformationService.
+                Map<String, TransformationServiceDecorator> serviceLookup = (Map<String, TransformationServiceDecorator>) FieldUtils.readDeclaredField(transformationServicesHandler, "serviceLookup", true);
+                if (serviceLookup.containsKey("OptiFine")) {
+                    Constructor<TransformationServiceDecorator> constructor = TransformationServiceDecorator.class.getDeclaredConstructor(ITransformationService.class);
+                    constructor.setAccessible(true);
+                    serviceLookup.put("OptiFine", constructor.newInstance(new FakeOptiFineTransformationService()));
+                }
             }
         } catch (Exception e) {
-            LOGGER.error("An unexpected issue occurred when detect Forge version: ", e);
+            LOGGER.error("An unexpected issue occurred when checking versions: ", e);
         }
-
-        if (checked = (VersionChecker.checkOptiFineVersion(VersionChecker.DEFAULT_FUNCTION) && VersionChecker.checkMixinVersion(VersionChecker.DEFAULT_FUNCTION) && VersionChecker.checkForgeVersion(VersionChecker.DEFAULT_FUNCTION, currentFMLVersion))) {
-            try {
-                // FML can't detect IModLocator when ITransformationService exists in the same jar, so we must add it manually.
-                ModDirTransformerDiscoverer.getExtraLocators().add(Paths.get(OptiForgeTransformationService.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
-            } catch (Exception e) {
-                LOGGER.error("An unexpected issue occurred when adding custom mod locators: ", e);
-            }
-        }
-    }
-
-    @Override
-    public void initialize(@Nonnull IEnvironment environment) {
-
     }
 
     @Override
@@ -100,54 +123,29 @@ public class OptiForgeTransformationService implements ITransformationService {
     })
     public List<ITransformer> transformers() {
         List<ITransformer> list = new ArrayList<>();
-        // see https://github.com/cpw/modlauncher/issues/37
-        // OptiFine transformer overwrite all JavaScript field and method transformers.
-        // We are now called after FMLServiceProvider#transformers so that we can wrap JavaScript core mod system.
-        // But we still have no idea to wrap all transformers which added by other transformation service systems.
-        try {
-            Object transformationServicesHandler = FieldUtils.readDeclaredField(Launcher.INSTANCE, "transformationServicesHandler", true);
-            TransformStore transformStore = (TransformStore) FieldUtils.readDeclaredField(transformationServicesHandler, "transformStore", true);
-            EnumMap<TransformTargetLabel.LabelType, TransformList<?>> transformers = (EnumMap<TransformTargetLabel.LabelType, TransformList<?>>) FieldUtils.readDeclaredField(transformStore, "transformers", true);
-
-            // If OptiFine exists but Mixin doesn't, remove OptiFine transformer to avoid crash.
-            // Else we must wrap all JavaScript transformers.
-            if (!checked) {
-                TransformList<ClassNode> classList = (TransformList<ClassNode>) transformers.get(TransformTargetLabel.LabelType.CLASS);
-                Map<TransformTargetLabel, List<ITransformer<ClassNode>>> classTransformers = (Map<TransformTargetLabel, List<ITransformer<ClassNode>>>) FieldUtils.readDeclaredField(classList, "transformers", true);
-                for (List<ITransformer<ClassNode>> value : classTransformers.values()) {
-                    value.removeIf(t -> {
-                        try {
-                            // assert t.getClass().getName().equals("cpw.mods.modlauncher.TransformerHolder");
-                            return FieldUtils.readDeclaredField(t, "wrapped", true).getClass().getName().equals("optifine.OptiFineTransformer");
-                        } catch (Exception e) {
-                            LOGGER.error("", e);
-                            return false;
+        if (checked) {
+            // See https://github.com/cpw/modlauncher/issues/37
+            // OptiFine transformer overwrite all JavaScript field and method transformers.
+            // We are now called after all ITransformationService#transformers so that we can wrap all transformation systems.
+            try {
+                Object transformationServicesHandler = FieldUtils.readDeclaredField(Launcher.INSTANCE, "transformationServicesHandler", true);
+                TransformStore transformStore = (TransformStore) FieldUtils.readDeclaredField(transformationServicesHandler, "transformStore", true);
+                EnumMap<TransformTargetLabel.LabelType, TransformList<?>> transformers = (EnumMap<TransformTargetLabel.LabelType, TransformList<?>>) FieldUtils.readDeclaredField(transformStore, "transformers", true);
+                for (Map.Entry<TransformTargetLabel.LabelType, TransformList<?>> transformListEntry : transformers.entrySet()) {
+                    if (transformListEntry.getKey().equals(TransformTargetLabel.LabelType.CLASS)) {
+                        continue;
+                    }
+                    Map<TransformTargetLabel, List<ITransformer<?>>> transformersMap = (Map<TransformTargetLabel, List<ITransformer<?>>>) FieldUtils.readDeclaredField(transformListEntry.getValue(), "transformers", true);
+                    for (Map.Entry<TransformTargetLabel, List<ITransformer<?>>> entry : transformersMap.entrySet()) {
+                        for (ITransformer<?> transformer : entry.getValue()) {
+                            list.add(new OptiForgeTransformer(transformer, transformListEntry.getKey().equals(TransformTargetLabel.LabelType.FIELD) ? ITransformer.Target.targetField(((Type) MethodUtils.invokeMethod(entry.getKey(), true, "getClassName")).getInternalName(), entry.getKey().getElementName()) : ITransformer.Target.targetMethod(((Type) MethodUtils.invokeMethod(entry.getKey(), true, "getClassName")).getInternalName(), entry.getKey().getElementName(), entry.getKey().getElementDescriptor().getInternalName())));
                         }
-                    });
-                }
-            } else {
-                // Wrap all method transformers.
-                TransformList<MethodNode> methodList = (TransformList<MethodNode>) transformers.get(TransformTargetLabel.LabelType.METHOD);
-                Map<TransformTargetLabel, List<ITransformer<MethodNode>>> methodTransformers = (Map<TransformTargetLabel, List<ITransformer<MethodNode>>>) FieldUtils.readDeclaredField(methodList, "transformers", true);
-                for (Map.Entry<TransformTargetLabel, List<ITransformer<MethodNode>>> entry : methodTransformers.entrySet()) {
-                    for (ITransformer<MethodNode> transformer : entry.getValue()) {
-                        list.add(new OptiForgeTransformer(transformer, ITransformer.Target.targetMethod(((Type) MethodUtils.invokeMethod(entry.getKey(), true, "getClassName")).getInternalName(), entry.getKey().getElementName(), entry.getKey().getElementDescriptor().getInternalName())));
                     }
+                    transformersMap.clear();
                 }
-                methodTransformers.clear();
-
-                // Wrap all field transformers.
-                TransformList<FieldNode> fieldList = (TransformList<FieldNode>) transformers.get(TransformTargetLabel.LabelType.FIELD);
-                Map<TransformTargetLabel, List<ITransformer<FieldNode>>> fieldTransformers = (Map<TransformTargetLabel, List<ITransformer<FieldNode>>>) FieldUtils.readDeclaredField(fieldList, "transformers", true);
-                for (Map.Entry<TransformTargetLabel, List<ITransformer<FieldNode>>> entry : fieldTransformers.entrySet()) {
-                    for (ITransformer<FieldNode> transformer : entry.getValue()) {
-                        list.add(new OptiForgeTransformer(transformer, ITransformer.Target.targetField(((Type) MethodUtils.invokeMethod(entry.getKey(), true, "getClassName")).getInternalName(), entry.getKey().getElementName())));
-                    }
-                }
-                fieldTransformers.clear();
+            } catch (Exception e) {
+                LOGGER.error("", e);
             }
-        } catch (Exception e) {
-            LOGGER.error("", e);
         }
         return list;
     }

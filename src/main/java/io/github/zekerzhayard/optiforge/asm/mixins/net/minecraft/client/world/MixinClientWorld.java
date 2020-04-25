@@ -1,11 +1,9 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.world;
 
-import java.util.Collection;
 import java.util.function.BiFunction;
 
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.profiler.IProfiler;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.AbstractChunkProvider;
 import net.minecraft.world.dimension.Dimension;

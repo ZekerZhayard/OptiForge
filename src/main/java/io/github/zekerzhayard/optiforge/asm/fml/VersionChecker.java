@@ -1,5 +1,7 @@
 package io.github.zekerzhayard.optiforge.asm.fml;
 
+import java.io.IOException;
+import java.util.Properties;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,16 +13,32 @@ import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.artifact.versioning.VersionRange;
 
 public class VersionChecker {
-    public final static String REQUIRED_MINECRAFT_VERSION = "1.15.2";
-    public final static String REQUIRED_OPTIFINE_VERSION = "[7.1.7,)"; // G1_pre7
-    public final static String REQUIRED_OPTIFINE_COMPLETED_VERSION = "OptiFine_1.15.2_HD_U_G1_pre7 or newer";
-    public final static String REQUIRED_FORGE_VERSION = "[31.1.39,)";
+    public final static boolean IS_LOADED;
+    public final static String REQUIRED_MINECRAFT_VERSION;
+    public final static String REQUIRED_OPTIFINE_VERSION;
+    public final static String REQUIRED_FORGE_VERSION;
     public final static Function<String, Boolean> DEFAULT_FUNCTION = str -> {
         JOptionPane.showMessageDialog(null, str, "OptiForge Version Checker", JOptionPane.WARNING_MESSAGE);
         return false;
     };
 
     private final static Logger LOGGER = LogManager.getLogger();
+
+    static {
+        boolean isLoaded;
+        Properties properties = new Properties();
+        try {
+            properties.load(VersionChecker.class.getResourceAsStream("/requiredmods.properties"));
+            isLoaded = true;
+        } catch (IOException e) {
+            LOGGER.error("An unexpected issue occurred when loading required mods versions, version checker will not work: ", e);
+            isLoaded = false;
+        }
+        IS_LOADED = isLoaded;
+        REQUIRED_MINECRAFT_VERSION = properties.getProperty("required.minecraft.version");
+        REQUIRED_OPTIFINE_VERSION = properties.getProperty("required.optifine.version");
+        REQUIRED_FORGE_VERSION = properties.getProperty("required.forge.version");
+    }
 
     public static boolean checkOptiFineVersion(Function<String, Boolean> function) {
         try {
@@ -38,12 +56,14 @@ public class VersionChecker {
                     ofMinorVersion++;
                 }
                 String ofVersion = ofMajorVersion + "." + ofMinorVersion + "." + ofPreVersion;
-                VersionRange version = VersionRange.createFromVersionSpec(REQUIRED_OPTIFINE_VERSION);
-                if (!mcVersion.equals(REQUIRED_MINECRAFT_VERSION) || !version.containsVersion(new DefaultArtifactVersion(ofVersion))) {
+                VersionRange versionRange = VersionRange.createFromVersionSpec("[" + REQUIRED_OPTIFINE_VERSION + ",)");
+                if (!mcVersion.equals(REQUIRED_MINECRAFT_VERSION) || !versionRange.containsVersion(new DefaultArtifactVersion(ofVersion))) {
+                    DefaultArtifactVersion requiredOFVersion = new DefaultArtifactVersion(REQUIRED_OPTIFINE_VERSION);
+                    String requiredOptiFineCompletedVersion = "OptiFine_" + REQUIRED_MINECRAFT_VERSION + "_HD_U_" + (char) (requiredOFVersion.getMajorVersion() + 'A' - 1) + (requiredOFVersion.getMinorVersion() + (requiredOFVersion.getIncrementalVersion() == 0 ? -1 : 0)) + (requiredOFVersion.getIncrementalVersion() == 0 ? "" : "_pre" + requiredOFVersion.getIncrementalVersion());
                     return function.apply(
                         "You are using an unsupported OptiFine version, you can download the newer version from https://optifine.net/downloads.\n" +
                         "The game will continue, and run without OptiFine and OptiForge.\n" +
-                        "(You installed: " + ofVer + ", required: " + REQUIRED_OPTIFINE_COMPLETED_VERSION + ")"
+                        "(You installed: " + ofVer + ", required: " + requiredOptiFineCompletedVersion + " or newer)"
                     );
                 }
             } else {
@@ -94,12 +114,12 @@ public class VersionChecker {
      */
     public static boolean checkForgeVersion(Function<String, Boolean> function, String currentFMLVersion) {
         try {
-            VersionRange version = VersionRange.createFromVersionSpec(REQUIRED_FORGE_VERSION);
+            VersionRange version = VersionRange.createFromVersionSpec("[" + REQUIRED_FORGE_VERSION + ",)");
             if (!version.containsVersion(new DefaultArtifactVersion(currentFMLVersion))) {
                 return function.apply(
                     "You are using an unsupported Forge version, you can download the newer version from https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_" + REQUIRED_MINECRAFT_VERSION + ".html.\n" +
                     "The game will continue, and run without OptiFine and OptiForge.\n" +
-                    "(You installed: " + currentFMLVersion + ", required: " + REQUIRED_FORGE_VERSION + ")"
+                    "(You installed: " + currentFMLVersion + ", required: " + REQUIRED_FORGE_VERSION + " or newer)"
                 );
             }
         } catch (Exception e) {

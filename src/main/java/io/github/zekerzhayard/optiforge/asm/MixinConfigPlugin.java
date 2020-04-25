@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 import java.util.Set;
 
+import cpw.mods.modlauncher.Launcher;
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformer;
 import io.github.zekerzhayard.optiforge.asm.utils.ASMUtils;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -16,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import org.spongepowered.asm.util.Bytecode;
 
 public class MixinConfigPlugin implements IMixinConfigPlugin {
     private final static Logger LOGGER = LogManager.getLogger("OptiForge");
@@ -53,13 +53,14 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
             this.checked = true;
         } catch (Exception e) {
             LOGGER.error("An unexpected issue occurred when loading transformers and all mixin classes will not apply: ", e);
-            checked = false;
+            this.checked = false;
         }
     }
 
     @Override
     public String getRefMapperConfig() {
-        return null;
+        // If we are under development environment, we needn't reference mappings.
+        return Launcher.INSTANCE.environment().findNameMapping("srg").isPresent() ? null : "mixins.optiforge.refmap.json";
     }
 
     @Override

@@ -46,41 +46,7 @@ minecraft {
             property "forge.logging.console.level", "debug"
 
             mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file("run")
-
-            // Recommended logging data for a userdev environment
-            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
-
-            // Recommended logging level for the console
-            property "forge.logging.console.level", "debug"
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file("run")
-
-            // Recommended logging data for a userdev environment
-            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
-
-            // Recommended logging level for the console
-            property "forge.logging.console.level", "debug"
-
-            args "--mod", "examplemod", "--all", "--output", file("src/generated/resources/")
-
-            mods {
-                examplemod {
+                optiforge {
                     source sourceSets.main
                 }
             }
@@ -124,18 +90,53 @@ dependencies {
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
+def attrs = [
+        "Specification-Title": "OptiForge",
+        "Specification-Vendor": "ZekerZhayard",
+        "Specification-Version": "1", // We are version 1 of ourselves
+        "Implementation-Title": project.name,
+        "Implementation-Version": "${version}",
+        "Implementation-Vendor" :"ZekerZhayard",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+        "MixinConnector": "io.github.zekerzhayard.optiforge.asm.MixinConnector"
+]
+
 jar {
     manifest {
-        attributes([
-            "Specification-Title": "OptiForge",
-            "Specification-Vendor": "ZekerZhayard",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"ZekerZhayard",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConnector": "io.github.zekerzhayard.optiforge.asm.MixinConnector"
-        ])
+        attributes(attrs)
+    }
+}
+
+task sourcesJar(type: Jar) {
+    manifest {
+        attributes(attrs)
+    }
+    from sourceSets.main.allSource
+    archiveName = "${archivesBaseName}-${version}-sources.${extension}"
+}
+
+task deobfJar(type: Jar) {
+    manifest {
+        attributes(attrs)
+    }
+    from sourceSets.main.output
+    archiveName = "${archivesBaseName}-${version}-deobf.${extension}"
+}
+
+artifacts {
+    archives sourcesJar
+    archives deobfJar
+}
+
+processResources {
+    def pros = ["minecraft_version": "${minecraft_version}", "optifine_version": "${optifine_version}", "forge_version": "${forge_version}"]
+    inputs.properties pros
+    from sourceSets.main.resources.srcDirs, {
+        include "requiredmods.properties"
+        expand pros
+    }
+    from sourceSets.main.resources.srcDirs, {
+        exclude "requiredmods.properties"
     }
 }
 
