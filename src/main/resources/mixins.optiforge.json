@@ -6,6 +6,7 @@
   "client": [
     "com.mojang.blaze3d.vertex.MixinIVertexBuilder",
     "net.minecraft.client.MixinGameSettings",
+    "net.minecraft.client.MixinMainWindow",
     "net.minecraft.client.gui.MixinIngameGui",
     "net.minecraft.client.gui.screen.MixinMainMenuScreen",
     "net.minecraft.client.multiplayer.MixinClientChunkProvider",
