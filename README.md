@@ -27,7 +27,7 @@
 *2. OptiFineDevTweaker will dump all deobfuscated OptiFine classes to `./run/.optifineDev.classes` folder.*  
 *3. There are some useful Mixin properties for debugging: [Mixin Java System Properties](https://github.com/SpongePowered/Mixin/wiki/Mixin-Java-System-Properties)*  
 *I recommend you add `-Dmixin.debug.export=true`, it can dump all mixed classes to `./run/.mixin.out/class` folder.*  
-*4. The recommended mcp mappings version is `snapshot_20200407-1.15.1`*
+*4. The recommended mcp mappings version is `snapshot_20200426-1.15.1`*
 
 ## Screenshots
 ![OF0.png](https://i.loli.net/2020/03/31/IBfv1ShQt7wVY2u.png)
