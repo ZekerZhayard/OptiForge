@@ -3,7 +3,7 @@
 *Compatibility: (2020-05-01)*  
 &emsp;*OptiForge-MC1.14.4-0.1.0*  
 &emsp;*Forge-1.14.4-28.2.2 or newer version*  
-&emsp;*OptiFine-1.14.4-F5 or newer version*  
+&emsp;*OptiFine-1.14.4-F4-pre1 or newer version*  
 
 ## How to Use
 
