@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.extensions.IForgeVertexBuilder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
@@ -113,6 +112,6 @@ public abstract class MixinItemRenderer {
         allow = 1
     )
     private void redirect$renderQuads$0(IVertexBuilder bufferIn, MatrixStack.Entry matrixEntryIn, BakedQuad quadIn, float redIn, float greenIn, float blueIn, int combinedLightIn, int combinedOverlayIn) {
-        ((IForgeVertexBuilder) bufferIn).addVertexData(matrixEntryIn, quadIn, redIn, greenIn, blueIn, combinedLightIn, combinedOverlayIn, true);
+        bufferIn.addVertexData(matrixEntryIn, quadIn, redIn, greenIn, blueIn, combinedLightIn, combinedOverlayIn, true);
     }
 }

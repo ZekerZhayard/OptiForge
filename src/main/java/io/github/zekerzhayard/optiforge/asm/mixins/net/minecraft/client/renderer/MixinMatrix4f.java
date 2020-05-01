@@ -43,7 +43,7 @@ public abstract class MixinMatrix4f {
     public abstract void set(Matrix4f matrix);
 
     /**
-     *  This method is invoked by the new constructor witch added by Matrix4fTransformer.js
+     *  This method is invoked by the new constructor which added by Matrix4fTransformer
      */
     private void optiforge_newInstance(float[] values) {
         this.m00 = values[0];

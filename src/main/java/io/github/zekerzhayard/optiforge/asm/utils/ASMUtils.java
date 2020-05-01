@@ -58,10 +58,11 @@ public class ASMUtils {
 
     @SuppressWarnings("unchecked")
     public static InsnList createRedirectSurrogateVarInsnList(MethodNode targetMethod, MethodNode surrogateMethod, String redirectMethodDesc) {
-        Integer[] oridinals = surrogateMethod.visibleAnnotations.stream().filter(an -> an.desc.equals(Type.getDescriptor(RedirectSurrogate.class))).flatMap(an -> ((List<Integer>) an.values.get(1)).stream()).toArray(Integer[]::new);
+        Integer[] ordinals = surrogateMethod.visibleAnnotations.stream().filter(an -> an.desc.equals(Type.getDescriptor(RedirectSurrogate.class))).flatMap(an -> ((List<Integer>) an.values.get(1)).stream()).toArray(Integer[]::new);
         Type[] surrogateTypes = Type.getArgumentTypes(surrogateMethod.desc);
+        int redirectMethodDescTypesLength = Type.getArgumentTypes(redirectMethodDesc).length;
         InsnList il = new InsnList();
-        IntStream.range(Type.getArgumentTypes(redirectMethodDesc).length, surrogateTypes.length).forEachOrdered(i -> il.add(new VarInsnNode(surrogateTypes[i].getOpcode(Opcodes.ILOAD), findLocalVariableIndex(targetMethod, surrogateTypes[i].getDescriptor(), oridinals[surrogateTypes.length - i - 1]))));
+        IntStream.range(redirectMethodDescTypesLength, surrogateTypes.length).forEachOrdered(i -> il.add(new VarInsnNode(surrogateTypes[i].getOpcode(Opcodes.ILOAD), findLocalVariableIndex(targetMethod, surrogateTypes[i].getDescriptor(), ordinals[i - redirectMethodDescTypesLength]))));
         return il;
     }
 

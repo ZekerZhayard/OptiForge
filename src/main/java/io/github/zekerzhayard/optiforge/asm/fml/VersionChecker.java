@@ -52,7 +52,6 @@ public class VersionChecker {
                 String ofPreVersion = matcher.group("ofPreVersion");
                 if (ofPreVersion == null) {
                     ofPreVersion = "0";
-                } else {
                     ofMinorVersion++;
                 }
                 String ofVersion = ofMajorVersion + "." + ofMinorVersion + "." + ofPreVersion;

@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.StringUtils
+
 buildscript {
     repositories {
         maven { url = "https://files.minecraftforge.net/maven" }
@@ -18,7 +20,7 @@ apply plugin: "maven-publish"
 
 version = "${mod_version}"
 group = "io.github.zekerzhayard" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "OptiForge-MC1.15.2"
+archivesBaseName = "OptiForge-MC${minecraft_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
 
@@ -44,6 +46,8 @@ minecraft {
 
             // Recommended logging level for the console
             property "forge.logging.console.level", "debug"
+
+            property "mixin.debug.export", "true"
 
             mods {
                 optiforge {
@@ -129,14 +133,21 @@ artifacts {
 }
 
 processResources {
-    def pros = ["minecraft_version": "${minecraft_version}", "optifine_version": "${optifine_version}", "forge_version": "${forge_version}"]
+    def forge_main_version = StringUtils.substringBeforeLast "${forge_version}", "."
+    def pros = [
+            "forge_version": "${forge_version}",
+            "forge_main_version": "${forge_main_version}",
+            "minecraft_version": "${minecraft_version}",
+            "optifine_version": "${optifine_version}",
+            "version": "${version}"
+    ]
     inputs.properties pros
     from sourceSets.main.resources.srcDirs, {
-        include "requiredmods.properties"
+        include "requiredmods.properties", "META-INF/mods.toml"
         expand pros
     }
     from sourceSets.main.resources.srcDirs, {
-        exclude "requiredmods.properties"
+        exclude "requiredmods.properties", "META-INF/mods.toml"
     }
 }
 

@@ -4,9 +4,7 @@ import net.minecraft.client.MainWindow;
 import net.minecraftforge.fml.loading.progress.EarlyProgressVisualization;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MainWindow.class)
 public abstract class MixinMainWindow {
@@ -22,18 +20,5 @@ public abstract class MixinMainWindow {
     )
     private long redirect$_init_$0(int width, int height, CharSequence title, long monitor, long share) {
         return EarlyProgressVisualization.INSTANCE.handOffWindow(() -> width, () -> height, () -> (String) title, () -> monitor);
-    }
-
-    @Inject(
-        method = "Lnet/minecraft/client/MainWindow;setWindowIcon(Ljava/io/InputStream;Ljava/io/InputStream;)V",
-        at = @At("HEAD"),
-        cancellable = true,
-        require = 1,
-        allow = 1
-    )
-    private void inject$setWindowIcon$0(CallbackInfo ci) {
-        if (EarlyProgressVisualization.INSTANCE.replacedWindow()) {
-            ci.cancel();
-        }
     }
 }
