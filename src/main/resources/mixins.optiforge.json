@@ -6,12 +6,10 @@
   "client": [
     "net.minecraft.client.renderer.MixinBlockRendererDispatcher",
     "net.minecraft.client.renderer.MixinOverlayRenderer",
-    "net.minecraft.client.renderer.MixinRenderState$LineState",
     "net.minecraft.client.renderer.MixinWorldRenderer",
     "net.minecraft.client.renderer.entity.MixinItemFrameRenderer",
     "net.minecraft.client.renderer.entity.MixinItemRenderer",
     "net.minecraft.client.renderer.entity.MixinLivingRenderer",
-    "net.minecraft.client.renderer.model.MixinBakedQuad",
     "net.minecraft.client.renderer.model.MixinFaceBakery",
     "net.minecraft.client.renderer.texture.MixinStitcher",
     "net.minecraft.entity.MixinMobEntity",
