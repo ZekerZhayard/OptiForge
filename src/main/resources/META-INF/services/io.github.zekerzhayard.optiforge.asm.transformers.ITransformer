@@ -1,5 +1,2 @@
-io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.Matrix4fTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.OverlayRendererTransformer
-io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.EntityRendererManagerTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemFrameRendererTransformer
-io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.world.server.ChunkManagerTransformer

@@ -16,20 +16,6 @@ public abstract class MixinMobEntity {
         method = "Lnet/minecraft/entity/MobEntity;getSlotForItemStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/inventory/EquipmentSlotType;",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/optifine/reflect/ReflectorMethod;exists()Z",
-            remap = false
-        ),
-        require = 2,
-        allow = 2
-    )
-    private static boolean redirect$getSlotForItemStack$0(@Coerce Object method) {
-        return true;
-    }
-
-    @Redirect(
-        method = "Lnet/minecraft/entity/MobEntity;getSlotForItemStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/inventory/EquipmentSlotType;",
-        at = @At(
-            value = "INVOKE",
             target = "Lnet/optifine/reflect/Reflector;call(Ljava/lang/Object;Lnet/optifine/reflect/ReflectorMethod;[Ljava/lang/Object;)Ljava/lang/Object;",
             remap = false
         ),
