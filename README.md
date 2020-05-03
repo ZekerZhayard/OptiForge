@@ -1,19 +1,22 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
-*Compatibility: (2020-05-01)*  
-&emsp;*OptiForge-MC1.14.4-0.1.0*  
+*Compatibility: (2020-05-03)*  
+&emsp;*OptiForge-MC1.14.4-0.1.1*  
 &emsp;*Forge-1.14.4-28.2.2 or newer version*  
 &emsp;*OptiFine-1.14.4-F4-pre1 or newer version*  
 
 ## How to Use
 
 1. Download [OptiFine](https://www.optifine.net/downloads) 1.14.4
-2. Download [MixinBootstrap](https://github.com/LXGaming/MixinBootstrap/releases/download/v1.0.2/MixinBootstrap-1.0.2.jar)
+2. Download [MixinBootstrap](https://github.com/LXGaming/MixinBootstrap/releases)
 3. Download [OptiForge](https://github.com/ZekerZhayard/OptiForge/releases) at the release page
 4. Put the above mods into the `mods` folder.
 5. Launch Minecraft!
 
 *Notice: If you find a bug, please report it to OptiForge first unless you are sure it is an OptiFine bug.*
+
+### About reporting crash
+I recommend installing [MoreCrashInfo](https://github.com/xfl03/MoreCrashInfo/releases) mod. This mod will print more useful information to crash reports, and these can help us locate errors faster.
 
 ### For Development Environment
 

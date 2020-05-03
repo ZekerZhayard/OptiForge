@@ -18,6 +18,7 @@ import cpw.mods.modlauncher.TransformList;
 import cpw.mods.modlauncher.TransformStore;
 import cpw.mods.modlauncher.TransformTargetLabel;
 import cpw.mods.modlauncher.TransformationServiceDecorator;
+import cpw.mods.modlauncher.TransformerHolder;
 import cpw.mods.modlauncher.api.IEnvironment;
 import cpw.mods.modlauncher.api.ITransformationService;
 import cpw.mods.modlauncher.api.ITransformer;
@@ -122,7 +123,6 @@ public class OptiForgeTransformationService implements ITransformationService {
         "unchecked"
     })
     public List<ITransformer> transformers() {
-        List<ITransformer> list = new ArrayList<>();
         if (checked) {
             // See https://github.com/cpw/modlauncher/issues/37
             // OptiFine transformer overwrite all JavaScript field and method transformers.
@@ -138,7 +138,9 @@ public class OptiForgeTransformationService implements ITransformationService {
                     Map<TransformTargetLabel, List<ITransformer<?>>> transformersMap = (Map<TransformTargetLabel, List<ITransformer<?>>>) FieldUtils.readDeclaredField(transformListEntry.getValue(), "transformers", true);
                     for (Map.Entry<TransformTargetLabel, List<ITransformer<?>>> entry : transformersMap.entrySet()) {
                         for (ITransformer<?> transformer : entry.getValue()) {
-                            list.add(new OptiForgeTransformer(transformer, transformListEntry.getKey().equals(TransformTargetLabel.LabelType.FIELD) ? ITransformer.Target.targetField(((Type) MethodUtils.invokeMethod(entry.getKey(), true, "getClassName")).getInternalName(), entry.getKey().getElementName()) : ITransformer.Target.targetMethod(((Type) MethodUtils.invokeMethod(entry.getKey(), true, "getClassName")).getInternalName(), entry.getKey().getElementName(), entry.getKey().getElementDescriptor().getInternalName())));
+                            // assert transformer instanceof TransformerHolder
+                            String className = ((Type) MethodUtils.invokeMethod(entry.getKey(), true, "getClassName")).getInternalName();
+                            MethodUtils.invokeMethod(transformers.get(TransformTargetLabel.LabelType.CLASS), true, "addTransformer", new TransformTargetLabel(className), new TransformerHolder<>(new OptiForgeTransformer<>(transformer, transformListEntry.getKey().equals(TransformTargetLabel.LabelType.FIELD) ? ITransformer.Target.targetField(className, entry.getKey().getElementName()) : ITransformer.Target.targetMethod(className, entry.getKey().getElementName(), entry.getKey().getElementDescriptor().getInternalName())), ((TransformerHolder<?>) transformer).owner()));
                         }
                     }
                     transformersMap.clear();
@@ -147,6 +149,6 @@ public class OptiForgeTransformationService implements ITransformationService {
                 LOGGER.error("", e);
             }
         }
-        return list;
+        return new ArrayList<>();
     }
 }

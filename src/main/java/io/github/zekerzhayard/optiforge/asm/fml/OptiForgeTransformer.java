@@ -68,4 +68,9 @@ public class OptiForgeTransformer<T> implements ITransformer<ClassNode> {
     public Set<Target> targets() {
         return Sets.newHashSet(Target.targetClass(this.target.getClassName()));
     }
+
+    @Override
+    public String[] labels() {
+        return this.wrappedTransformer.labels();
+    }
 }
