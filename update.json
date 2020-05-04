@@ -1,12 +1,13 @@
 {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/optiforge",
     "promos": {
-        "1.15.2-latest": "0.1.16",
-        "1.15.2-recommended": "0.1.16",
+        "1.15.2-latest": "0.1.17",
+        "1.15.2-recommended": "0.1.17",
         "1.14.4latest": "0.1.1",
         "1.14.4-recommended": "0.1.1"
     },
     "1.15.2": {
+        "0.1.17": "Compatible with forge 1.15.2-31.1.70.",
         "0.1.16": "Support OptiFine_1.15.2_HD_U_G1_pre15.",
         "0.1.15": "Support OptiFine_1.15.2_HD_U_G1_pre14. Fix transformer wrapper for MoreCrashInfo mod.",
         "0.1.14": "Fix VersionChecker and ASMUtils. Compatible with forge 1.15.2-31.1.60.",
