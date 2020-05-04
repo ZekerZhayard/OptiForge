@@ -4,16 +4,19 @@
   "mixinPriority": 1,
   "package": "io.github.zekerzhayard.optiforge.asm.mixins",
   "client": [
+    "com.mojang.blaze3d.vertex.MixinIVertexBuilder",
     "net.minecraft.client.renderer.MixinBlockRendererDispatcher",
     "net.minecraft.client.renderer.MixinOverlayRenderer",
     "net.minecraft.client.renderer.MixinWorldRenderer",
     "net.minecraft.client.renderer.entity.MixinItemFrameRenderer",
     "net.minecraft.client.renderer.entity.MixinItemRenderer",
     "net.minecraft.client.renderer.entity.MixinLivingRenderer",
+    "net.minecraft.client.renderer.model.MixinBakedQuad",
     "net.minecraft.client.renderer.model.MixinFaceBakery",
     "net.minecraft.client.renderer.texture.MixinStitcher",
     "net.minecraft.entity.MixinMobEntity",
-    "net.minecraft.network.datasync.MixinEntityDataManager"
+    "net.minecraft.network.datasync.MixinEntityDataManager",
+    "net.minecraft.world.server.MixinChunkManager"
   ],
   "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin",
   "injectors": {
