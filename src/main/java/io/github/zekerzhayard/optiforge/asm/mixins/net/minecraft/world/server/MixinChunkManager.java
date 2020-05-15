@@ -20,6 +20,20 @@ public abstract class MixinChunkManager {
     private ServerWorld world;
 
     @Redirect(
+        method = "Lnet/minecraft/world/server/ChunkManager;lambda$func_223172_f$14(Lnet/minecraft/util/math/ChunkPos;)Lcom/mojang/datafixers/util/Either;",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/optifine/reflect/ReflectorConstructor;exists()Z"
+        ),
+        remap = false,
+        require = 1,
+        allow = 1
+    )
+    private boolean redirect$lambda$func_223172_f$14$0(@Coerce Object constructor) {
+        return false;
+    }
+
+    @Redirect(
         method = "Lnet/minecraft/world/server/ChunkManager;func_219229_a(Lnet/minecraft/world/chunk/IChunk;)Z",
         at = @At(
             value = "INVOKE",
