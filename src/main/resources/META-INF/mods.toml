@@ -6,7 +6,7 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[${forge_main_version},32.0)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[0,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL="https://github.com/ZekerZhayard/OptiForge/issues" #optional
 # A list of mods - how many allowed here is determined by the individual mod loader
@@ -38,7 +38,7 @@ Make OptiFine be compatible with Forge.
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[${forge_version},32.0.0)" #mandatory
+    versionRange="[0,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -47,6 +47,6 @@ Make OptiFine be compatible with Forge.
 [[dependencies.optiforge]]
     modId="minecraft"
     mandatory=true
-    versionRange="[${minecraft_version},1.16.0)"
+    versionRange="[0,)"
     ordering="NONE"
     side="BOTH"

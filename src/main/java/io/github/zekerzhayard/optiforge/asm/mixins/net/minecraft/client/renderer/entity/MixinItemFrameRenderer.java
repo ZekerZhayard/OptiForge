@@ -1,7 +1,7 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.RedirectSurrogate;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.entity.item.ItemFrameEntity;
@@ -14,6 +14,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+/**
+ * {@link io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemFrameRendererTransformer}
+ */
 @Mixin(ItemFrameRenderer.class)
 public abstract class MixinItemFrameRenderer {
     @Redirect(

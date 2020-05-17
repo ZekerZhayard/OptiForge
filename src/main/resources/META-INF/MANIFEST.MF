@@ -1,1 +1,1 @@
-MixinConnector: io.github.zekerzhayard.optiforge.asm.MixinConnector
+MixinConfigs: mixins.optiforge.json

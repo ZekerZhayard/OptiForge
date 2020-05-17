@@ -1,6 +1,6 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.entity;
 
-import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.RedirectSurrogate;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

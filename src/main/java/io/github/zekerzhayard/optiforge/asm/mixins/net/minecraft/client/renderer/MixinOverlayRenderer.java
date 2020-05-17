@@ -1,7 +1,9 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.DynamicShadow;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.LazyOverwrite;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.RedirectSurrogate;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -19,6 +21,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+/**
+ * {@link io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.OverlayRendererTransformer}
+ */
 @Mixin(OverlayRenderer.class)
 public abstract class MixinOverlayRenderer {
     @Shadow
@@ -79,10 +84,13 @@ public abstract class MixinOverlayRenderer {
         return player.isBurning() && !ForgeEventFactory.renderFireOverlay(playerEntity, matrixStackIn);
     }
 
-    private static BlockState optiforge_getViewBlockingState(PlayerEntity playerIn) {
+    // getViewBlockingState
+    @LazyOverwrite(prefix = "optiforge_")
+    private static BlockState optiforge_func_230018_a_(PlayerEntity playerIn) {
         return MixinOverlayRenderer.getOverlayBlock(playerIn).getLeft();
     }
 
+    @DynamicShadow
     private static Pair<BlockState, BlockPos> getOverlayBlock(PlayerEntity playerIn) {
         return null;
     }

@@ -89,7 +89,7 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    implementation "org.spongepowered:mixin:0.8.+"
+    implementation "org.spongepowered:mixin:0.8"
     runtimeOnly fileTree(dir: "libs", include: "*.jar")
 }
 
@@ -102,7 +102,7 @@ def attrs = [
         "Implementation-Version": "${version}",
         "Implementation-Vendor" :"ZekerZhayard",
         "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        "MixinConnector": "io.github.zekerzhayard.optiforge.asm.MixinConnector"
+        "MixinConfigs": "mixins.optiforge.json"
 ]
 
 jar {
@@ -133,10 +133,8 @@ artifacts {
 }
 
 processResources {
-    def forge_main_version = StringUtils.substringBeforeLast "${forge_version}", "."
     def pros = [
             "forge_version": "${forge_version}",
-            "forge_main_version": "${forge_main_version}",
             "minecraft_version": "${minecraft_version}",
             "optifine_version": "${optifine_version}",
             "version": "${version}"
@@ -157,18 +155,18 @@ jar.finalizedBy("reobfJar")
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            artifact jar
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "file:///${project.projectDir}/mcmodsrepo"
+//        }
+//    }
+//}
 
 compileJava {
     options.compilerArgs << "-Xlint:deprecation"
