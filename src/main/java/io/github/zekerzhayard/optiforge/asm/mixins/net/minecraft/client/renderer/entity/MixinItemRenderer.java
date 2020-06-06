@@ -1,29 +1,16 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(ItemRenderer.class)
 @SuppressWarnings("deprecation")
 public abstract class MixinItemRenderer {
-    @ModifyVariable(
-        method = "Lnet/minecraft/client/renderer/entity/ItemRenderer;render(Lnet/minecraft/entity/item/ItemEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V",
-        at = @At("STORE"),
-        ordinal = 3,
-        require = 1,
-        allow = 1
-    )
-    private float modifyVariable$render$0(float f1) {
-        return this.shouldBob() ? f1 : 0;
-    }
-
     @Redirect(
         method = "Lnet/minecraft/client/renderer/entity/ItemRenderer;render(Lnet/minecraft/entity/item/ItemEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V",
         slice = @Slice(
@@ -113,55 +100,5 @@ public abstract class MixinItemRenderer {
     )
     private float redirect$render$5(Vector3f scale) {
         return 1.0F;
-    }
-
-    @Redirect(
-        method = "Lnet/minecraft/client/renderer/entity/ItemRenderer;render(Lnet/minecraft/entity/item/ItemEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/mojang/blaze3d/matrix/MatrixStack;translate(DDD)V",
-            ordinal = 2
-        ),
-        require = 1,
-        allow = 1
-    )
-    private void redirect$render$6(MatrixStack matrixStackIn, double x, double y, double z) {
-        matrixStackIn.translate(this.shouldSpreadItems() ? x : 0, this.shouldSpreadItems() ? y : 0, this.shouldSpreadItems() ? z : 0);
-    }
-
-    @Redirect(
-        method = "Lnet/minecraft/client/renderer/entity/ItemRenderer;render(Lnet/minecraft/entity/item/ItemEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/mojang/blaze3d/matrix/MatrixStack;translate(DDD)V",
-            ordinal = 3
-        ),
-        require = 1,
-        allow = 1
-    )
-    private void redirect$render$7(MatrixStack matrixStackIn, double x, double y, double z) {
-        matrixStackIn.translate(this.shouldSpreadItems() ? x : 0, this.shouldSpreadItems() ? y : 0, z);
-    }
-
-    @Redirect(
-        method = "Lnet/minecraft/client/renderer/entity/ItemRenderer;render(Lnet/minecraft/entity/item/ItemEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/mojang/blaze3d/matrix/MatrixStack;translate(DDD)V",
-            ordinal = 4
-        ),
-        require = 1,
-        allow = 1
-    )
-    private void redirect$render$8(MatrixStack matrixStackIn, double x, double y, double z) {
-        matrixStackIn.translate(0.0, 0.0, 0.09375F);
-    }
-
-    public boolean shouldSpreadItems() {
-        return true;
-    }
-
-    public boolean shouldBob() {
-        return true;
     }
 }
