@@ -6,7 +6,10 @@ import java.nio.IntBuffer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import io.github.zekerzhayard.optiforge.asm.imixins.com.mojang.blaze3d.vertex.IMixinIVertexBuilder;
+import io.github.zekerzhayard.optiforge.asm.imixins.net.minecraft.client.renderer.IMixinBlockModelRenderer;
 import io.github.zekerzhayard.optiforge.asm.imixins.net.minecraft.client.renderer.model.IMixinBakedQuad;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.MarkStatic;
+import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.Vector4f;
@@ -28,11 +31,17 @@ public interface MixinIVertexBuilder extends IForgeVertexBuilder, IMixinIVertexB
      * @reason Mixin can't allow mods inject into interface default methods, we can only use {@link Overwrite}
      * @author ZekerZhayard
      */
+    @MarkStatic(
+        markers = @MarkStatic.Marker(
+            before = IMixinBlockModelRenderer.class,
+            after = BlockModelRenderer.class
+        )
+    )
     @Overwrite
     default void addQuad(MatrixStack.Entry matrixEntryIn, BakedQuad quadIn, float[] colorMuls, float redIn, float greenIn, float blueIn, int[] combinedLightsIn, int combinedOverlayIn, boolean mulColor) {
         int[] aint = this.isMultiTexture() ? ((IMixinBakedQuad) quadIn).getVertexDataSingle() : quadIn.getVertexData();
         this.putSprite(((IMixinBakedQuad) quadIn).getSprite());
-        boolean separateAoInAlpha = this.isSeparateAoInAlpha();
+        boolean separateAoInAlpha = IMixinBlockModelRenderer.isSeparateAoLightValue();
         Vec3i vec3i = quadIn.getFace().getDirectionVec();
         Vector3f vector3f = new Vector3f((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ());
         Matrix4f matrix4f = matrixEntryIn.getMatrix();

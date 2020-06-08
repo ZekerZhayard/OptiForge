@@ -7,7 +7,5 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 public interface IMixinIVertexBuilder {
     boolean isMultiTexture();
 
-    boolean isSeparateAoInAlpha();
-
     void putSprite(TextureAtlasSprite sprite);
 }

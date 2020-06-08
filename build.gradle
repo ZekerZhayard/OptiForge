@@ -1,15 +1,15 @@
-import org.apache.commons.lang3.StringUtils
-
 buildscript {
     repositories {
         maven { url = "https://files.minecraftforge.net/maven" }
         maven { url = "https://repo.spongepowered.org/maven" }
+        maven { url = "https://plugins.gradle.org/m2" }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:${forge_gradle_version}"
         classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 apply plugin: "net.minecraftforge.gradle"
@@ -17,6 +17,7 @@ apply plugin: "org.spongepowered.mixin"
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: "eclipse"
 apply plugin: "maven-publish"
+apply plugin: "com.matthewprenger.cursegradle"
 
 version = "${mod_version}"
 group = "io.github.zekerzhayard" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -170,4 +171,46 @@ jar.finalizedBy("reobfJar")
 
 compileJava {
     options.compilerArgs << "-Xlint:deprecation"
+}
+
+import java.nio.file.Files
+
+def buildProperties = project.rootDir.toPath().resolve "build.properties"
+println buildProperties
+if (Files.exists(buildProperties)) {
+    def _properties = new Properties()
+    _properties.load Files.newInputStream(buildProperties)
+
+    curseforge {
+        apiKey = _properties.get "apiKey"
+        project {
+            id = "372196"
+            changelog = _properties.get "changelog"
+            releaseType = "beta"
+            relations {
+                requiredDependency "mixinbootstrap"
+                optionalDependency "morecrashinfo"
+            }
+            mainArtifact jar, {
+                displayName = "${archivesBaseName}-${version}"
+            }
+            addArtifact deobfJar, {
+                displayName = "${archivesBaseName}-${version}-deobf"
+            }
+            addArtifact sourcesJar, {
+                displayName = "${archivesBaseName}-${version}-sources"
+            }
+            addGameVersion "1.15.2"
+            addGameVersion "Forge"
+        }
+        options {
+            detectNewerJava = true
+        }
+    }
+
+    project.tasks.stream().filter({
+        it.getName().contains "curseforge"
+    }).forEach {
+        it.dependsOn build
+    }
 }
