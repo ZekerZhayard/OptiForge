@@ -5,6 +5,7 @@
   "package": "io.github.zekerzhayard.optiforge.asm.mixins",
   "client": [
     "com.mojang.blaze3d.vertex.MixinIVertexBuilder",
+    "net.minecraft.client.gui.MixinResourceLoadProgressGui",
     "net.minecraft.client.gui.screen.MixinMainMenuScreen",
     "net.minecraft.client.renderer.MixinBlockRendererDispatcher",
     "net.minecraft.client.renderer.MixinOverlayRenderer",

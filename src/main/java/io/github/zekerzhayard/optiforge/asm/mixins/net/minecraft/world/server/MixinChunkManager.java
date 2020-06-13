@@ -34,7 +34,7 @@ public abstract class MixinChunkManager {
     }
 
     @Redirect(
-        method = "Lnet/minecraft/world/server/ChunkManager;func_219229_a(Lnet/minecraft/world/chunk/IChunk;)Z",
+        method = "Lnet/minecraft/world/server/ChunkManager;chunkSave(Lnet/minecraft/world/chunk/IChunk;)Z",
         at = @At(
             value = "INVOKE",
             target = "Lnet/optifine/reflect/ReflectorConstructor;exists()Z",
@@ -43,12 +43,12 @@ public abstract class MixinChunkManager {
         require = 1,
         allow = 1
     )
-    private boolean redirect$func_219229_a$0(@Coerce Object constructor) {
+    private boolean redirect$chunkSave$0(@Coerce Object constructor) {
         return true;
     }
 
     @Redirect(
-        method = "Lnet/minecraft/world/server/ChunkManager;func_219229_a(Lnet/minecraft/world/chunk/IChunk;)Z",
+        method = "Lnet/minecraft/world/server/ChunkManager;chunkSave(Lnet/minecraft/world/chunk/IChunk;)Z",
         at = @At(
             value = "INVOKE",
             target = "Lnet/optifine/reflect/Reflector;postForgeBusEvent(Lnet/optifine/reflect/ReflectorConstructor;[Ljava/lang/Object;)Z",
@@ -57,7 +57,7 @@ public abstract class MixinChunkManager {
         require = 1,
         allow = 1
     )
-    private boolean redirect$func_219229_a$1(@Coerce Object constructor, Object[] params) {
+    private boolean redirect$chunkSave$1(@Coerce Object constructor, Object[] params) {
         return MinecraftForge.EVENT_BUS.post(new ChunkDataEvent.Save((IChunk) params[0], ((IChunk) params[0]).getWorldForge() != null ? ((IChunk) params[0]).getWorldForge() : this.world, (CompoundNBT) params[1]));
     }
 }

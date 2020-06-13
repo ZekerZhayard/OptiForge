@@ -176,16 +176,22 @@ compileJava {
 import java.nio.file.Files
 
 def buildProperties = project.rootDir.toPath().resolve "build.properties"
-println buildProperties
-if (Files.exists(buildProperties)) {
-    def _properties = new Properties()
-    _properties.load Files.newInputStream(buildProperties)
+def apiKey = null
+if (Files.exists(buildProperties)) { // for local build
+    def properties = new Properties()
+    properties.load Files.newInputStream(buildProperties)
+    apiKey = properties.get "apiKey"
+} else { // for CI build
+    apiKey = System.getenv("API_KEY")
+}
 
+if (apiKey != null) {
     curseforge {
-        apiKey = _properties.get "apiKey"
+        curseforge.apiKey = apiKey
         project {
             id = "372196"
-            changelog = _properties.get "changelog"
+            changelogType = "markdown"
+            changelog = "See [update.json](https://github.com/ZekerZhayard/OptiForge/blob/update/update.json)."
             releaseType = "beta"
             relations {
                 requiredDependency "mixinbootstrap"
