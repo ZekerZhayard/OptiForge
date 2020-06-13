@@ -1,12 +1,13 @@
 {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/optiforge",
     "promos": {
-        "1.15.2-latest": "0.1.22",
-        "1.15.2-recommended": "0.1.22",
+        "1.15.2-latest": "0.1.23",
+        "1.15.2-recommended": "0.1.23",
         "1.14.4-latest": "0.1.1",
         "1.14.4-recommended": "0.1.1"
     },
     "1.15.2": {
+        "0.1.23": "Compatible with forge 1.15.2-31.2.15. Apply Travis CI.",
         "0.1.22": "Support OptiFine_1.15.2_HD_U_G1_pre23. Apply CruseGradle plugin.",
         "0.1.21": "Support OptiFine_1.15.2_HD_U_G1_pre21.",
         "0.1.20": "Support OptiFine_1.15.2_HD_U_G1_pre20.",
