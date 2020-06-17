@@ -30,6 +30,11 @@ public @interface MarkStatic {
         Class<?> before();
 
         Class<?> after();
+
+        /**
+         * @return True represents the target method is in an interface.
+         */
+        boolean isInterface() default false;
     }
 
     class AnnotationAction implements IAnnotationAction {
@@ -42,14 +47,18 @@ public @interface MarkStatic {
         @SuppressWarnings("unchecked")
         public void afterPostTransforming(ClassNode targetClass, MethodNode targetMethod, Map<String, ?> values, String mixinClassName) {
             Map<String, String> map = new HashMap<>();
+            Map<String, Boolean> isInterfaceMap = new HashMap<>();
             for (AnnotationNode an : (List<AnnotationNode>) values.get("markers")) {
-                map.put(((Type) Annotations.getValue(an, "before")).getInternalName(), ((Type) Annotations.getValue(an, "after")).getInternalName());
+                String before = ((Type) Annotations.getValue(an, "before")).getInternalName();
+                map.put(before, ((Type) Annotations.getValue(an, "after")).getInternalName());
+                isInterfaceMap.put(before, Boolean.TRUE.equals(Annotations.getValue(an, "isInterface")));
             }
 
             for (AbstractInsnNode ain : targetMethod.instructions.toArray()) {
                 if (ain.getOpcode() == Opcodes.INVOKESTATIC) {
                     MethodInsnNode min = (MethodInsnNode) ain;
                     if (map.containsKey(min.owner)) {
+                        min.itf = isInterfaceMap.get(min.owner);
                         min.owner = map.get(min.owner);
                     }
                 }

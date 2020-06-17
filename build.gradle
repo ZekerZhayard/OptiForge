@@ -213,10 +213,4 @@ if (apiKey != null) {
             detectNewerJava = true
         }
     }
-
-    project.tasks.stream().filter({
-        it.getName().contains "curseforge"
-    }).forEach {
-        it.dependsOn build
-    }
 }
