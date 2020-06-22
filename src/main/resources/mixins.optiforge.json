@@ -5,7 +5,6 @@
   "package": "io.github.zekerzhayard.optiforge.asm.mixins",
   "client": [
     "com.mojang.blaze3d.vertex.MixinIVertexBuilder",
-    "net.minecraft.client.gui.MixinResourceLoadProgressGui",
     "net.minecraft.client.gui.screen.MixinMainMenuScreen",
     "net.minecraft.client.renderer.MixinBlockRendererDispatcher",
     "net.minecraft.client.renderer.MixinOverlayRenderer",
@@ -18,8 +17,7 @@
     "net.minecraft.client.renderer.texture.MixinAtlasTexture",
     "net.minecraft.client.renderer.texture.MixinStitcher",
     "net.minecraft.entity.MixinMobEntity",
-    "net.minecraft.network.datasync.MixinEntityDataManager",
-    "net.minecraft.world.server.MixinChunkManager"
+    "net.minecraft.network.datasync.MixinEntityDataManager"
   ],
   "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin",
   "injectors": {

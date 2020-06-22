@@ -16,6 +16,9 @@ before_install: chmod +x gradlew
 script:
   - ./gradlew build -iS
 
+before_deploy:
+  - ./gradlew curseforge -iS
+
 deploy:
   edge: true
   file:
@@ -27,13 +30,11 @@ deploy:
   skip_cleanup: true
   token: $GITHUB_TOKEN
 
-after_deploy:
-  ./gradlew curseforge -iS
-
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
+
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
