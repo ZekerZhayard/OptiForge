@@ -21,7 +21,7 @@ public class OptiForgeModLocator extends AbstractJarFileLocator {
     public List<IModFile> scanMods() {
         List<IModFile> list = new ArrayList<>();
         try {
-            IModFile file = new ModFile(Paths.get(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()), this);
+            IModFile file = ModFile.newFMLInstance(Paths.get(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()), this);
             this.modJars.compute(file, (mf, fs) -> this.createFileSystem(mf));
             list.add(file);
         } catch (Exception e) {
