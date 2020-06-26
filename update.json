@@ -1,12 +1,13 @@
 {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/optiforge",
     "promos": {
-        "1.15.2-latest": "0.1.26",
-        "1.15.2-recommended": "0.1.26",
-        "1.14.4-latest": "0.1.1",
-        "1.14.4-recommended": "0.1.1"
+        "1.15.2-latest": "0.1.27",
+        "1.15.2-recommended": "0.1.27",
+        "1.14.4-latest": "0.1.2",
+        "1.14.4-recommended": "0.1.2"
     },
     "1.15.2": {
+        "0.1.27": "Compatible with forge 1.15.2-31.2.23. Update OptiFine version checker.",
         "0.1.26": "Support OptiFine_1.15.2_HD_U_G1_pre30 Ninja-updated 2.",
         "0.1.25": "Support OptiFine_1.15.2_HD_U_G1_pre30.",
         "0.1.24": "Fix #23",
@@ -36,6 +37,7 @@
         "0.1.0": "First release."
     },
     "1.14.4": {
+        "0.1.2": "Apply CruseGradle plugin and Travis CI. Update OptiFine version checker.",
         "0.1.1": "Fix transformer wrapper for MoreCrashInfo mod.",
         "0.1.0": "First release."
     }
