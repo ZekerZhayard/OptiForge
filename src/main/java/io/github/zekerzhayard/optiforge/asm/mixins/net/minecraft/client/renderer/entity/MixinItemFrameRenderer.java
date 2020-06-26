@@ -1,6 +1,6 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer.entity;
 
-import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.RedirectSurrogate;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.item.FilledMapItem;

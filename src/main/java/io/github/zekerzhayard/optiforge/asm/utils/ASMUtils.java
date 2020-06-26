@@ -2,40 +2,18 @@ package io.github.zekerzhayard.optiforge.asm.utils;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import com.google.common.collect.Lists;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.IincInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
-import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 import org.spongepowered.asm.mixin.transformer.meta.MixinMerged;
+import org.spongepowered.asm.util.Annotations;
 
 public class ASMUtils {
-    @SuppressWarnings("deprecation")
-    public static void replaceRedirectSurrogateMethod(ClassNode cn, String mixinClassName) {
-        cn.methods.forEach(mn -> Stream.of(mn.instructions.toArray()).filter(ain -> ain.getOpcode() == Opcodes.INVOKESPECIAL || ain.getOpcode() == Opcodes.INVOKESTATIC).map(ain -> (MethodInsnNode) ain).filter(min -> isMixinMethodNodeInTargetClass(cn, min.name, min.desc, mixinClassName)).forEach(min -> findFirstOverLoadMethod(cn, min.name, min.desc, mixinClassName).ifPresent(redirectSurrogateMethod -> {
-            InsnList il = createRedirectSurrogateVarInsnList(mn, redirectSurrogateMethod, min.desc);
-            mn.instructions.insertBefore(min, il);
-            mn.instructions.set(min, new MethodInsnNode(min.getOpcode(), min.owner, redirectSurrogateMethod.name, redirectSurrogateMethod.desc));
-        })));
-    }
-
-    public static Optional<MethodNode> findFirstOverLoadMethod(ClassNode classNode, String methodName, String methodDesc, String mixinClassName) {
-        return classNode.methods.stream().filter(mn -> {
-            String[] methodUniqueNames = methodName.split("\\$", 3);
-            return methodUniqueNames.length == 3 && methodUniqueNames[2].equals(mn.name) && !mn.desc.equals(methodDesc) && isRedirectSurrogateMethod(mn, mixinClassName);
-        }).findFirst();
-    }
-
     /**
      * Find the target local variable index by specific desc and ordinal.
      * @param mn the method to search
@@ -57,37 +35,30 @@ public class ASMUtils {
         return -1;
     }
 
-    @SuppressWarnings("unchecked")
-    public static InsnList createRedirectSurrogateVarInsnList(MethodNode targetMethod, MethodNode surrogateMethod, String redirectMethodDesc) {
-        Integer[] ordinals = surrogateMethod.visibleAnnotations.stream().filter(an -> an.desc.equals(Type.getDescriptor(RedirectSurrogate.class))).flatMap(an -> ((List<Integer>) an.values.get(1)).stream()).toArray(Integer[]::new);
-        Type[] surrogateTypes = Type.getArgumentTypes(surrogateMethod.desc);
-        int redirectMethodDescTypesLength = Type.getArgumentTypes(redirectMethodDesc).length;
-        InsnList il = new InsnList();
-        IntStream.range(redirectMethodDescTypesLength, surrogateTypes.length).forEachOrdered(i -> il.add(new VarInsnNode(surrogateTypes[i].getOpcode(Opcodes.ILOAD), findLocalVariableIndex(targetMethod, surrogateTypes[i].getDescriptor(), ordinals[i - redirectMethodDescTypesLength]))));
-        return il;
-    }
-
-    public static boolean isMixinMethodNodeInTargetClass(ClassNode cn, String methodName, String methodDesc, String mixinClassName) {
-        return cn.methods.stream().anyMatch(mn -> mn.name.equals(methodName) && mn.desc.equals(methodDesc) && isMixinMethod(mn, mixinClassName));
-    }
-
-    public static boolean isMixinMethod(MethodNode mn, String mixinClassName) {
-        return mn.visibleAnnotations != null && mn.visibleAnnotations.stream().anyMatch(an -> an.desc.equals(Type.getDescriptor(MixinMerged.class)) && an.values.contains(mixinClassName));
-    }
-
-    public static boolean isRedirectSurrogateMethod(MethodNode mn, String mixinClassName) {
-        return isMixinMethod(mn, mixinClassName) && mn.visibleAnnotations.stream().anyMatch(an -> an.desc.equals(Type.getDescriptor(RedirectSurrogate.class)));
-    }
-
-    public static FieldInsnNode findFirstFieldInsnNode(MethodNode mn, int opcode, String owner, String name, String desc) {
+    public static void insertLocalVariable(MethodNode mn, LocalVariableNode lvn) {
+        int shift = lvn.desc.equals("J") || lvn.desc.equals("D") ? 2 : 1;
+        for (LocalVariableNode node : mn.localVariables) {
+            if (node.index >= lvn.index) {
+                node.index += shift;
+            }
+        }
         for (AbstractInsnNode ain : mn.instructions.toArray()) {
-            if (ain instanceof FieldInsnNode && ain.getOpcode() == opcode) {
-                FieldInsnNode fin = (FieldInsnNode) ain;
-                if (fin.owner.equals(owner) && fin.name.equals(name) && fin.desc.equals(desc)) {
-                    return fin;
+            if ((ain.getOpcode() >= Opcodes.ILOAD && ain.getOpcode() <= Opcodes.ALOAD) || (ain.getOpcode() >= Opcodes.ISTORE && ain.getOpcode() <= Opcodes.ASTORE)) {
+                VarInsnNode vin = (VarInsnNode) ain;
+                if (vin.var >= lvn.index) {
+                    vin.var += shift;
+                }
+            } else if (ain.getOpcode() == Opcodes.IINC) {
+                IincInsnNode iin = (IincInsnNode) ain;
+                if (iin.var >= lvn.index) {
+                    iin.var += shift;
                 }
             }
         }
-        return null;
+        mn.localVariables.add(lvn);
+    }
+
+    public static boolean isMixinMethod(MethodNode mn, String mixinClassName) {
+        return mixinClassName.equals(Annotations.getValue(Annotations.getVisible(mn, MixinMerged.class), "mixin"));
     }
 }

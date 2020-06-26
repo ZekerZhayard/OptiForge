@@ -1,15 +1,15 @@
-import org.apache.commons.lang3.StringUtils
-
 buildscript {
     repositories {
         maven { url = "https://files.minecraftforge.net/maven" }
         maven { url = "https://repo.spongepowered.org/maven" }
+        maven { url = "https://plugins.gradle.org/m2" }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:${forge_gradle_version}"
         classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 apply plugin: "net.minecraftforge.gradle"
@@ -17,6 +17,7 @@ apply plugin: "org.spongepowered.mixin"
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: "eclipse"
 apply plugin: "maven-publish"
+apply plugin: "com.matthewprenger.cursegradle"
 
 version = "${mod_version}"
 group = "io.github.zekerzhayard" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -89,7 +90,7 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    implementation "org.spongepowered:mixin:0.8.+"
+    implementation "org.spongepowered:mixin:0.8"
     runtimeOnly fileTree(dir: "libs", include: "*.jar")
 }
 
@@ -102,7 +103,7 @@ def attrs = [
         "Implementation-Version": "${version}",
         "Implementation-Vendor" :"ZekerZhayard",
         "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        "MixinConnector": "io.github.zekerzhayard.optiforge.asm.MixinConnector"
+        "MixinConfigs": "mixins.optiforge.json"
 ]
 
 jar {
@@ -133,10 +134,8 @@ artifacts {
 }
 
 processResources {
-    def forge_main_version = StringUtils.substringBeforeLast "${forge_version}", "."
     def pros = [
             "forge_version": "${forge_version}",
-            "forge_main_version": "${forge_main_version}",
             "minecraft_version": "${minecraft_version}",
             "optifine_version": "${optifine_version}",
             "version": "${version}"
@@ -157,19 +156,61 @@ jar.finalizedBy("reobfJar")
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            artifact jar
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "file:///${project.projectDir}/mcmodsrepo"
+//        }
+//    }
+//}
 
 compileJava {
     options.compilerArgs << "-Xlint:deprecation"
+}
+
+import java.nio.file.Files
+
+def buildProperties = project.rootDir.toPath().resolve "build.properties"
+def apiKey = null
+if (Files.exists(buildProperties)) { // for local build
+    def properties = new Properties()
+    properties.load Files.newInputStream(buildProperties)
+    apiKey = properties.get "apiKey"
+} else { // for CI build
+    apiKey = System.getenv("API_KEY")
+}
+
+if (apiKey != null) {
+    curseforge {
+        curseforge.apiKey = apiKey
+        project {
+            id = "372196"
+            changelogType = "markdown"
+            changelog = "See [update.json](https://github.com/ZekerZhayard/OptiForge/blob/update/update.json)."
+            releaseType = "beta"
+            relations {
+                requiredDependency "mixinbootstrap"
+                optionalDependency "morecrashinfo"
+            }
+            mainArtifact jar, {
+                displayName = "${archivesBaseName}-${version}"
+            }
+            addArtifact deobfJar, {
+                displayName = "${archivesBaseName}-${version}-deobf"
+            }
+            addArtifact sourcesJar, {
+                displayName = "${archivesBaseName}-${version}-sources"
+            }
+            addGameVersion "1.15.2"
+            addGameVersion "Forge"
+        }
+        options {
+            detectNewerJava = true
+        }
+    }
 }

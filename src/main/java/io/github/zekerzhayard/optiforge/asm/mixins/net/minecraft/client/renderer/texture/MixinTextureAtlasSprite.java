@@ -1,6 +1,6 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer.texture;
 
-import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.RedirectSurrogate;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import org.spongepowered.asm.mixin.Mixin;

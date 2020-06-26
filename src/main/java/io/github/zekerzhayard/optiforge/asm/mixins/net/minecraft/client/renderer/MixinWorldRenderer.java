@@ -1,6 +1,6 @@
 package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.renderer;
 
-import io.github.zekerzhayard.optiforge.asm.utils.RedirectSurrogate;
+import io.github.zekerzhayard.optiforge.asm.utils.annotations.RedirectSurrogate;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
