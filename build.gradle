@@ -1,0 +1,216 @@
+buildscript {
+    repositories {
+        maven { url = "https://files.minecraftforge.net/maven" }
+        maven { url = "https://repo.spongepowered.org/maven" }
+        maven { url = "https://plugins.gradle.org/m2" }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:${forge_gradle_version}"
+        classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+    }
+}
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "org.spongepowered.mixin"
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: "eclipse"
+apply plugin: "maven-publish"
+apply plugin: "com.matthewprenger.cursegradle"
+
+version = "${mod_version}"
+group = "io.github.zekerzhayard" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "OptiForge-MC${minecraft_version}"
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+
+minecraft {
+    // The mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   Snapshot are built nightly.
+    // stable_#            Stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not always work.
+    // Simply re-run your setup task after changing the mappings to update your workspace.
+    mappings channel: "snapshot", version: "${mcp_mappings}"
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    
+    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file("run")
+
+            // Recommended logging data for a userdev environment
+            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+
+            // Recommended logging level for the console
+            property "forge.logging.console.level", "debug"
+
+            property "mixin.debug.export", "true"
+
+            mods {
+                optiforge {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, "mixins.optiforge.refmap.json"
+}
+
+repositories {
+    maven { url = "https://repo.spongepowered.org/maven" }
+}
+
+dependencies {
+    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // You may put jars on which you depend on in ./libs or you may define them like so..
+    // compile "some.group:artifact:version:classifier"
+    // compile "some.group:artifact:version"
+
+    // Real examples
+    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+
+    // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
+    // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // These dependencies get remapped to your current MCP mappings
+    // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // For more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    implementation "org.spongepowered:mixin:0.8"
+    runtimeOnly fileTree(dir: "libs", include: "*.jar")
+}
+
+// Example for how to get properties into the manifest for reading by the runtime..
+def attrs = [
+        "Specification-Title": "OptiForge",
+        "Specification-Vendor": "ZekerZhayard",
+        "Specification-Version": "1", // We are version 1 of ourselves
+        "Implementation-Title": project.name,
+        "Implementation-Version": "${version}",
+        "Implementation-Vendor" :"ZekerZhayard",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+        "MixinConfigs": "mixins.optiforge.json"
+]
+
+jar {
+    manifest {
+        attributes(attrs)
+    }
+}
+
+task sourcesJar(type: Jar) {
+    manifest {
+        attributes(attrs)
+    }
+    from sourceSets.main.allSource
+    archiveName = "${archivesBaseName}-${version}-sources.${extension}"
+}
+
+task deobfJar(type: Jar) {
+    manifest {
+        attributes(attrs)
+    }
+    from sourceSets.main.output
+    archiveName = "${archivesBaseName}-${version}-deobf.${extension}"
+}
+
+artifacts {
+    archives sourcesJar
+    archives deobfJar
+}
+
+processResources {
+    def pros = [
+            "forge_version": "${forge_version}",
+            "minecraft_version": "${minecraft_version}",
+            "optifine_version": "${optifine_version}",
+            "version": "${version}"
+    ]
+    inputs.properties pros
+    from sourceSets.main.resources.srcDirs, {
+        include "requiredmods.properties", "META-INF/mods.toml"
+        expand pros
+    }
+    from sourceSets.main.resources.srcDirs, {
+        exclude "requiredmods.properties", "META-INF/mods.toml"
+    }
+}
+
+// Example configuration to allow publishing using the maven-publish task
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy("reobfJar")
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+//publish.dependsOn('reobfJar')
+
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            artifact jar
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "file:///${project.projectDir}/mcmodsrepo"
+//        }
+//    }
+//}
+
+compileJava {
+    options.compilerArgs << "-Xlint:deprecation"
+}
+
+import java.nio.file.Files
+
+def buildProperties = project.rootDir.toPath().resolve "build.properties"
+def apiKey = null
+if (Files.exists(buildProperties)) { // for local build
+    def properties = new Properties()
+    properties.load Files.newInputStream(buildProperties)
+    apiKey = properties.get "apiKey"
+} else { // for CI build
+    apiKey = System.getenv("API_KEY")
+}
+
+if (apiKey != null) {
+    curseforge {
+        curseforge.apiKey = apiKey
+        project {
+            id = "372196"
+            changelogType = "markdown"
+            changelog = "See [update.json](https://github.com/ZekerZhayard/OptiForge/blob/update/update.json)."
+            releaseType = "beta"
+            relations {
+                requiredDependency "mixinbootstrap"
+                optionalDependency "morecrashinfo"
+            }
+            mainArtifact jar, {
+                displayName = "${archivesBaseName}-${version}"
+            }
+            addArtifact deobfJar, {
+                displayName = "${archivesBaseName}-${version}-deobf"
+            }
+            addArtifact sourcesJar, {
+                displayName = "${archivesBaseName}-${version}-sources"
+            }
+            addGameVersion "1.15.2"
+            addGameVersion "Forge"
+        }
+        options {
+            detectNewerJava = true
+        }
+    }
+}
