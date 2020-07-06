@@ -206,7 +206,7 @@ if (apiKey != null) {
             addArtifact sourcesJar, {
                 displayName = "${archivesBaseName}-${version}-sources"
             }
-            addGameVersion "1.15.2"
+            addGameVersion "${minecraft_version}"
             addGameVersion "Forge"
         }
         options {
