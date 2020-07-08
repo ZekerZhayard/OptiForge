@@ -8,6 +8,7 @@
     "net.minecraft.client.MixinGameSettings",
     "net.minecraft.client.gui.MixinIngameGui",
     "net.minecraft.client.gui.screen.MixinMainMenuScreen",
+    "net.minecraft.client.particle.MixinParticleManager",
     "net.minecraft.client.renderer.MixinBlockRendererDispatcher",
     "net.minecraft.client.renderer.MixinItemRenderer",
     "net.minecraft.client.renderer.MixinOverlayRenderer",
