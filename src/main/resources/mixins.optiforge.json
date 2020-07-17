@@ -17,6 +17,7 @@
     "net.minecraft.client.renderer.model.MixinModelBakery",
     "net.minecraft.client.renderer.texture.MixinAtlasTexture",
     "net.minecraft.client.renderer.texture.MixinStitcher",
+    "net.minecraft.client.world.MixinClientWorld",
     "net.minecraft.network.datasync.MixinEntityDataManager"
   ],
   "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin",
