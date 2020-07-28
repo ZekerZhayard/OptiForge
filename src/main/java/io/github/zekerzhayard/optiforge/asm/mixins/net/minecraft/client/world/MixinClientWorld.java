@@ -3,14 +3,19 @@ package io.github.zekerzhayard.optiforge.asm.mixins.net.minecraft.client.world;
 import java.util.function.Supplier;
 
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientWorld.class)
 public abstract class MixinClientWorld extends World {
@@ -61,5 +66,15 @@ public abstract class MixinClientWorld extends World {
     private Object redirect$_init_$2(Object obj, @Coerce Object method, Object[] params) {
         this.gatherCapabilities();
         return null;
+    }
+
+    @Inject(
+        method = "Lnet/minecraft/client/world/ClientWorld;removeEntity(Lnet/minecraft/entity/Entity;)V",
+        at = @At("TAIL"),
+        require = 1,
+        allow = 1
+    )
+    private void inject$removeEntity$0(Entity entityIn, CallbackInfo ci) {
+        MinecraftForge.EVENT_BUS.post(new EntityLeaveWorldEvent(entityIn, this));
     }
 }

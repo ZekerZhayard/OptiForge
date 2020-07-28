@@ -91,7 +91,7 @@ public class OptiForgeTransformationService implements ITransformationService {
             // We should check if it is under development environments or loaded required versions successfully.
             if (checked = Files.isDirectory(path) || currentFMLVersion.length() == 0) {
                 // Nothing to do.
-            } else if (checked = VersionChecker.IS_LOADED && VersionChecker.checkOptiFineVersion(VersionChecker.DEFAULT_FUNCTION, true) && VersionChecker.checkMixinVersion(VersionChecker.DEFAULT_FUNCTION) && VersionChecker.checkForgeVersion(VersionChecker.DEFAULT_FUNCTION, currentFMLVersion.toString())) {
+            } else if (checked = VersionChecker.IS_LOADED && VersionChecker.checkOptiFineVersion(VersionChecker.DEFAULT_FUNCTION, true) && VersionChecker.checkForgeVersion(VersionChecker.DEFAULT_FUNCTION, currentFMLVersion.toString())) {
                 // FML can't detect IModLocator when ITransformationService exists in the same jar, so we must add it manually.
                 ModDirTransformerDiscoverer.getExtraLocators().add(path);
             } else {
