@@ -1,17 +1,16 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
-*Compatibility: (2020-07-28)*  
-&emsp;*OptiForge-0.1.5*  
+*Compatibility: (2020-07-31)*  
+&emsp;*OptiForge-0.1.6*  
 &emsp;*Forge-1.16.1-32.0.81 or newer version*  
-&emsp;*OptiFine-1.16.1-G2-pre3 or newer version*  
+&emsp;*OptiFine-1.16.1-G2-pre14 or newer version*  
 
 ## How to Use
 
 1. Download [OptiFine](https://www.optifine.net/downloads) 1.16.1
-2. Download [MixinBootstrap](https://github.com/LXGaming/MixinBootstrap/releases)
-3. Download [OptiForge](https://github.com/ZekerZhayard/OptiForge/releases) at the release page
-4. Put the above mods into the `mods` folder.
-5. Launch Minecraft!
+2. Download [OptiForge](https://github.com/ZekerZhayard/OptiForge/releases) at the release page
+3. Put the above mods into the `mods` folder.
+4. Launch Minecraft!
 
 *Notice: If you find a bug, please report it to OptiForge first unless you are sure it is an OptiFine bug.*
 
