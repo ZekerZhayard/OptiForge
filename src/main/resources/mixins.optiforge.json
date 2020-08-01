@@ -4,10 +4,6 @@
   "mixinPriority": 1,
   "package": "io.github.zekerzhayard.optiforge.asm.mixins",
   "client": [
-    "net.minecraft.client.gui.MixinIngameGui",
-    "net.minecraft.client.gui.screen.MixinMainMenuScreen",
-    "net.minecraft.client.renderer.MixinBlockRendererDispatcher",
-    "net.minecraft.client.renderer.MixinOverlayRenderer",
     "net.minecraft.client.renderer.MixinWorldRenderer",
     "net.minecraft.client.renderer.entity.MixinItemFrameRenderer",
     "net.minecraft.client.renderer.entity.MixinItemRenderer",
@@ -17,7 +13,6 @@
     "net.minecraft.client.renderer.model.MixinModelBakery",
     "net.minecraft.client.renderer.texture.MixinAtlasTexture",
     "net.minecraft.client.renderer.texture.MixinStitcher",
-    "net.minecraft.client.world.MixinClientWorld",
     "net.minecraft.network.datasync.MixinEntityDataManager"
   ],
   "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin",
