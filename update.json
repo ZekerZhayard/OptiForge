@@ -1,14 +1,15 @@
 {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/optiforge",
     "promos": {
-        "1.16.1-latest": "0.1.7",
-        "1.16.1-recommended": "0.1.7",
+        "1.16.1-latest": "0.1.8",
+        "1.16.1-recommended": "0.1.8",
         "1.15.2-latest": "0.1.27",
         "1.15.2-recommended": "0.1.27",
         "1.14.4-latest": "0.1.2",
         "1.14.4-recommended": "0.1.2"
     },
     "1.16.1": {
+        "0.1.8": "Compatible with forge 1.16.1-32.0.101.",
         "0.1.7": "Support OptiFine_1.16.1_HD_U_G2_pre16.",
         "0.1.6": "Support OptiFine_1.16.1_HD_U_G2_pre14.",
         "0.1.5": "Compatible with forge 1.16.1-32.0.81.",
