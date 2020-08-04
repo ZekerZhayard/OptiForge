@@ -9,6 +9,7 @@
     "net.minecraft.client.renderer.entity.MixinItemRenderer",
     "net.minecraft.client.renderer.entity.MixinLivingRenderer",
     "net.minecraft.client.renderer.entity.layers.MixinBipedArmorLayer",
+    "net.minecraft.client.renderer.entity.layers.MixinElytraLayer",
     "net.minecraft.client.renderer.model.MixinFaceBakery",
     "net.minecraft.client.renderer.model.MixinModelBakery",
     "net.minecraft.client.renderer.texture.MixinAtlasTexture",
