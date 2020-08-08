@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,6 +19,17 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(ModelBakery.class)
 public abstract class MixinModelBakery {
+    @Inject(
+        method = "Lnet/minecraft/client/renderer/model/ModelBakery;processLoading(Lnet/minecraft/profiler/IProfiler;I)V",
+        at = @At("HEAD"),
+        remap = false,
+        require = 1,
+        allow = 1
+    )
+    private void inject$processLoading$0(CallbackInfo ci) {
+        ModelLoaderRegistry.onModelLoadingStart();
+    }
+
     @Inject(
         method = "Lnet/minecraft/client/renderer/model/ModelBakery;lambda$uploadTextures$12", // (Lnet/minecraft/util/ResourceLocation;)V
         at = @At(
