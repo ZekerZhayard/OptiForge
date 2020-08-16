@@ -7,7 +7,7 @@
 
 ## How to Use
 
-1. Download [OptiFine](https://www.optifine.net/downloads) 1.16.1
+1. Download [OptiFine](https://www.optifine.net/downloads) 1.16.2
 2. Download [OptiForge](https://github.com/ZekerZhayard/OptiForge/releases) at the release page
 3. Put the above mods into the `mods` folder.
 4. Launch Minecraft!
