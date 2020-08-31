@@ -23,7 +23,7 @@ public abstract class MixinLivingRenderer<T extends LivingEntity, M extends Enti
         require = 1,
         allow = 1
     )
-    private boolean redirect$render$2(LivingEntity entityIn) {
+    private boolean redirect$render$0(LivingEntity entityIn) {
         return this.entityModel.isSitting;
     }
 }
