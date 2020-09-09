@@ -11,6 +11,7 @@
     "net.minecraft.client.renderer.entity.MixinItemFrameRenderer",
     "net.minecraft.client.renderer.entity.MixinItemRenderer",
     "net.minecraft.client.renderer.entity.MixinLivingRenderer",
+    "net.minecraft.client.renderer.entity.layers.MixinElytraLayer",
     "net.minecraft.client.renderer.model.MixinBakedQuad",
     "net.minecraft.client.renderer.model.MixinFaceBakery",
     "net.minecraft.client.renderer.texture.MixinAtlasTexture",
@@ -18,8 +19,5 @@
     "net.minecraft.entity.MixinMobEntity",
     "net.minecraft.network.datasync.MixinEntityDataManager"
   ],
-  "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin",
-  "injectors": {
-    "maxShiftBy": 2
-  }
+  "plugin": "io.github.zekerzhayard.optiforge.asm.MixinConfigPlugin"
 }
