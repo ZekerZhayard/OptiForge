@@ -1,0 +1,16 @@
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.particle.ParticleManagerTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.particle.ParticleTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.WorldRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.EntityRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemFrameRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.LivingRendererTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.layers.BipedArmorLayerTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.model.FaceBakeryTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.model.ModelBakeryTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.texture.AtlasTextureTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.texture.StitcherTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.crash.CrashReportTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.network.datasync.EntityDataManagerTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.optifine.reflect.ReflectorClassTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.optifine.reflect.ReflectorTransformer

@@ -1,19 +1,16 @@
 buildscript {
     repositories {
         maven { url = "https://files.minecraftforge.net/maven" }
-        maven { url = "https://repo.spongepowered.org/maven" }
         maven { url = "https://plugins.gradle.org/m2" }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:${forge_gradle_version}"
-        classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 apply plugin: "net.minecraftforge.gradle"
-apply plugin: "org.spongepowered.mixin"
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: "eclipse"
 apply plugin: "maven-publish"
@@ -34,7 +31,7 @@ minecraft {
     mappings channel: "snapshot", version: "${mcp_mappings}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
-    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+    // accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -43,12 +40,15 @@ minecraft {
             workingDirectory project.file("run")
 
             // Recommended logging data for a userdev environment
-            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+            property "forge.logging.markers", "CLASSDUMP,SCAN,REGISTRIES,REGISTRYDUMP"
 
             // Recommended logging level for the console
-            property "forge.logging.console.level", "debug"
+            property "forge.logging.console.level", "all"
+            property "forge.logging.classtransformer.level", "TRACE"
 
-            property "mixin.debug.export", "true"
+            property "modlauncher.logging.marker.classdump", "ACCEPT"
+
+            property "optiforge.dumpclass", "true"
 
             mods {
                 optiforge {
@@ -57,10 +57,6 @@ minecraft {
             }
         }
     }
-}
-
-mixin {
-    add sourceSets.main, "mixins.optiforge.refmap.json"
 }
 
 dependencies {
@@ -97,8 +93,7 @@ def attrs = [
         "Implementation-Title": project.name,
         "Implementation-Version": "${version}",
         "Implementation-Vendor" :"ZekerZhayard",
-        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        "MixinConfigs": "mixins.optiforge.json"
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 ]
 
 jar {
