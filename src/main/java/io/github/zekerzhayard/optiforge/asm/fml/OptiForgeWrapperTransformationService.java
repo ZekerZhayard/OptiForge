@@ -29,7 +29,6 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.ClassNode;
 
 // Method invoker orderer:
 //   <clinit>
