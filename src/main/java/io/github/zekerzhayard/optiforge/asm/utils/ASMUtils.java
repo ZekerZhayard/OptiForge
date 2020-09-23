@@ -39,13 +39,17 @@ public class ASMUtils {
     }
 
     public static void insertLocalVariable(MethodNode mn, LocalVariableNode lvn) {
+        insertLocalVariable(mn.localVariables, mn.instructions.toArray(), lvn);
+    }
+
+    public static void insertLocalVariable(List<LocalVariableNode> lvns, AbstractInsnNode[] ains, LocalVariableNode lvn) {
         int shift = lvn.desc.equals("J") || lvn.desc.equals("D") ? 2 : 1;
-        for (LocalVariableNode node : mn.localVariables) {
+        for (LocalVariableNode node : lvns) {
             if (node.index >= lvn.index) {
                 node.index += shift;
             }
         }
-        for (AbstractInsnNode ain : mn.instructions.toArray()) {
+        for (AbstractInsnNode ain : ains) {
             if ((ain.getOpcode() >= Opcodes.ILOAD && ain.getOpcode() <= Opcodes.ALOAD) || (ain.getOpcode() >= Opcodes.ISTORE && ain.getOpcode() <= Opcodes.ASTORE)) {
                 VarInsnNode vin = (VarInsnNode) ain;
                 if (vin.var >= lvn.index) {
@@ -58,6 +62,6 @@ public class ASMUtils {
                 }
             }
         }
-        mn.localVariables.add(lvn);
+        lvns.add(lvn);
     }
 }
