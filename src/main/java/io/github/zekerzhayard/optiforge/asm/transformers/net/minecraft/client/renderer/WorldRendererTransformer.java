@@ -291,6 +291,52 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
 
         ASMUtils.insertLocalVariable(renderClouds.localVariables, renderCloudsAINs, new LocalVariableNode("renderHandler", "Lnet/minecraftforge/client/ICloudRenderHandler;", null, renderClouds_label_0, Objects.requireNonNull(renderClouds_label_2), renderHandler_renderClouds_index));
 
+        // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L127-L128
+        //
+        //              ChunkRenderDispatcher.ChunkRender chunkrenderdispatcher$chunkrender = iterator.next();
+        // -            if (chunkrenderdispatcher$chunkrender.func_188281_o()) {
+        // +            if (!net.minecraftforge.common.ForgeConfig.CLIENT.alwaysSetupTerrainOffThread.get() && chunkrenderdispatcher$chunkrender.func_188281_o()) {
+        //                 this.field_174995_M.func_228902_a_(chunkrenderdispatcher$chunkrender);
+        //
+
+        MethodNode updateChunks = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_174967_a"), "(J)V"));
+
+        for (AbstractInsnNode ain : updateChunks.instructions.toArray()) {
+            if (ain.getOpcode() == Opcodes.INVOKEVIRTUAL) {
+                MethodInsnNode min = (MethodInsnNode) ain;
+                if (min.owner.equals("net/minecraft/client/renderer/chunk/ChunkRenderDispatcher$ChunkRender") && min.name.equals(ASMAPI.mapMethod("func_188281_o")) && min.desc.equals("()Z")) {
+
+                    // add -> getstatic ForgeConfig$Client ForgeConfig.CLIENT
+                    // add -> getfield ForgeConfigSpec$BooleanValue ForgeConfig$Client.alwaysSetupTerrainOffThread
+                    // add -> invokevirtual Object ForgeConfigSpec$BooleanValue.get()
+                    // add -> checkcast Boolean
+                    // add -> invokevirtual boolean Boolean.booleanValue()
+                    // add -> ifne 33
+                    // aload 10
+                    // invokevirtual boolean ChunkRenderDispatcher$ChunkRender.func_188281_o()
+                    // ifne 31
+                    // iload 12
+                    // ifeq 33
+                    AbstractInsnNode ain0 = min;
+                    while (ain0.getOpcode() != Opcodes.IFEQ) {
+                        ain0 = ain0.getNext();
+                    }
+                    LabelNode ln = ((JumpInsnNode) ain0).label;
+
+                    InsnList il = new InsnList();
+                    il.add(new FieldInsnNode(Opcodes.GETSTATIC, "net/minecraftforge/common/ForgeConfig", "CLIENT", "Lnet/minecraftforge/common/ForgeConfig$Client;"));
+                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraftforge/common/ForgeConfig$Client", "alwaysSetupTerrainOffThread", "Lnet/minecraftforge/common/ForgeConfigSpec$BooleanValue;"));
+                    il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraftforge/common/ForgeConfigSpec$BooleanValue", "get", "()Ljava/lang/Object;", false));
+                    il.add(new TypeInsnNode(Opcodes.CHECKCAST, "java/lang/Boolean"));
+                    il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z", false));
+                    il.add(new JumpInsnNode(Opcodes.IFNE, ln));
+
+                    updateChunks.instructions.insertBefore(min.getPrevious(), il);
+                    break;
+                }
+            }
+        }
+
         return input;
     }
 }

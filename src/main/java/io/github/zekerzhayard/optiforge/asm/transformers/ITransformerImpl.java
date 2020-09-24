@@ -61,6 +61,6 @@ public interface ITransformerImpl extends ITransformer<ClassNode> {
 
     @Nonnull
     default Set<Target> targets() {
-        return Sets.newHashSet(Target.targetClass(this.targetClass()));
+        return Sets.newHashSet(Target.targetPreClass(this.targetClass()));
     }
 }
