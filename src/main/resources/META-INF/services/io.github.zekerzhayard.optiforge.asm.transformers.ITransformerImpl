@@ -8,4 +8,5 @@ io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.texture.AtlasTextureTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.texture.StitcherTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.network.datasync.EntityDataManagerTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.util.ResourceLocationTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.optifine.reflect.ReflectorClassTransformer

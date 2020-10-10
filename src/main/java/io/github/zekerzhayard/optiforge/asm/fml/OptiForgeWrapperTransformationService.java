@@ -37,6 +37,8 @@ import org.apache.logging.log4j.Logger;
 //   additionalClassesLocator
 //   additionalResourcesLocator
 public class OptiForgeWrapperTransformationService implements ITransformationService {
+    public static Boolean checked = null;
+
     private final static Logger LOGGER = LogManager.getLogger();
     private final static String NAME;
 
@@ -82,7 +84,7 @@ public class OptiForgeWrapperTransformationService implements ITransformationSer
             // We should check if it is under development environments or loaded required versions successfully.
             if (Files.isDirectory(path) || currentFMLVersion.length() == 0) {
                 // Nothing to do.
-            } else if (VersionChecker.IS_LOADED && VersionChecker.checkOptiFineVersion(VersionChecker.DEFAULT_FUNCTION, true) && VersionChecker.checkForgeVersion(VersionChecker.DEFAULT_FUNCTION, currentFMLVersion.toString())) {
+            } else if (checked = VersionChecker.IS_LOADED && VersionChecker.checkOptiFineVersion(VersionChecker.DEFAULT_FUNCTION, true) && VersionChecker.checkForgeVersion(VersionChecker.DEFAULT_FUNCTION, currentFMLVersion.toString())) {
                 // FML can't detect IModLocator when ITransformationService exists in the same jar, so we must add it manually.
                 ModDirTransformerDiscoverer.getExtraLocators().add(path);
             } else {

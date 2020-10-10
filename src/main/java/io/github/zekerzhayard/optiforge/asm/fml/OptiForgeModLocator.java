@@ -1,5 +1,7 @@
 package io.github.zekerzhayard.optiforge.asm.fml;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,12 @@ public class OptiForgeModLocator extends AbstractJarFileLocator {
     public List<IModFile> scanMods() {
         List<IModFile> list = new ArrayList<>();
         try {
-            IModFile file = ModFile.newFMLInstance(Paths.get(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()), this);
-            this.modJars.compute(file, (mf, fs) -> this.createFileSystem(mf));
-            list.add(file);
+            Path path = Paths.get(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+            if (!Files.isDirectory(path)) { // Check if we are under development environment.
+                IModFile file = ModFile.newFMLInstance(path, this);
+                this.modJars.compute(file, (mf, fs) -> this.createFileSystem(mf));
+                list.add(file);
+            }
         } catch (Exception e) {
             LOGGER.error("", e);
         }
