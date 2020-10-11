@@ -7,8 +7,8 @@
         "1.16.2-recommended": "0.2.5",
         "1.16.1-latest": "0.1.9",
         "1.16.1-recommended": "0.1.9",
-        "1.15.2-latest": "0.1.28",
-        "1.15.2-recommended": "0.1.28",
+        "1.15.2-latest": "0.1.29",
+        "1.15.2-recommended": "0.1.29",
         "1.14.4-latest": "0.1.2",
         "1.14.4-recommended": "0.1.2"
     },
@@ -40,6 +40,7 @@
         "0.1.0": "First release."
     },
     "1.15.2": {
+        "0.1.29": "Compatible with forge 1.15.2-31.2.43.",
         "0.1.28": "Compatible with forge 1.15.2-31.2.37.",
         "0.1.27": "Compatible with forge 1.15.2-31.2.23. Update OptiFine version checker.",
         "0.1.26": "Support OptiFine_1.15.2_HD_U_G1_pre30 Ninja-updated 2.",
