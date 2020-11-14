@@ -1,20 +1,21 @@
 {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/optiforge",
     "promos": {
-        "1.16.4-latest": "0.4.1",
-        "1.16.4-recommended": "0.4.1",
+        "1.16.4-latest": "0.4.2",
+        "1.16.4-recommended": "0.4.2",
         "1.16.3-latest": "0.3.6",
         "1.16.3-recommended": "0.3.6",
         "1.16.2-latest": "0.2.6",
         "1.16.2-recommended": "0.2.6",
-        "1.16.1-latest": "0.1.9",
-        "1.16.1-recommended": "0.1.9",
+        "1.16.1-latest": "0.1.10",
+        "1.16.1-recommended": "0.1.10",
         "1.15.2-latest": "0.1.29",
         "1.15.2-recommended": "0.1.29",
         "1.14.4-latest": "0.1.2",
         "1.14.4-recommended": "0.1.2"
     },
     "1.16.4": {
+        "0.4.2": "Compatible with forge 1.16.4-35.0.9.",
         "0.4.1": "Support OptiFine_1.16.4_HD_U_G5_pre2.",
         "0.4.0": "Compatible with forge 1.16.4-35.0.0. Support OptiFine_1.16.4_HD_U_G4_pre1. Close #51."
     },
@@ -37,6 +38,7 @@
         "0.2.0": "Compatible with forge 1.16.2-33.0.0. Support OptiFine_1.16.2_HD_U_G3_pre1."
     },
     "1.16.1": {
+        "0.1.10": "Use ASM instead of Mixin. Backport #51 to 1.16.1.",
         "0.1.9": "Compatible with forge 1.16.1-32.0.107.",
         "0.1.8": "Compatible with forge 1.16.1-32.0.101.",
         "0.1.7": "Support OptiFine_1.16.1_HD_U_G2_pre16.",
