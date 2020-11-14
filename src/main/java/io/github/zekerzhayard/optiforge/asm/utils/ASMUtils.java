@@ -10,10 +10,22 @@ import org.objectweb.asm.tree.IincInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
-import org.spongepowered.asm.mixin.transformer.meta.MixinMerged;
-import org.spongepowered.asm.util.Annotations;
 
 public class ASMUtils {
+    public static LocalVariableNode findLocalVariable(MethodNode mn, String desc, int ordinal) {
+        List<LocalVariableNode> localVariables = Lists.newArrayList(mn.localVariables);
+        localVariables.sort(Comparator.comparingInt(o -> o.index));
+        for (LocalVariableNode lvn : localVariables) {
+            if (lvn.desc.equals(desc)) {
+                if (ordinal == 0) {
+                    return lvn;
+                }
+                ordinal--;
+            }
+        }
+        return null;
+    }
+
     /**
      * Find the target local variable index by specific desc and ordinal.
      * @param mn the method to search
@@ -22,17 +34,8 @@ public class ASMUtils {
      * @return the local variable index
      */
     public static int findLocalVariableIndex(MethodNode mn, String desc, int ordinal) {
-        List<LocalVariableNode> localVariables = Lists.newArrayList(mn.localVariables);
-        localVariables.sort(Comparator.comparingInt(o -> o.index));
-        for (LocalVariableNode lvn : localVariables) {
-            if (lvn.desc.equals(desc)) {
-                if (ordinal == 0) {
-                    return lvn.index;
-                }
-                ordinal--;
-            }
-        }
-        return -1;
+        LocalVariableNode lvn = findLocalVariable(mn, desc, ordinal);
+        return lvn == null ? -1 : lvn.index;
     }
 
     public static void insertLocalVariable(MethodNode mn, LocalVariableNode lvn) {
@@ -56,9 +59,5 @@ public class ASMUtils {
             }
         }
         mn.localVariables.add(lvn);
-    }
-
-    public static boolean isMixinMethod(MethodNode mn, String mixinClassName) {
-        return mixinClassName.equals(Annotations.getValue(Annotations.getVisible(mn, MixinMerged.class), "mixin"));
     }
 }

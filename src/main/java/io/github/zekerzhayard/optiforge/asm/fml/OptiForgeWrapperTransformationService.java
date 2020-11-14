@@ -43,14 +43,14 @@ import org.objectweb.asm.Type;
 //   transformers
 //   additionalClassesLocator
 //   additionalResourcesLocator
-public class OptiForgeTransformationService implements ITransformationService {
+public class OptiForgeWrapperTransformationService implements ITransformationService {
+    public static Boolean checked = null;
+
     private final static Logger LOGGER = LogManager.getLogger();
     private final static String NAME;
 
-    private static boolean checked;
-
     static {
-        NAME = "optiforge"; // Avoid compiler to replace strings automatically.
+        NAME = "optiforgewrapper"; // Avoid compiler to replace strings automatically.
         try {
             // This can make sure this class is always ordered after all other services.
             FieldUtils.writeDeclaredField(NAME, "hash", -65536, true);
@@ -87,7 +87,7 @@ public class OptiForgeTransformationService implements ITransformationService {
         }
 
         try {
-            Path path = Paths.get(OptiForgeTransformationService.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            Path path = Paths.get(OptiForgeWrapperTransformationService.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             // We should check if it is under development environments or loaded required versions successfully.
             if (checked = Files.isDirectory(path) || currentFMLVersion.length() == 0) {
                 // Nothing to do.
