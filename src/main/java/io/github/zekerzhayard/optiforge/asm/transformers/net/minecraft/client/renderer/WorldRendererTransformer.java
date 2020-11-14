@@ -108,10 +108,46 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
                     min.owner = "net/minecraft/client/renderer/texture/AtlasTexture";
                     min.name = "setBlurMipmap";
                 }
+            } else if (ain.getOpcode() == Opcodes.INSTANCEOF) {
+
+                // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L54-L55
+                //
+                //        for(Entity entity : this.field_72769_h.func_217416_b()) {
+                // -         if ((this.field_175010_j.func_229086_a_(entity, clippinghelper, d0, d1, d2) || entity.func_184215_y(this.field_72777_q.field_71439_g)) && (entity != p_228426_6_.func_216773_g() || p_228426_6_.func_216770_i() || p_228426_6_.func_216773_g() instanceof LivingEntity && ((LivingEntity)p_228426_6_.func_216773_g()).func_70608_bn()) && (!(entity instanceof ClientPlayerEntity) || p_228426_6_.func_216773_g() == entity)) {
+                // +         if ((this.field_175010_j.func_229086_a_(entity, clippinghelper, d0, d1, d2) || entity.func_184215_y(this.field_72777_q.field_71439_g)) && (entity != p_228426_6_.func_216773_g() || p_228426_6_.func_216770_i() || p_228426_6_.func_216773_g() instanceof LivingEntity && ((LivingEntity)p_228426_6_.func_216773_g()).func_70608_bn()) && (!(entity instanceof ClientPlayerEntity) || p_228426_6_.func_216773_g() == entity || (entity == field_72777_q.field_71439_g && !field_72777_q.field_71439_g.func_175149_v()))) { //FORGE: render local player entity when it is not the renderViewEntity
+                //              ++this.field_72749_I;
+                //
+
+                TypeInsnNode tin = (TypeInsnNode) ain;
+                if (tin.desc.equals("net/minecraft/client/entity/player/ClientPlayerEntity")) {
+                    int entityIndex = ((VarInsnNode) tin.getPrevious()).var;
+                    LabelNode label_0 = ((JumpInsnNode) tin.getNext()).label;
+
+                    AbstractInsnNode ain0 = ain;
+                    while (ain0.getOpcode() != Opcodes.IF_ACMPNE) {
+                        ain0 = ain0.getNext();
+                    }
+                    LabelNode label_1 = ((JumpInsnNode) ain0).label;
+
+                    InsnList il = new InsnList();
+                    il.add(new JumpInsnNode(Opcodes.IF_ACMPEQ, label_0));
+                    il.add(new VarInsnNode(Opcodes.ALOAD, entityIndex));
+                    il.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72777_q"), "Lnet/minecraft/client/Minecraft;"));
+                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/Minecraft", ASMAPI.mapField("field_71439_g"), "Lnet/minecraft/client/entity/player/ClientPlayerEntity;"));
+                    il.add(new JumpInsnNode(Opcodes.IF_ACMPNE, label_1));
+                    il.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72777_q"), "Lnet/minecraft/client/Minecraft;"));
+                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/Minecraft", ASMAPI.mapField("field_71439_g"), "Lnet/minecraft/client/entity/player/ClientPlayerEntity;"));
+                    il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/entity/player/ClientPlayerEntity", ASMAPI.mapMethod("func_175149_v"), "()Z"));
+                    il.add(new JumpInsnNode(Opcodes.IFNE, label_1));
+                    updateCameraAndRender.instructions.insertBefore(ain0, il);
+                    updateCameraAndRender.instructions.remove(ain0);
+                }
             }
         }
 
-        // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L127-L128
+        // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L136-L137
         //
         //              ChunkRenderDispatcher.ChunkRender chunkrenderdispatcher$chunkrender = iterator.next();
         // -            if (chunkrenderdispatcher$chunkrender.func_188281_o()) {

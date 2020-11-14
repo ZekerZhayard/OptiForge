@@ -1,8 +1,8 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
-*Compatibility: (2020-11-06)*  
-&emsp;*OptiForge-0.4.1*  
-&emsp;*Forge-1.16.4-35.0.0 or newer version*  
+*Compatibility: (2020-11-14)*  
+&emsp;*OptiForge-0.4.2*  
+&emsp;*Forge-1.16.4-35.0.9 or newer version*  
 &emsp;*OptiFine-1.16.4-G5-pre2 or newer version*  
 
 ## How to Use
@@ -29,7 +29,7 @@ I recommend installing [MoreCrashInfo](https://github.com/xfl03/MoreCrashInfo/re
 *2. OptiFineDevTweaker will dump all deobfuscated OptiFine classes to `./run/.optifineDev.classes` folder.*  
 *3. There are some useful Mixin properties for debugging: [Mixin Java System Properties](https://github.com/SpongePowered/Mixin/wiki/Mixin-Java-System-Properties)*  
 *I recommend you add `-Dmixin.debug.export=true`, it can dump all mixed classes to `./run/.mixin.out/class` folder.*  
-*4. The recommended mcp mappings version is `snapshot_20201102-1.15.1`*
+*4. The recommended mcp mappings version is `snapshot_20201110-1.15.1`*
 
 ## Screenshots
 ![OF0.png](https://i.loli.net/2020/03/31/IBfv1ShQt7wVY2u.png)
