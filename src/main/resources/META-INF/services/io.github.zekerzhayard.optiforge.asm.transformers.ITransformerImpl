@@ -1,3 +1,4 @@
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.MainWindowTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.WorldRendererTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemFrameRendererTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemRendererTransformer
