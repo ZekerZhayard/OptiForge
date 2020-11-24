@@ -6,14 +6,44 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.IincInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
-import org.spongepowered.asm.mixin.transformer.meta.MixinMerged;
-import org.spongepowered.asm.util.Annotations;
 
 public class ASMUtils {
+    /**
+     * Finds a method given the method descriptor
+     *
+     * @param classNode the class to scan
+     * @param name the method name
+     * @param desc the method descriptor
+     * @return discovered method node or null
+     */
+    public static MethodNode findMethod(ClassNode classNode, String name, String desc) {
+        for (MethodNode method : classNode.methods) {
+            if (method.name.equals(name) && method.desc.equals(desc)) {
+                return method;
+            }
+        }
+        return null;
+    }
+
+    public static LocalVariableNode findLocalVariable(MethodNode mn, String desc, int ordinal) {
+        List<LocalVariableNode> localVariables = Lists.newArrayList(mn.localVariables);
+        localVariables.sort(Comparator.comparingInt(o -> o.index));
+        for (LocalVariableNode lvn : localVariables) {
+            if (lvn.desc.equals(desc)) {
+                if (ordinal == 0) {
+                    return lvn;
+                }
+                ordinal--;
+            }
+        }
+        return null;
+    }
+
     /**
      * Find the target local variable index by specific desc and ordinal.
      * @param mn the method to search
@@ -22,27 +52,22 @@ public class ASMUtils {
      * @return the local variable index
      */
     public static int findLocalVariableIndex(MethodNode mn, String desc, int ordinal) {
-        List<LocalVariableNode> localVariables = Lists.newArrayList(mn.localVariables);
-        localVariables.sort(Comparator.comparingInt(o -> o.index));
-        for (LocalVariableNode lvn : localVariables) {
-            if (lvn.desc.equals(desc)) {
-                if (ordinal == 0) {
-                    return lvn.index;
-                }
-                ordinal--;
-            }
-        }
-        return -1;
+        LocalVariableNode lvn = findLocalVariable(mn, desc, ordinal);
+        return lvn == null ? -1 : lvn.index;
     }
 
     public static void insertLocalVariable(MethodNode mn, LocalVariableNode lvn) {
+        insertLocalVariable(mn.localVariables, mn.instructions.toArray(), lvn);
+    }
+
+    public static void insertLocalVariable(List<LocalVariableNode> lvns, AbstractInsnNode[] ains, LocalVariableNode lvn) {
         int shift = lvn.desc.equals("J") || lvn.desc.equals("D") ? 2 : 1;
-        for (LocalVariableNode node : mn.localVariables) {
+        for (LocalVariableNode node : lvns) {
             if (node.index >= lvn.index) {
                 node.index += shift;
             }
         }
-        for (AbstractInsnNode ain : mn.instructions.toArray()) {
+        for (AbstractInsnNode ain : ains) {
             if ((ain.getOpcode() >= Opcodes.ILOAD && ain.getOpcode() <= Opcodes.ALOAD) || (ain.getOpcode() >= Opcodes.ISTORE && ain.getOpcode() <= Opcodes.ASTORE)) {
                 VarInsnNode vin = (VarInsnNode) ain;
                 if (vin.var >= lvn.index) {
@@ -55,10 +80,7 @@ public class ASMUtils {
                 }
             }
         }
-        mn.localVariables.add(lvn);
-    }
-
-    public static boolean isMixinMethod(MethodNode mn, String mixinClassName) {
-        return mixinClassName.equals(Annotations.getValue(Annotations.getVisible(mn, MixinMerged.class), "mixin"));
+        lvns.add(lvn);
     }
 }
+
