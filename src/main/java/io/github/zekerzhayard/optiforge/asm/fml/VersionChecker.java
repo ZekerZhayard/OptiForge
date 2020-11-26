@@ -182,27 +182,6 @@ public class VersionChecker {
     }
 
     /**
-     * Mixin has it own version checker system, so this method only check if Mixin exists.
-     */
-    public static boolean checkMixinVersion(Function<String, Boolean> function) {
-        try {
-            Class.forName("org.spongepowered.asm.launch.MixinBootstrap").getField("VERSION");
-        } catch (Exception e) {
-            StringBuilder message = new StringBuilder(
-                "It looks like you have not install Mixin, you can download it from https://www.curseforge.com/minecraft/mc-mods/mixinbootstrap.\n" +
-                "The game will continue, and run without OptiFine and OptiForge.\n\n" +
-                e + "\n"
-            );
-            for (StackTraceElement traceElement : e.getStackTrace()) {
-                message.append("\tat ").append(traceElement).append("\n");
-            }
-            LOGGER.error(message.toString());
-            return function.apply(message.toString());
-        }
-        return true;
-    }
-
-    /**
      * FML can't check the build number and if can't match minor version, game won't crash or prompt players prompts
      */
     public static boolean checkForgeVersion(Function<String, Boolean> function, String currentFMLVersion) {
