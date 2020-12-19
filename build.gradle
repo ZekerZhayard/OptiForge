@@ -93,8 +93,7 @@ def attrs = [
         "Implementation-Title": project.name,
         "Implementation-Version": "${version}",
         "Implementation-Vendor" :"ZekerZhayard",
-        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        "MixinConfigs": "mixins.optiforge.json"
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 ]
 
 jar {
