@@ -9,6 +9,8 @@ import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -105,6 +107,16 @@ public class ItemRendererTransformer implements ITransformer<ClassNode>, ITransf
 
                     // remove -> fload 16/17/18
                     // remove -> fmul
+                    AbstractInsnNode ainP = vin.getPrevious();
+                    AbstractInsnNode ainN = vin.getNext();
+                    if (ainP.getOpcode() == Opcodes.FCONST_0) {
+                        render.instructions.set(ainP, new InsnNode(Opcodes.DCONST_0));
+                    } else if (ainP.getOpcode() == Opcodes.LDC) {
+                        ((LdcInsnNode) ainP).cst = 0.09375;
+                    }
+                    if (ainN.getNext().getOpcode() == Opcodes.F2D) {
+                        render.instructions.remove(ainN.getNext());
+                    }
                     render.instructions.remove(vin.getNext());
                     render.instructions.remove(vin);
                 }

@@ -3,6 +3,7 @@ package io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.r
 import java.util.Objects;
 
 import cpw.mods.modlauncher.api.ITransformer;
+import io.github.zekerzhayard.optiforge.asm.ModCompatibility;
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformerImpl;
 import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
@@ -24,6 +25,13 @@ public class LivingRendererTransformer implements ITransformer<ClassNode>, ITran
 
     @Override
     public ClassNode transform(ClassNode input) {
+
+        // Obfuscate mod has been compatible with OptiFine since 0.5.1,
+        // so https://github.com/ZekerZhayard/OptiForge/issues/62 is actually caused by OptiForge
+        if (ModCompatibility.obfuscate()) {
+            return input;
+        }
+
         // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/entity/LivingRenderer.java.patch#L10-L13
         //
         //        this.field_77045_g.field_217112_c = this.func_77040_d(p_225623_1_, p_225623_3_);

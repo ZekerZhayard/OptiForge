@@ -1,7 +1,7 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
-*Compatibility: (2020-11-23)*  
-&emsp;*OptiForge-0.4.3*  
+*Compatibility: (2021-01-03)*  
+&emsp;*OptiForge-0.4.4*  
 &emsp;*Forge-1.16.4-35.1.2 or newer version*  
 &emsp;*OptiFine-1.16.4-G5-pre2 or newer version*  
 
@@ -27,9 +27,7 @@ I recommend installing [MoreCrashInfo](https://github.com/xfl03/MoreCrashInfo/re
 *1. If you redefined your Gradle user home, you should add a VM argument:*  
 *`-Dofdev.mcjar=<gradle.user.home>\caches\forge_gradle\minecraft_repo\versions\1.16.1\client.jar`*  
 *2. OptiFineDevTweaker will dump all deobfuscated OptiFine classes to `./run/.optifineDev.classes` folder.*  
-*3. There are some useful Mixin properties for debugging: [Mixin Java System Properties](https://github.com/SpongePowered/Mixin/wiki/Mixin-Java-System-Properties)*  
-*I recommend you add `-Dmixin.debug.export=true`, it can dump all mixed classes to `./run/.mixin.out/class` folder.*  
-*4. The recommended mcp mappings version is `snapshot_20201110-1.15.1`*
+*3. The recommended mcp mappings version is `snapshot_20201110-1.15.1`*
 
 ## Screenshots
 ![OF0.png](https://i.loli.net/2020/03/31/IBfv1ShQt7wVY2u.png)

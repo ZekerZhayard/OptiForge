@@ -36,17 +36,17 @@ public class OptiForgeTransformationService implements ITransformationService {
     }
 
     @Override
+    public void onLoad(@Nonnull IEnvironment env, @Nonnull Set<String> otherServices) {
+
+    }
+
+    @Override
     public void initialize(@Nonnull IEnvironment environment) {
 
     }
 
     @Override
     public void beginScanning(@Nonnull IEnvironment environment) {
-
-    }
-
-    @Override
-    public void onLoad(@Nonnull IEnvironment env, @Nonnull Set<String> otherServices) {
 
     }
 
