@@ -38,11 +38,11 @@ public class ASMUtils {
         return lvn == null ? -1 : lvn.index;
     }
 
-    public static void insertLocalVariable(MethodNode mn, LocalVariableNode lvn) {
-        insertLocalVariable(mn.localVariables, mn.instructions.toArray(), lvn);
+    public static void insertLocalVariable(MethodNode mn, LocalVariableNode lvn, int index) {
+        insertLocalVariable(mn.localVariables, mn.instructions.toArray(), lvn, index);
     }
 
-    public static void insertLocalVariable(List<LocalVariableNode> lvns, AbstractInsnNode[] ains, LocalVariableNode lvn) {
+    public static void insertLocalVariable(List<LocalVariableNode> lvns, AbstractInsnNode[] ains, LocalVariableNode lvn, int index) {
         int shift = lvn.desc.equals("J") || lvn.desc.equals("D") ? 2 : 1;
         for (LocalVariableNode node : lvns) {
             if (node.index >= lvn.index) {
@@ -62,6 +62,16 @@ public class ASMUtils {
                 }
             }
         }
-        lvns.add(lvn);
+        lvns.add(index, lvn);
+    }
+
+    public static int getNextOfMaxLocalVariableIndex(List<LocalVariableNode> lvns) {
+        LocalVariableNode maxIndexLvn = null;
+        for (LocalVariableNode lvn : lvns) {
+            if (maxIndexLvn == null || maxIndexLvn.index < lvn.index) {
+                maxIndexLvn = lvn;
+            }
+        }
+        return maxIndexLvn == null ? 0 : maxIndexLvn.index + (maxIndexLvn.desc.equals("J") || maxIndexLvn.desc.equals("D") ? 2 : 1);
     }
 }
