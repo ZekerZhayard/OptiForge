@@ -101,40 +101,40 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
             if (addRainParticles_label_1 == null && ain instanceof LabelNode) {
                 addRainParticles_label_1 = (LabelNode) ain;
                 addRainParticles_label_2 = (LabelNode) ain;
-
-                InsnList il = new InsnList();
-                il.add(new LabelNode());
-                il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72769_h"), "Lnet/minecraft/client/world/ClientWorld;"));
-                il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/world/ClientWorld", ASMAPI.mapMethod("func_239132_a_"), "()Lnet/minecraft/client/world/DimensionRenderInfo;", false));
-                il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/world/DimensionRenderInfo", "getWeatherParticleRenderHandler", "()Lnet/minecraftforge/client/IWeatherParticleRenderHandler;", false));
-                il.add(new VarInsnNode(Opcodes.ASTORE, addRainParticles_renderHandlerIndex));
-
-                il.add(addRainParticles_label_0);
-                il.add(new VarInsnNode(Opcodes.ALOAD, addRainParticles_renderHandlerIndex));
-                il.add(new JumpInsnNode(Opcodes.IFNULL, addRainParticles_label_1));
-
-                il.add(new LabelNode());
-                il.add(new VarInsnNode(Opcodes.ALOAD, addRainParticles_renderHandlerIndex));
-                il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72773_u"), "I"));
-                il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72769_h"), "Lnet/minecraft/client/world/ClientWorld;"));
-                il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72777_q"), "Lnet/minecraft/client/Minecraft;"));
-                il.add(new VarInsnNode(Opcodes.ALOAD, 1));
-                il.add(new MethodInsnNode(Opcodes.INVOKEINTERFACE, "net/minecraftforge/client/IWeatherParticleRenderHandler", "render", "(ILnet/minecraft/client/world/ClientWorld;Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/renderer/ActiveRenderInfo;)V", true));
-
-                il.add(new LabelNode());
-                il.add(new InsnNode(Opcodes.RETURN));
-
-                addRainParticles.instructions.insertBefore(ain, il);
             } else if (addRainParticles_label_1 != null && ain instanceof LabelNode) {
                 addRainParticles_label_2 = (LabelNode) ain;
             }
         }
 
-        ASMUtils.insertLocalVariable(addRainParticles, new LocalVariableNode("renderHandler", "Lnet/minecraftforge/client/IWeatherParticleRenderHandler;", null, addRainParticles_label_1, addRainParticles_label_2, addRainParticles_renderHandlerIndex), addRainParticles.localVariables.indexOf(ASMUtils.findLocalVariable(addRainParticles, "F", 0)));
+        ASMUtils.insertLocalVariable(addRainParticles, new LocalVariableNode("renderHandler", "Lnet/minecraftforge/client/IWeatherParticleRenderHandler;", null, addRainParticles_label_0, addRainParticles_label_2, addRainParticles_renderHandlerIndex), addRainParticles.localVariables.indexOf(ASMUtils.findLocalVariable(addRainParticles, "F", 0)));
+
+        InsnList addRainParticles_il = new InsnList();
+        addRainParticles_il.add(new LabelNode());
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
+        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72769_h"), "Lnet/minecraft/client/world/ClientWorld;"));
+        addRainParticles_il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/world/ClientWorld", ASMAPI.mapMethod("func_239132_a_"), "()Lnet/minecraft/client/world/DimensionRenderInfo;", false));
+        addRainParticles_il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/world/DimensionRenderInfo", "getWeatherParticleRenderHandler", "()Lnet/minecraftforge/client/IWeatherParticleRenderHandler;", false));
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ASTORE, addRainParticles_renderHandlerIndex));
+
+        addRainParticles_il.add(addRainParticles_label_0);
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, addRainParticles_renderHandlerIndex));
+        addRainParticles_il.add(new JumpInsnNode(Opcodes.IFNULL, addRainParticles_label_1));
+
+        addRainParticles_il.add(new LabelNode());
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, addRainParticles_renderHandlerIndex));
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
+        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72773_u"), "I"));
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
+        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72769_h"), "Lnet/minecraft/client/world/ClientWorld;"));
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
+        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72777_q"), "Lnet/minecraft/client/Minecraft;"));
+        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 1));
+        addRainParticles_il.add(new MethodInsnNode(Opcodes.INVOKEINTERFACE, "net/minecraftforge/client/IWeatherParticleRenderHandler", "render", "(ILnet/minecraft/client/world/ClientWorld;Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/renderer/ActiveRenderInfo;)V", true));
+
+        addRainParticles_il.add(new LabelNode());
+        addRainParticles_il.add(new InsnNode(Opcodes.RETURN));
+
+        addRainParticles.instructions.insert(addRainParticles_il);
 
         // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L56-L58
         //
