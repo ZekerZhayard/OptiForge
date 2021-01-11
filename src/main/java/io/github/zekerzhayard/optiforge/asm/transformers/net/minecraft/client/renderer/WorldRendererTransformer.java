@@ -79,63 +79,6 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
             }
         }
 
-        // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L19-L23
-        //
-        //     public void func_228436_a_(ActiveRenderInfo p_228436_1_) {
-        // +      net.minecraftforge.client.IWeatherParticleRenderHandler renderHandler = field_72769_h.func_239132_a_().getWeatherParticleRenderHandler();
-        // +      if (renderHandler != null) {
-        // +         renderHandler.render(field_72773_u, field_72769_h, field_72777_q, p_228436_1_);
-        // +         return;
-        // +      }
-        //        float f = this.field_72777_q.field_71441_e.func_72867_j(1.0F) / (Minecraft.func_71375_t() ? 1.0F : 2.0F);
-        //
-
-        MethodNode addRainParticles = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_228436_a_"), "(Lnet/minecraft/client/renderer/ActiveRenderInfo;)V"));
-
-        LabelNode addRainParticles_label_0 = new LabelNode();
-        LabelNode addRainParticles_label_1 = null;
-        LabelNode addRainParticles_label_2 = null;
-        int addRainParticles_renderHandlerIndex = Bytecode.getFirstNonArgLocalIndex(addRainParticles);
-
-        for (AbstractInsnNode ain : addRainParticles.instructions.toArray()) {
-            if (addRainParticles_label_1 == null && ain instanceof LabelNode) {
-                addRainParticles_label_1 = (LabelNode) ain;
-                addRainParticles_label_2 = (LabelNode) ain;
-            } else if (addRainParticles_label_1 != null && ain instanceof LabelNode) {
-                addRainParticles_label_2 = (LabelNode) ain;
-            }
-        }
-
-        ASMUtils.insertLocalVariable(addRainParticles, new LocalVariableNode("renderHandler", "Lnet/minecraftforge/client/IWeatherParticleRenderHandler;", null, addRainParticles_label_0, addRainParticles_label_2, addRainParticles_renderHandlerIndex), addRainParticles.localVariables.indexOf(ASMUtils.findLocalVariable(addRainParticles, "F", 0)));
-
-        InsnList addRainParticles_il = new InsnList();
-        addRainParticles_il.add(new LabelNode());
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72769_h"), "Lnet/minecraft/client/world/ClientWorld;"));
-        addRainParticles_il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/world/ClientWorld", ASMAPI.mapMethod("func_239132_a_"), "()Lnet/minecraft/client/world/DimensionRenderInfo;", false));
-        addRainParticles_il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/world/DimensionRenderInfo", "getWeatherParticleRenderHandler", "()Lnet/minecraftforge/client/IWeatherParticleRenderHandler;", false));
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ASTORE, addRainParticles_renderHandlerIndex));
-
-        addRainParticles_il.add(addRainParticles_label_0);
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, addRainParticles_renderHandlerIndex));
-        addRainParticles_il.add(new JumpInsnNode(Opcodes.IFNULL, addRainParticles_label_1));
-
-        addRainParticles_il.add(new LabelNode());
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, addRainParticles_renderHandlerIndex));
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72773_u"), "I"));
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72769_h"), "Lnet/minecraft/client/world/ClientWorld;"));
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        addRainParticles_il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72777_q"), "Lnet/minecraft/client/Minecraft;"));
-        addRainParticles_il.add(new VarInsnNode(Opcodes.ALOAD, 1));
-        addRainParticles_il.add(new MethodInsnNode(Opcodes.INVOKEINTERFACE, "net/minecraftforge/client/IWeatherParticleRenderHandler", "render", "(ILnet/minecraft/client/world/ClientWorld;Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/renderer/ActiveRenderInfo;)V", true));
-
-        addRainParticles_il.add(new LabelNode());
-        addRainParticles_il.add(new InsnNode(Opcodes.RETURN));
-
-        addRainParticles.instructions.insert(addRainParticles_il);
-
         // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L56-L58
         //
         //        this.func_228441_a_(RenderType.func_228639_c_(), p_228426_1_, d0, d1, d2);
@@ -164,42 +107,6 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
                 } else if (min.owner.equals("net/minecraft/client/renderer/texture/Texture") && min.name.equals(ASMAPI.mapMethod("func_174937_a")) && min.desc.equals("(ZZ)V")) {
                     min.owner = "net/minecraft/client/renderer/texture/AtlasTexture";
                     min.name = "setBlurMipmap";
-                }
-            } else if (ain.getOpcode() == Opcodes.INSTANCEOF) {
-
-                // https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/patches/minecraft/net/minecraft/client/renderer/WorldRenderer.java.patch#L66-L67
-                //
-                //        for(Entity entity : this.field_72769_h.func_217416_b()) {
-                // -         if ((this.field_175010_j.func_229086_a_(entity, clippinghelper, d0, d1, d2) || entity.func_184215_y(this.field_72777_q.field_71439_g)) && (entity != p_228426_6_.func_216773_g() || p_228426_6_.func_216770_i() || p_228426_6_.func_216773_g() instanceof LivingEntity && ((LivingEntity)p_228426_6_.func_216773_g()).func_70608_bn()) && (!(entity instanceof ClientPlayerEntity) || p_228426_6_.func_216773_g() == entity)) {
-                // +         if ((this.field_175010_j.func_229086_a_(entity, clippinghelper, d0, d1, d2) || entity.func_184215_y(this.field_72777_q.field_71439_g)) && (entity != p_228426_6_.func_216773_g() || p_228426_6_.func_216770_i() || p_228426_6_.func_216773_g() instanceof LivingEntity && ((LivingEntity)p_228426_6_.func_216773_g()).func_70608_bn()) && (!(entity instanceof ClientPlayerEntity) || p_228426_6_.func_216773_g() == entity || (entity == field_72777_q.field_71439_g && !field_72777_q.field_71439_g.func_175149_v()))) { //FORGE: render local player entity when it is not the renderViewEntity
-                //              ++this.field_72749_I;
-                //
-
-                TypeInsnNode tin = (TypeInsnNode) ain;
-                if (tin.desc.equals("net/minecraft/client/entity/player/ClientPlayerEntity")) {
-                    int entityIndex = ((VarInsnNode) tin.getPrevious()).var;
-                    LabelNode label_0 = ((JumpInsnNode) tin.getNext()).label;
-
-                    AbstractInsnNode ain0 = ain;
-                    while (ain0.getOpcode() != Opcodes.IF_ACMPNE) {
-                        ain0 = ain0.getNext();
-                    }
-                    LabelNode label_1 = ((JumpInsnNode) ain0).label;
-
-                    InsnList il = new InsnList();
-                    il.add(new JumpInsnNode(Opcodes.IF_ACMPEQ, label_0));
-                    il.add(new VarInsnNode(Opcodes.ALOAD, entityIndex));
-                    il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72777_q"), "Lnet/minecraft/client/Minecraft;"));
-                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/Minecraft", ASMAPI.mapField("field_71439_g"), "Lnet/minecraft/client/entity/player/ClientPlayerEntity;"));
-                    il.add(new JumpInsnNode(Opcodes.IF_ACMPNE, label_1));
-                    il.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/renderer/WorldRenderer", ASMAPI.mapField("field_72777_q"), "Lnet/minecraft/client/Minecraft;"));
-                    il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/Minecraft", ASMAPI.mapField("field_71439_g"), "Lnet/minecraft/client/entity/player/ClientPlayerEntity;"));
-                    il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/entity/player/ClientPlayerEntity", ASMAPI.mapMethod("func_175149_v"), "()Z"));
-                    il.add(new JumpInsnNode(Opcodes.IFNE, label_1));
-                    updateCameraAndRender.instructions.insertBefore(ain0, il);
-                    updateCameraAndRender.instructions.remove(ain0);
                 }
             }
         }
