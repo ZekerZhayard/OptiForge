@@ -181,7 +181,7 @@ if (apiKey != null) {
         project {
             id = "372196"
             changelogType = "markdown"
-            changelog = "See [update.json](https://github.com/ZekerZhayard/OptiForge/blob/update/update.json)."
+            changelog = "Requires at least Forge-${minecraft_version}-${forge_version} and ${-> getOptiFineVersion()}.\nSee [update.json](https://github.com/ZekerZhayard/OptiForge/blob/update/update.json)."
             releaseType = "beta"
             relations {
                 optionalDependency "morecrashinfo"
@@ -202,4 +202,13 @@ if (apiKey != null) {
             detectNewerJava = true
         }
     }
+}
+
+String getOptiFineVersion() {
+    String[] versions = "${optifine_version}".split("\\.")
+
+    String preVer = versions[2].equals("0") ? "" : ("_pre" + versions[2])
+    String minorVer = Integer.parseInt(versions[1]) - (preVer.equals("") ? 1 : 0)
+    String majorVer = (char) ((int) ('A' as char) + Integer.parseInt(versions[0]) - 1)
+    return "OptiFine_${minecraft_version}_HD_U_${majorVer}${minorVer}${preVer}"
 }

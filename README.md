@@ -1,13 +1,13 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
 *Compatibility: (2021-01-11)*  
-&emsp;*OptiForge-0.4.6*  
-&emsp;*Forge-1.16.4-35.1.36 or newer version*  
-&emsp;*OptiFine-1.16.4-G6-pre12 or newer version*  
+&emsp;*OptiForge-0.5.0*  
+&emsp;*Forge-1.16.5-36.0.7 or newer version*  
+&emsp;*OptiFine-1.16.5-G6 or newer version*  
 
 ## How to Use
 
-1. Download [OptiFine](https://www.optifine.net/downloads) 1.16.4
+1. Download [OptiFine](https://www.optifine.net/downloads) 1.16.5
 2. Download [OptiForge](https://github.com/ZekerZhayard/OptiForge/releases) at the release page
 3. Put the above mods into the `mods` folder.
 4. Launch Minecraft!
@@ -25,7 +25,7 @@ I recommend installing [MoreCrashInfo](https://github.com/xfl03/MoreCrashInfo/re
 
 *Notice:*  
 *1. If you redefined your Gradle user home, you should add a VM argument:*  
-*`-Dofdev.mcjar=<gradle.user.home>\caches\forge_gradle\minecraft_repo\versions\1.16.1\client.jar`*  
+*`-Dofdev.mcjar=<gradle.user.home>\caches\forge_gradle\minecraft_repo\versions\1.16.5\client.jar`*  
 *2. OptiFineDevTweaker will dump all deobfuscated OptiFine classes to `./run/.optifineDev.classes` folder.*
 
 ## Screenshots
