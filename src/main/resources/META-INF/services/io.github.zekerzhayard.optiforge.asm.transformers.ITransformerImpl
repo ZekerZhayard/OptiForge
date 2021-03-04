@@ -1,4 +1,5 @@
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.entity.player.AbstractClientPlayerEntityTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.gui.screen.MainMenuScreenTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.FirstPersonRendererTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.WorldRendererTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.entity.ItemFrameRendererTransformer
