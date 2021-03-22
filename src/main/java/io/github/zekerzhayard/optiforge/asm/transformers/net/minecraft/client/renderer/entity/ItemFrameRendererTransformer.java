@@ -16,6 +16,7 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class ItemFrameRendererTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -48,7 +49,7 @@ public class ItemFrameRendererTransformer implements ITransformer<ClassNode>, IT
         //              if (mapdata != null) {
         //
 
-        MethodNode render = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_225623_a_"), "(Lnet/minecraft/entity/item/ItemFrameEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V"));
+        MethodNode render = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_225623_a_"), "(Lnet/minecraft/entity/item/ItemFrameEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V"));
         // flag -> mapdata
         LocalVariableNode flag = Objects.requireNonNull(ASMUtils.findLocalVariable(render, "Z", 0));
         LocalVariableNode mapdata = Objects.requireNonNull(ASMUtils.findLocalVariable(render, "Lnet/minecraft/world/storage/MapData;", 0));

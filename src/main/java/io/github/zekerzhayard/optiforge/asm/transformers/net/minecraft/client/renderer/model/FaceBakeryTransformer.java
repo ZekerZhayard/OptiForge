@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import cpw.mods.modlauncher.api.ITransformer;
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformerImpl;
-import io.github.zekerzhayard.optiforge.asm.utils.ASMUtils;
 import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -15,6 +14,7 @@ import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class FaceBakeryTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -35,7 +35,7 @@ public class FaceBakeryTransformer implements ITransformer<ClassNode>, ITransfor
         //     }
         //
 
-        MethodNode fillVertex = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_228826_a_"), "([IILnet/minecraft/client/renderer/Vector3f;ILnet/minecraft/client/renderer/texture/TextureAtlasSprite;Lnet/minecraft/client/renderer/model/BlockFaceUV;)V"));
+        MethodNode fillVertex = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_228826_a_"), "([IILnet/minecraft/client/renderer/Vector3f;ILnet/minecraft/client/renderer/texture/TextureAtlasSprite;Lnet/minecraft/client/renderer/model/BlockFaceUV;)V"));
 
         for (AbstractInsnNode ain : fillVertex.instructions.toArray()) {
             if (ain.getOpcode() == Opcodes.INVOKEVIRTUAL) {

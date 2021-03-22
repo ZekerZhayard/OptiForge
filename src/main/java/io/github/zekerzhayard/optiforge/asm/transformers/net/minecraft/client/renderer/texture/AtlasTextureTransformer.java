@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import cpw.mods.modlauncher.api.ITransformer;
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformerImpl;
-import io.github.zekerzhayard.optiforge.asm.utils.ASMUtils;
 import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -12,6 +11,7 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.FrameNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class AtlasTextureTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -31,7 +31,7 @@ public class AtlasTextureTransformer implements ITransformer<ClassNode>, ITransf
         //        if (j1 < p_229220_4_) {
         //
 
-        MethodNode stitch = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_229220_a_"), "(Lnet/minecraft/resources/IResourceManager;Ljava/util/stream/Stream;Lnet/minecraft/profiler/IProfiler;I)Lnet/minecraft/client/renderer/texture/AtlasTexture$SheetData;"));
+        MethodNode stitch = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_229220_a_"), "(Lnet/minecraft/resources/IResourceManager;Ljava/util/stream/Stream;Lnet/minecraft/profiler/IProfiler;I)Lnet/minecraft/client/renderer/texture/AtlasTexture$SheetData;"));
 
         int warnCount = 0;
         for (AbstractInsnNode ain : stitch.instructions.toArray()) {

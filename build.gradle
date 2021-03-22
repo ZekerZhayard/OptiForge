@@ -30,7 +30,7 @@ minecraft {
     // Simply re-run your setup task after changing the mappings to update your workspace.
     mappings channel: "snapshot", version: "${mcp_mappings}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-    
+
     // accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 
     // Default run configurations.
@@ -181,10 +181,9 @@ if (apiKey != null) {
         project {
             id = "372196"
             changelogType = "markdown"
-            changelog = "See [update.json](https://github.com/ZekerZhayard/OptiForge/blob/update/update.json)."
+            changelog = "Requires at least Forge-${minecraft_version}-${forge_version} and ${-> getOptiFineVersion()}. See [update.json](https://github.com/ZekerZhayard/OptiForge/blob/update/update.json)."
             releaseType = "beta"
             relations {
-                requiredDependency "mixinbootstrap"
                 optionalDependency "morecrashinfo"
             }
             mainArtifact jar, {
@@ -196,11 +195,20 @@ if (apiKey != null) {
             addArtifact sourcesJar, {
                 displayName = "${archivesBaseName}-${version}-sources"
             }
-            addGameVersion "1.15.2"
+            addGameVersion "${minecraft_version}"
             addGameVersion "Forge"
         }
         options {
             detectNewerJava = true
         }
     }
+}
+
+String getOptiFineVersion() {
+    String[] versions = "${optifine_version}".split("\\.")
+
+    String preVer = versions[2].equals("0") ? "" : ("\\_pre" + versions[2])
+    String minorVer = Integer.parseInt(versions[1]) - (preVer.equals("") ? 1 : 0)
+    String majorVer = (char) ((int) ('A' as char) + Integer.parseInt(versions[0]) - 1)
+    return "OptiFine\\_${minecraft_version}\\_HD\\_U\\_${majorVer}${minorVer}${preVer}"
 }

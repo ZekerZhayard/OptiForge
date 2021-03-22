@@ -25,6 +25,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class StitcherTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -45,7 +46,7 @@ public class StitcherTransformer implements ITransformer<ClassNode>, ITransforme
 
         input.fields.add(0, new FieldNode(Opcodes.ACC_PRIVATE | Opcodes.ACC_STATIC | Opcodes.ACC_FINAL, "LOGGER", "Lorg/apache/logging/log4j/Logger;", null, null));
 
-        MethodNode _clinit_ = Objects.requireNonNull(ASMUtils.findMethod(input, "<clinit>", "()V"));
+        MethodNode _clinit_ = Objects.requireNonNull(Bytecode.findMethod(input, "<clinit>", "()V"));
         InsnList il$_clinit_ = new InsnList();
         il$_clinit_.add(new LabelNode());
         il$_clinit_.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "org/apache/logging/log4j/LogManager", "getLogger", "()Lorg/apache/logging/log4j/Logger;", false));
@@ -64,7 +65,7 @@ public class StitcherTransformer implements ITransformer<ClassNode>, ITransforme
         //              throw new StitcherException(stitcher$holder.field_229213_a_, list.stream().map((p_229212_0_) -> {
         //
 
-        MethodNode doStitch = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_94305_f"), "()V"));
+        MethodNode doStitch = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_94305_f"), "()V"));
         for (AbstractInsnNode ain : doStitch.instructions.toArray()) {
             if (ain.getOpcode() == Opcodes.NEW) {
                 TypeInsnNode tin = (TypeInsnNode) ain;
@@ -152,7 +153,7 @@ public class StitcherTransformer implements ITransformer<ClassNode>, ITransforme
         lambda$doStitch$4.instructions.add(label_5);
         // method body end
 
-        input.methods.add(input.methods.indexOf(ASMUtils.findMethod(input, "lambda$doStitch$3", "(Lnet/minecraft/client/renderer/texture/Stitcher$Holder;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite$Info;")), lambda$doStitch$4);
+        input.methods.add(input.methods.indexOf(Bytecode.findMethod(input, "lambda$doStitch$3", "(Lnet/minecraft/client/renderer/texture/Stitcher$Holder;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite$Info;")), lambda$doStitch$4);
 
 
         MethodNode lambda$null$3 = new MethodNode();
@@ -181,7 +182,7 @@ public class StitcherTransformer implements ITransformer<ClassNode>, ITransforme
         lambda$null$3.instructions.add(label_1_);
         // method body end
 
-        input.methods.add(input.methods.indexOf(ASMUtils.findMethod(input, "lambda$doStitch$3", "(Lnet/minecraft/client/renderer/texture/Stitcher$Holder;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite$Info;")) + 1, lambda$null$3);
+        input.methods.add(input.methods.indexOf(Bytecode.findMethod(input, "lambda$doStitch$3", "(Lnet/minecraft/client/renderer/texture/Stitcher$Holder;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite$Info;")) + 1, lambda$null$3);
 
 
         return input;

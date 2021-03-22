@@ -16,6 +16,7 @@ import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class WorldRendererTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -34,7 +35,7 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
         //                 this.field_175009_l.add(chunkrenderdispatcher$chunkrender4);
         //
 
-        MethodNode setupTerrain = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_228437_a_"), "(Lnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/culling/ClippingHelperImpl;ZIZ)V"));
+        MethodNode setupTerrain = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_228437_a_"), "(Lnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/culling/ClippingHelperImpl;ZIZ)V"));
 
         for (AbstractInsnNode ain : setupTerrain.instructions.toArray()) {
             if (ain.getOpcode() == Opcodes.INVOKEVIRTUAL) {
@@ -85,7 +86,7 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
         //        this.func_228441_a_(RenderType.func_228643_e_(), p_228426_1_, d0, d1, d2);
         //
 
-        MethodNode updateCameraAndRender = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_228426_a_"), "(Lcom/mojang/blaze3d/matrix/MatrixStack;FJZLnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lnet/minecraft/client/renderer/Matrix4f;)V"));
+        MethodNode updateCameraAndRender = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_228426_a_"), "(Lcom/mojang/blaze3d/matrix/MatrixStack;FJZLnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lnet/minecraft/client/renderer/Matrix4f;)V"));
 
         int getModelManagerCount = 0;
         for (AbstractInsnNode ain : updateCameraAndRender.instructions.toArray()) {
@@ -116,7 +117,7 @@ public class WorldRendererTransformer implements ITransformer<ClassNode>, ITrans
         //                 this.field_174995_M.func_228902_a_(chunkrenderdispatcher$chunkrender);
         //
 
-        MethodNode updateChunks = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_174967_a"), "(J)V"));
+        MethodNode updateChunks = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_174967_a"), "(J)V"));
 
         for (AbstractInsnNode ain : updateChunks.instructions.toArray()) {
             if (ain.getOpcode() == Opcodes.INVOKEVIRTUAL) {

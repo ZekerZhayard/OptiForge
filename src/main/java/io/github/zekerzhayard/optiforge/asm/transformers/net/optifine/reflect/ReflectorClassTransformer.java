@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import cpw.mods.modlauncher.api.ITransformer;
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformerImpl;
-import io.github.zekerzhayard.optiforge.asm.utils.ASMUtils;
 import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
@@ -12,6 +11,7 @@ import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class ReflectorClassTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -22,7 +22,7 @@ public class ReflectorClassTransformer implements ITransformer<ClassNode>, ITran
     @Override
     public ClassNode transform(ClassNode input) {
 
-        MethodNode getTargetClass = Objects.requireNonNull(ASMUtils.findMethod(input, "getTargetClass", "()Ljava/lang/Class;"));
+        MethodNode getTargetClass = Objects.requireNonNull(Bytecode.findMethod(input, "getTargetClass", "()Ljava/lang/Class;"));
 
         ASMAPI.insertInsnList(getTargetClass, ASMAPI.MethodType.STATIC, "java/lang/Class", "forName", "(Ljava/lang/String;)Ljava/lang/Class;",
             ASMAPI.listOf(

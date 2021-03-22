@@ -17,6 +17,7 @@ import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class EntityDataManagerTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -35,7 +36,7 @@ public class EntityDataManagerTransformer implements ITransformer<ClassNode>, IT
         //           try {
         //
 
-        MethodNode createKey = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_187226_a"), "(Ljava/lang/Class;Lnet/minecraft/network/datasync/IDataSerializer;)Lnet/minecraft/network/datasync/DataParameter;"));
+        MethodNode createKey = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_187226_a"), "(Ljava/lang/Class;Lnet/minecraft/network/datasync/IDataSerializer;)Lnet/minecraft/network/datasync/DataParameter;"));
 
         int loggerCount = 0;
         LabelNode label_0 = new LabelNode();

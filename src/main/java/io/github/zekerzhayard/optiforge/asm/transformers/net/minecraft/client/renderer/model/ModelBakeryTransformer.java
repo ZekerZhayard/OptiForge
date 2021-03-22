@@ -16,6 +16,7 @@ import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class ModelBakeryTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -34,7 +35,7 @@ public class ModelBakeryTransformer implements ITransformer<ClassNode>, ITransfo
         //           }
         //
 
-        MethodNode lambda$uploadTextures$12 = Objects.requireNonNull(ASMUtils.findMethod(input, "lambda$uploadTextures$12", "(Lnet/minecraft/util/ResourceLocation;)V"));
+        MethodNode lambda$uploadTextures$12 = Objects.requireNonNull(Bytecode.findMethod(input, "lambda$uploadTextures$12", "(Lnet/minecraft/util/ResourceLocation;)V"));
         for (AbstractInsnNode ain : lambda$uploadTextures$12.instructions.toArray()) {
             if (ain.getOpcode() == Opcodes.GETSTATIC) {
                 FieldInsnNode fin = (FieldInsnNode) ain;
@@ -55,7 +56,7 @@ public class ModelBakeryTransformer implements ITransformer<ClassNode>, ITransfo
         //           this.field_217850_G.put(triple, ibakedmodel);
         //
 
-        MethodNode getBakedModel = Objects.requireNonNull(ASMUtils.findMethod(input, "getBakedModel", "(Lnet/minecraft/util/ResourceLocation;Lnet/minecraft/client/renderer/model/IModelTransform;Ljava/util/function/Function;)Lnet/minecraft/client/renderer/model/IBakedModel;"));
+        MethodNode getBakedModel = Objects.requireNonNull(Bytecode.findMethod(input, "getBakedModel", "(Lnet/minecraft/util/ResourceLocation;Lnet/minecraft/client/renderer/model/IModelTransform;Ljava/util/function/Function;)Lnet/minecraft/client/renderer/model/IBakedModel;"));
 
         // logic:
         //   ...

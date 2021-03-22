@@ -6,5 +6,6 @@ io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.model.ModelBakeryTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.texture.AtlasTextureTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.renderer.texture.StitcherTransformer
+io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.client.world.ClientWorldTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.minecraft.network.datasync.EntityDataManagerTransformer
 io.github.zekerzhayard.optiforge.asm.transformers.net.optifine.reflect.ReflectorClassTransformer

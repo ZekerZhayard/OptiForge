@@ -1,8 +1,8 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
-*Compatibility: (2020-11-24)*  
-&emsp;*OptiForge-0.1.31*  
-&emsp;*Forge-1.15.2-31.2.43 or newer version*  
+*Compatibility: (2021-03-22)*  
+&emsp;*OptiForge-0.1.33*  
+&emsp;*Forge-1.15.2-31.2.50 or newer version*  
 &emsp;*OptiFine-1.15.2-G5-pre1 or newer version*  
 
 ## How to Use
@@ -26,8 +26,7 @@ I recommend installing [MoreCrashInfo](https://github.com/xfl03/MoreCrashInfo/re
 *Notice:*  
 *1. If you redefined your Gradle user home, you should add a VM argument:*  
 *`-Dofdev.mcjar=<gradle.user.home>\caches\forge_gradle\minecraft_repo\versions\1.15.2\client.jar`*  
-*2. OptiFineDevTweaker will dump all deobfuscated OptiFine classes to `./run/.optifineDev.classes` folder.*  
-*3. The recommended mcp mappings version is `snapshot_20200925-1.15.1`*
+*2. OptiFineDevTweaker will dump all deobfuscated OptiFine classes to `./run/.optifineDev.classes` folder.*
 
 ## Screenshots
 ![OF0.png](https://i.loli.net/2020/03/31/IBfv1ShQt7wVY2u.png)

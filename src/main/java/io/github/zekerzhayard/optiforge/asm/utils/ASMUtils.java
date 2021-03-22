@@ -6,30 +6,12 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.IincInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 public class ASMUtils {
-    /**
-     * Finds a method given the method descriptor
-     *
-     * @param classNode the class to scan
-     * @param name the method name
-     * @param desc the method descriptor
-     * @return discovered method node or null
-     */
-    public static MethodNode findMethod(ClassNode classNode, String name, String desc) {
-        for (MethodNode method : classNode.methods) {
-            if (method.name.equals(name) && method.desc.equals(desc)) {
-                return method;
-            }
-        }
-        return null;
-    }
-
     public static LocalVariableNode findLocalVariable(MethodNode mn, String desc, int ordinal) {
         List<LocalVariableNode> localVariables = Lists.newArrayList(mn.localVariables);
         localVariables.sort(Comparator.comparingInt(o -> o.index));

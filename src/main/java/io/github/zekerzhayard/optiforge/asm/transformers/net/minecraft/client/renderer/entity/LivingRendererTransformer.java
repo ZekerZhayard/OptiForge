@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import cpw.mods.modlauncher.api.ITransformer;
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformerImpl;
-import io.github.zekerzhayard.optiforge.asm.utils.ASMUtils;
 import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -15,6 +14,7 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.spongepowered.asm.util.Bytecode;
 
 public class LivingRendererTransformer implements ITransformer<ClassNode>, ITransformerImpl {
     @Override
@@ -35,7 +35,7 @@ public class LivingRendererTransformer implements ITransformer<ClassNode>, ITran
         //        this.field_77045_g.field_217114_e = p_225623_1_.func_70631_g_();
         //
 
-        MethodNode render = Objects.requireNonNull(ASMUtils.findMethod(input, ASMAPI.mapMethod("func_225623_a_"), "(Lnet/minecraft/entity/LivingEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V"));
+        MethodNode render = Objects.requireNonNull(Bytecode.findMethod(input, ASMAPI.mapMethod("func_225623_a_"), "(Lnet/minecraft/entity/LivingEntity;FFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V"));
         int maxIndex = 0;
         boolean isLongOrDouble = false;
         for (LocalVariableNode lvn : render.localVariables) {
