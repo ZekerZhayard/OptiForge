@@ -107,20 +107,11 @@ task sourcesJar(type: Jar) {
         attributes(attrs)
     }
     from sourceSets.main.allSource
-    archiveName = "${archivesBaseName}-${version}-sources.${extension}"
-}
-
-task deobfJar(type: Jar) {
-    manifest {
-        attributes(attrs)
-    }
-    from sourceSets.main.output
-    archiveName = "${archivesBaseName}-${version}-deobf.${extension}"
+    archiveFileName = "${archivesBaseName}-${archiveVersion}-sources.${archiveExtension}"
 }
 
 artifacts {
     archives sourcesJar
-    archives deobfJar
 }
 
 processResources {
@@ -188,9 +179,6 @@ if (apiKey != null) {
             }
             mainArtifact jar, {
                 displayName = "${archivesBaseName}-${version}"
-            }
-            addArtifact deobfJar, {
-                displayName = "${archivesBaseName}-${version}-deobf"
             }
             addArtifact sourcesJar, {
                 displayName = "${archivesBaseName}-${version}-sources"

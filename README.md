@@ -1,9 +1,9 @@
 # OptiForge ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/optiforge))
 
-*Compatibility: (2021-03-15)*  
-&emsp;*OptiForge-0.5.4*  
+*Compatibility: (2021-03-23)*  
+&emsp;*OptiForge-0.5.5*  
 &emsp;*Forge-1.16.5-36.0.60 or newer version*  
-&emsp;*OptiFine-1.16.5-G7 or newer version*  
+&emsp;*OptiFine-1.16.5-G8-pre9 or newer version*  
 
 ## How to Use
 
@@ -19,9 +19,7 @@ I recommend installing [MoreCrashInfo](https://github.com/xfl03/MoreCrashInfo/re
 
 ### For Development Environment
 
-1. There is a project called [OptiFineDevTweaker](https://github.com/OpenCubicChunks/OptiFineDevTweaker) can help us use OptiFine under development environment. You should put OptiFine itself and OptiFineDevTweaker mod to `<projectDir>/run/mods` folder.
-2. If your project doesn't depend on Mixin, you should put MixinBootstrap mod to mods folder.
-3. You should also put OptiForge jar with `-deobf` suffix to mods folder.
+There is a project called [OptiFineDevTweaker](https://github.com/OpenCubicChunks/OptiFineDevTweaker) can help us use OptiFine under development environment. You should put OptiFine itself and OptiFineDevTweaker mod to `<projectDir>/run/mods` folder.
 
 *Notice:*  
 *1. If you redefined your Gradle user home, you should add a VM argument:*  
