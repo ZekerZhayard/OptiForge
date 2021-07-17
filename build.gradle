@@ -107,7 +107,7 @@ task sourcesJar(type: Jar) {
         attributes(attrs)
     }
     from sourceSets.main.allSource
-    archiveFileName = "${archivesBaseName}-${archiveVersion}-sources.${archiveExtension}"
+    archiveFileName = "${archivesBaseName}-${archiveVersion.get()}-sources.${archiveExtension.get()}"
 }
 
 artifacts {
@@ -123,10 +123,12 @@ processResources {
     ]
     inputs.properties pros
     from sourceSets.main.resources.srcDirs, {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         include "requiredmods.properties", "META-INF/mods.toml"
         expand pros
     }
     from sourceSets.main.resources.srcDirs, {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         exclude "requiredmods.properties", "META-INF/mods.toml"
     }
 }
