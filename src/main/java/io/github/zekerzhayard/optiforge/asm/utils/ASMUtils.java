@@ -2,20 +2,27 @@ package io.github.zekerzhayard.optiforge.asm.utils;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.collect.Lists;
-import net.minecraftforge.coremod.api.ASMAPI;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.IincInsnNode;
-import org.objectweb.asm.tree.JumpInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 public class ASMUtils {
+    public static MethodNode findMethod(ClassNode cn, String name, String desc) {
+        for (MethodNode mn : cn.methods) {
+            if (Objects.equals(mn.name, name) && Objects.equals(mn.desc, desc)) {
+                return mn;
+            }
+        }
+        return null;
+    }
+
     public static LocalVariableNode findLocalVariable(MethodNode mn, String desc, int ordinal) {
         List<LocalVariableNode> localVariables = Lists.newArrayList(mn.localVariables);
         localVariables.sort(Comparator.comparingInt(o -> o.index));
@@ -77,14 +84,5 @@ public class ASMUtils {
             }
         }
         return maxIndexLvn == null ? 0 : maxIndexLvn.index + (maxIndexLvn.desc.equals("J") || maxIndexLvn.desc.equals("D") ? 2 : 1);
-    }
-
-    public static void replaceInstance(MethodNode mn, String type, String fieldSrgName) {
-        for (AbstractInsnNode ain : mn.instructions.toArray()) {
-            if (ain.getOpcode() == Opcodes.INSTANCEOF && ((TypeInsnNode) ain).desc.equals(type)) {
-                ((JumpInsnNode) ain.getNext()).setOpcode(Opcodes.IF_ACMPNE);
-                mn.instructions.set(ain, new FieldInsnNode(Opcodes.GETSTATIC, "net/minecraft/item/Items", ASMAPI.mapField(fieldSrgName), "Lnet/minecraft/item/Item;"));
-            }
-        }
     }
 }

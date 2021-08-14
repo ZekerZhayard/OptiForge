@@ -1,0 +1,1016 @@
+com/mojang/blaze3d/pipeline/RenderTarget
+	f_312635_ I f_166194_
+	f_312636_ I f_166195_
+	f_312637_ I f_166196_
+	f_312638_ I f_166197_
+com/mojang/blaze3d/platform/GlDebug
+	f_312661_ I f_166220_
+	f_312662_ Ljava/util/Queue; f_166221_
+	f_312663_ Lcom/mojang/blaze3d/platform/GlDebug$LogEntry; f_166222_
+	f_312664_ Z f_166223_
+com/mojang/blaze3d/platform/GlDebug$LogEntry
+	f_312668_ I f_166227_
+	f_312669_ I f_166228_
+	f_312670_ I f_166229_
+	f_312671_ I f_166230_
+	f_312672_ Ljava/lang/String; f_166231_
+	f_312673_ I f_166232_
+com/mojang/blaze3d/platform/GlStateManager
+	f_307506_ I f_157051_
+com/mojang/blaze3d/platform/NativeImage
+	f_312838_ I f_166396_
+	f_312839_ I f_166397_
+	f_312840_ I f_166398_
+	f_312841_ I f_166399_
+com/mojang/blaze3d/platform/PngInfo$StbReaderBufferedChannel
+	f_312885_ I f_166443_
+com/mojang/blaze3d/shaders/Program
+	f_313019_ Lorg/apache/logging/log4j/Logger; f_166597_
+	f_313020_ I f_166598_
+com/mojang/blaze3d/systems/RenderSystem
+	f_177363_ Lcom/mojang/blaze3d/systems/RenderSystem$AutoStorageIndexBuffer; f_157153_
+	f_177364_ Lcom/mojang/blaze3d/systems/RenderSystem$AutoStorageIndexBuffer; f_157155_
+	f_255861_ Lcom/mojang/math/Matrix4f; f_157140_
+	f_255862_ Lcom/mojang/blaze3d/vertex/PoseStack; f_157141_
+	f_255863_ Lcom/mojang/math/Matrix4f; f_157142_
+	f_255864_ Lcom/mojang/math/Matrix4f; f_157143_
+	f_255865_ Lnet/minecraft/client/renderer/ShaderInstance; f_157144_
+	f_255866_ [F f_157145_
+	f_255867_ [F f_157146_
+	f_255868_ F f_157147_
+	f_255869_ F f_157148_
+	f_255870_ F f_157149_
+	f_255871_ [Lcom/mojang/math/Vector3f; f_157150_
+	f_255872_ F f_157151_
+	f_255873_ [I f_157152_
+	f_255874_ Lcom/mojang/blaze3d/systems/RenderSystem$AutoStorageIndexBuffer; f_157154_
+	f_255875_ Lcom/mojang/math/Matrix4f; f_157156_
+com/mojang/blaze3d/systems/RenderSystem$AutoStorageIndexBuffer
+	f_177802_ I f_157465_
+	f_177803_ I f_157466_
+	f_177804_ Lcom/mojang/blaze3d/systems/RenderSystem$AutoStorageIndexBuffer$IndexGenerator; f_157467_
+	f_177805_ I f_157468_
+	f_177806_ Lcom/mojang/blaze3d/vertex/VertexFormat$IndexType; f_157469_
+	f_177807_ I f_157470_
+com/mojang/blaze3d/vertex/BufferBuilder
+	f_190417_ Ljava/util/List; f_166764_
+	f_190418_ I f_166765_
+	f_190419_ [Lcom/mojang/math/Vector3f; f_166766_
+	f_190420_ F f_166767_
+	f_190421_ F f_166768_
+	f_190422_ F f_166769_
+	f_190423_ Z f_166762_
+	f_313166_ I f_166763_
+com/mojang/blaze3d/vertex/BufferBuilder$DrawState
+	f_190479_ I f_166797_
+	f_190480_ Lcom/mojang/blaze3d/vertex/VertexFormat$IndexType; f_166798_
+	f_190481_ Z f_166799_
+	f_190482_ Z f_166800_
+com/mojang/blaze3d/vertex/BufferBuilder$SortState
+	f_190508_ Lcom/mojang/blaze3d/vertex/VertexFormat$Mode; f_166817_
+	f_190509_ I f_166818_
+	f_190510_ [Lcom/mojang/math/Vector3f; f_166819_
+	f_190511_ F f_166820_
+	f_190512_ F f_166821_
+	f_190513_ F f_166822_
+com/mojang/blaze3d/vertex/BufferUploader
+	f_268462_ I f_166830_
+	f_268463_ I f_166831_
+	f_268464_ I f_166832_
+	f_268465_ Lcom/mojang/blaze3d/vertex/VertexFormat; f_166833_
+com/mojang/blaze3d/vertex/DefaultVertexFormat
+	f_268507_ Lcom/mojang/blaze3d/vertex/VertexFormatElement; f_166849_
+	f_268508_ Lcom/mojang/blaze3d/vertex/VertexFormat; f_166850_
+	f_268509_ Lcom/mojang/blaze3d/vertex/VertexFormat; f_166851_
+com/mojang/blaze3d/vertex/Tesselator
+	f_313170_ I f_166857_
+	f_313171_ I f_166858_
+com/mojang/blaze3d/vertex/VertexBuffer
+	f_190618_ I f_166860_
+	f_190619_ Lcom/mojang/blaze3d/vertex/VertexFormat$IndexType; f_166861_
+	f_190620_ I f_166863_
+	f_190621_ Lcom/mojang/blaze3d/vertex/VertexFormat$Mode; f_166864_
+	f_190622_ Z f_166865_
+	f_268552_ I f_166859_
+	f_268553_ I f_166862_
+	f_268554_ Lcom/mojang/blaze3d/vertex/VertexFormat; f_85917_
+com/mojang/blaze3d/vertex/VertexFormat
+	f_268651_ Lcom/google/common/collect/ImmutableMap; f_166905_
+	f_268652_ I f_166906_
+	f_268653_ I f_166907_
+	f_268654_ I f_166908_
+com/mojang/blaze3d/vertex/VertexFormat$IndexType
+	f_190712_ I f_166923_
+	f_190713_ I f_166924_
+com/mojang/blaze3d/vertex/VertexFormat$Mode
+	f_190732_ I f_166946_
+	f_190733_ I f_166947_
+	f_190734_ I f_166948_
+com/mojang/blaze3d/vertex/VertexMultiConsumer$Multiple
+	f_313194_ [Lcom/mojang/blaze3d/vertex/VertexConsumer; f_167071_
+com/mojang/math/Matrix3f
+	f_306045_ I f_152761_
+com/mojang/math/Matrix4f
+	f_309949_ I f_162197_
+com/mojang/math/Vector3f
+	f_289941_ Lcom/mojang/math/Vector3f; f_176763_
+net/minecraft/CrashReport
+	f_319128_ Lnet/minecraft/SystemReport; f_178624_
+net/minecraft/Util
+	f_300565_ Ljava/nio/file/spi/FileSystemProvider; f_143778_
+net/minecraft/Util$8
+	f_300618_ Ljava/util/Map; f_143852_
+net/minecraft/client/Camera
+	f_313611_ F f_167683_
+net/minecraft/client/Camera$NearPlane
+	f_313614_ Lnet/minecraft/world/phys/Vec3; f_167687_
+	f_313615_ Lnet/minecraft/world/phys/Vec3; f_167688_
+	f_313616_ Lnet/minecraft/world/phys/Vec3; f_167689_
+net/minecraft/client/CycleOption
+	f_193073_ Ljava/util/function/Function; f_167713_
+	f_193074_ Ljava/util/function/Supplier; f_167714_
+	f_193075_ Ljava/util/function/Function; f_167715_
+net/minecraft/client/KeyboardHandler
+	f_313663_ I f_167812_
+net/minecraft/client/Minecraft
+	f_313693_ Z f_167842_
+net/minecraft/client/Option
+	f_193559_ Lnet/minecraft/network/chat/Component; f_168107_
+	f_193560_ Lnet/minecraft/network/chat/Component; f_168108_
+	f_313902_ Lnet/minecraft/client/CycleOption; f_168105_
+	f_313903_ I f_168106_
+	f_313904_ Lnet/minecraft/network/chat/Component; f_168109_
+net/minecraft/client/Options
+	f_193910_ Z f_168405_
+	f_313916_ I f_168406_
+	f_313917_ I f_168407_
+	f_313918_ F f_168408_
+	f_313919_ I f_168409_
+	f_313920_ I f_168410_
+	f_313921_ I f_168411_
+	f_313922_ I f_168412_
+	f_313923_ Z f_168413_
+net/minecraft/client/ProgressOption
+	f_194057_ Ljava/util/function/Function; f_168538_
+net/minecraft/client/Screenshot
+	f_313973_ I f_168594_
+	f_313974_ Ljava/io/DataOutputStream; f_168595_
+	f_313975_ [B f_168596_
+	f_313976_ I f_168597_
+	f_313977_ I f_168598_
+	f_313978_ Ljava/io/File; f_168599_
+net/minecraft/client/gui/Font
+	f_314022_ F f_168643_
+net/minecraft/client/gui/Font$StringRenderOutput
+	f_314054_ Lnet/minecraft/client/gui/Font$DisplayMode; f_181362_
+net/minecraft/client/gui/Gui
+	f_194557_ F f_168664_
+	f_194558_ Lnet/minecraft/resources/ResourceLocation; f_168665_
+	f_194559_ Lnet/minecraft/resources/ResourceLocation; f_168666_
+	f_314065_ I f_168667_
+	f_314066_ F f_168668_
+	f_314067_ I f_168669_
+	f_314068_ I f_168670_
+	f_314069_ Ljava/lang/String; f_168671_
+	f_314070_ F f_168672_
+	f_314071_ I f_168673_
+	f_314072_ I f_168674_
+net/minecraft/client/gui/Gui$HeartType
+	f_314099_ I f_168722_
+	f_314100_ Z f_168723_
+net/minecraft/client/gui/components/BossHealthOverlay
+	f_314151_ I f_168805_
+	f_314152_ I f_168806_
+	f_314153_ I f_168807_
+net/minecraft/client/gui/components/ChatComponent
+	f_314160_ I f_168843_
+net/minecraft/client/gui/components/CycleButton
+	f_195246_ Ljava/util/function/BooleanSupplier; f_168856_
+	f_195247_ Ljava/util/List; f_168857_
+	f_195248_ Lnet/minecraft/network/chat/Component; f_168858_
+	f_195249_ I f_168859_
+	f_195250_ Ljava/lang/Object; f_168860_
+	f_195251_ Lnet/minecraft/client/gui/components/CycleButton$ValueListSupplier; f_168861_
+	f_195252_ Ljava/util/function/Function; f_168862_
+	f_195253_ Ljava/util/function/Function; f_168863_
+	f_195254_ Lnet/minecraft/client/gui/components/CycleButton$OnValueChange; f_168864_
+	f_195255_ Lnet/minecraft/client/gui/components/CycleButton$TooltipSupplier; f_168865_
+	f_195256_ Z f_168866_
+net/minecraft/client/gui/components/CycleButton$Builder
+	f_195321_ I f_168920_
+	f_195322_ Ljava/lang/Object; f_168921_
+	f_195323_ Ljava/util/function/Function; f_168922_
+	f_195324_ Lnet/minecraft/client/gui/components/CycleButton$TooltipSupplier; f_168923_
+	f_195325_ Ljava/util/function/Function; f_168924_
+	f_195326_ Lnet/minecraft/client/gui/components/CycleButton$ValueListSupplier; f_168925_
+	f_195327_ Z f_168926_
+net/minecraft/client/gui/components/DebugScreenOverlay
+	f_314188_ I f_168988_
+	f_314189_ I f_168989_
+	f_314190_ I f_168990_
+	f_314191_ I f_168991_
+	f_314192_ I f_168992_
+	f_314193_ I f_168993_
+	f_314194_ I f_168994_
+net/minecraft/client/gui/components/SliderButton
+	f_195707_ Ljava/util/List; f_169058_
+net/minecraft/client/gui/font/glyphs/BakedGlyph
+	f_314277_ Lnet/minecraft/client/renderer/RenderType; f_181374_
+net/minecraft/client/gui/screens/LoadingOverlay
+	f_314506_ J f_169314_
+	f_314507_ J f_169315_
+	f_314508_ I f_169316_
+	f_314509_ I f_169317_
+	f_314510_ I f_169318_
+	f_314511_ F f_169319_
+	f_314512_ I f_169320_
+	f_314513_ I f_169321_
+	f_314514_ F f_169322_
+	f_314515_ F f_169323_
+net/minecraft/client/gui/screens/ProgressScreen
+	f_314550_ Z f_169362_
+net/minecraft/client/gui/screens/TitleScreen
+	f_314599_ Ljava/lang/String; f_169438_
+	f_314600_ Ljava/lang/String; f_169439_
+net/minecraft/client/gui/screens/TitleScreen$1
+	f_314613_ Lnet/minecraft/network/chat/Component; f_169452_
+net/minecraft/client/model/geom/ModelLayers
+	f_201423_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171130_
+	f_201424_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171131_
+	f_201425_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171132_
+	f_201428_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171135_
+	f_201429_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171136_
+	f_201434_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171141_
+	f_201435_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171142_
+	f_201436_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171143_
+	f_201437_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171144_
+	f_201439_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171146_
+	f_201440_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171147_
+	f_201441_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171148_
+	f_201442_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171149_
+	f_201443_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171150_
+	f_201444_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171151_
+	f_201447_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171154_
+	f_201448_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171155_
+	f_201449_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171157_
+	f_201450_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171158_
+	f_201451_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171159_
+	f_201453_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171161_
+	f_201455_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171163_
+	f_201462_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171170_
+	f_201463_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171171_
+	f_201464_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171172_
+	f_201465_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171173_
+	f_201466_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171174_
+	f_201467_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171175_
+	f_201468_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171176_
+	f_201469_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171177_
+	f_201470_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171178_
+	f_201471_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171179_
+	f_201472_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171180_
+	f_201473_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171181_
+	f_201474_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171235_
+	f_201475_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171183_
+	f_201476_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171184_
+	f_201477_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171185_
+	f_201478_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171186_
+	f_201480_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171188_
+	f_201483_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171191_
+	f_201484_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171192_
+	f_201485_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171193_
+	f_201486_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171194_
+	f_201487_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171195_
+	f_201488_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171196_
+	f_201489_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171197_
+	f_201490_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171198_
+	f_201491_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171199_
+	f_201492_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171200_
+	f_201493_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171201_
+	f_201494_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171202_
+	f_201495_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171203_
+	f_201496_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171204_
+	f_201497_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171205_
+	f_201498_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171206_
+	f_201499_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171207_
+	f_201500_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171156_
+	f_201502_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171210_
+	f_201503_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171211_
+	f_201505_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171213_
+	f_201506_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171214_
+	f_201508_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171216_
+	f_201511_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171219_
+	f_201512_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171220_
+	f_201513_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171221_
+	f_201515_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171223_
+	f_201516_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171224_
+	f_201517_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171225_
+	f_201520_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171228_
+	f_201523_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171231_
+	f_201524_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171232_
+	f_201525_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171233_
+	f_201527_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171236_
+	f_201528_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171237_
+	f_201531_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171240_
+	f_201532_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171241_
+	f_201534_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171243_
+	f_201535_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171244_
+	f_201536_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171245_
+	f_201537_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171246_
+	f_201538_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171247_
+	f_201542_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171251_
+	f_201544_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171253_
+	f_201545_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171254_
+	f_201546_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171255_
+	f_201547_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171256_
+	f_201549_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171258_
+	f_201551_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171260_
+	f_201552_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171209_
+	f_201556_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171265_
+	f_201559_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171268_
+	f_201561_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171270_
+	f_201562_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171271_
+	f_201563_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171272_
+	f_201564_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171273_
+	f_201567_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171276_
+	f_201568_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171277_
+	f_201569_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171278_
+	f_201570_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171279_
+	f_201575_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171284_
+	f_201576_ Lnet/minecraft/client/model/geom/ModelLayerLocation; f_171285_
+net/minecraft/client/model/geom/PartPose
+	f_201677_ Lnet/minecraft/client/model/geom/PartPose; f_171404_
+	f_201678_ F f_171405_
+	f_201679_ F f_171406_
+	f_201680_ F f_171407_
+	f_201681_ F f_171408_
+	f_201682_ F f_171409_
+	f_201683_ F f_171410_
+net/minecraft/client/multiplayer/ClientLevel
+	f_201980_ Lnet/minecraft/world/level/entity/EntityTickList; f_171630_
+	f_201981_ Lnet/minecraft/world/level/entity/TransientEntitySectionManager; f_171631_
+	f_315474_ J f_171628_
+	f_315475_ D f_171629_
+net/minecraft/client/multiplayer/ClientLevel$MarkerParticleStatus
+	f_315492_ Lnet/minecraft/world/level/block/Block; f_171721_
+	f_315493_ Lnet/minecraft/core/particles/ParticleOptions; f_171722_
+net/minecraft/client/particle/ItemPickupParticle
+	f_315761_ I f_172257_
+net/minecraft/client/particle/Particle
+	f_204109_ F f_172258_
+	f_204110_ Z f_172259_
+net/minecraft/client/particle/ParticleEngine
+	f_204145_ Lit/unimi/dsi/fastutil/objects/Object2IntOpenHashMap; f_172265_
+	f_315766_ I f_172264_
+net/minecraft/client/player/AbstractClientPlayer
+	f_315824_ I f_172510_
+	f_315825_ I f_172511_
+	f_315826_ I f_172512_
+	f_315827_ I f_172513_
+	f_315828_ I f_172514_
+	f_315829_ I f_172515_
+	f_315830_ I f_172516_
+	f_315831_ Ljava/lang/String; f_172517_
+	f_315832_ I f_172518_
+	f_315833_ I f_172519_
+	f_315834_ I f_172520_
+net/minecraft/client/renderer/BlockEntityWithoutLevelRenderer
+	f_205360_ Ljava/util/Map; f_172546_
+	f_205361_ Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderDispatcher; f_172547_
+	f_205362_ Lnet/minecraft/client/model/geom/EntityModelSet; f_172548_
+net/minecraft/client/renderer/EffectInstance
+	f_315858_ Ljava/lang/String; f_172564_
+	f_315859_ Z f_172565_
+net/minecraft/client/renderer/FogRenderer
+	f_315863_ F f_172574_
+	f_315864_ I f_172575_
+net/minecraft/client/renderer/GameRenderer
+	f_282071_ Ljava/util/Map; f_172578_
+	f_282072_ Lnet/minecraft/client/renderer/ShaderInstance; f_172579_
+	f_282073_ Lnet/minecraft/client/renderer/ShaderInstance; f_172580_
+	f_282074_ Lnet/minecraft/client/renderer/ShaderInstance; f_172581_
+	f_282075_ Lnet/minecraft/client/renderer/ShaderInstance; f_172582_
+	f_282076_ Lnet/minecraft/client/renderer/ShaderInstance; f_172583_
+	f_282077_ Lnet/minecraft/client/renderer/ShaderInstance; f_172584_
+	f_282078_ Lnet/minecraft/client/renderer/ShaderInstance; f_172585_
+	f_282079_ Lnet/minecraft/client/renderer/ShaderInstance; f_172586_
+	f_282080_ Lnet/minecraft/client/renderer/ShaderInstance; f_172587_
+	f_282081_ Lnet/minecraft/client/renderer/ShaderInstance; f_172588_
+	f_282082_ Lnet/minecraft/client/renderer/ShaderInstance; f_172589_
+	f_282083_ Lnet/minecraft/client/renderer/ShaderInstance; f_172590_
+	f_282084_ Lnet/minecraft/client/renderer/ShaderInstance; f_172591_
+	f_282085_ Lnet/minecraft/client/renderer/ShaderInstance; f_172608_
+	f_282086_ Lnet/minecraft/client/renderer/ShaderInstance; f_172609_
+	f_282087_ Lnet/minecraft/client/renderer/ShaderInstance; f_172610_
+	f_282088_ Lnet/minecraft/client/renderer/ShaderInstance; f_172596_
+	f_282089_ Lnet/minecraft/client/renderer/ShaderInstance; f_172597_
+	f_282090_ Lnet/minecraft/client/renderer/ShaderInstance; f_172598_
+	f_282091_ Lnet/minecraft/client/renderer/ShaderInstance; f_172600_
+	f_282092_ Lnet/minecraft/client/renderer/ShaderInstance; f_172602_
+	f_282093_ Lnet/minecraft/client/renderer/ShaderInstance; f_172603_
+	f_282094_ Lnet/minecraft/client/renderer/ShaderInstance; f_172604_
+	f_282095_ Lnet/minecraft/client/renderer/ShaderInstance; f_172605_
+	f_282096_ Lnet/minecraft/client/renderer/ShaderInstance; f_172606_
+	f_282097_ Lnet/minecraft/client/renderer/ShaderInstance; f_172607_
+	f_282098_ Lnet/minecraft/client/renderer/ShaderInstance; f_172611_
+	f_282099_ Lnet/minecraft/client/renderer/ShaderInstance; f_172612_
+	f_282100_ Lnet/minecraft/client/renderer/ShaderInstance; f_172613_
+	f_282101_ Lnet/minecraft/client/renderer/ShaderInstance; f_172614_
+	f_282102_ Lnet/minecraft/client/renderer/ShaderInstance; f_172615_
+	f_282103_ Lnet/minecraft/client/renderer/ShaderInstance; f_172616_
+	f_282104_ Lnet/minecraft/client/renderer/ShaderInstance; f_172617_
+	f_282105_ Lnet/minecraft/client/renderer/ShaderInstance; f_172618_
+	f_282106_ Lnet/minecraft/client/renderer/ShaderInstance; f_172619_
+	f_282107_ Lnet/minecraft/client/renderer/ShaderInstance; f_172620_
+	f_282108_ Lnet/minecraft/client/renderer/ShaderInstance; f_172621_
+	f_282109_ Lnet/minecraft/client/renderer/ShaderInstance; f_172622_
+	f_282110_ Lnet/minecraft/client/renderer/ShaderInstance; f_172623_
+	f_282111_ Lnet/minecraft/client/renderer/ShaderInstance; f_172624_
+	f_282112_ Lnet/minecraft/client/renderer/ShaderInstance; f_172625_
+	f_282113_ Lnet/minecraft/client/renderer/ShaderInstance; f_172626_
+	f_282114_ Lnet/minecraft/client/renderer/ShaderInstance; f_172627_
+	f_282115_ Lnet/minecraft/client/renderer/ShaderInstance; f_172628_
+	f_282116_ Lnet/minecraft/client/renderer/ShaderInstance; f_172629_
+	f_282117_ Lnet/minecraft/client/renderer/ShaderInstance; f_172630_
+	f_282118_ Lnet/minecraft/client/renderer/ShaderInstance; f_172631_
+	f_282119_ Lnet/minecraft/client/renderer/ShaderInstance; f_172632_
+	f_282120_ Lnet/minecraft/client/renderer/ShaderInstance; f_172633_
+	f_282121_ Lnet/minecraft/client/renderer/ShaderInstance; f_172593_
+	f_282122_ Lnet/minecraft/client/renderer/ShaderInstance; f_172594_
+	f_282123_ Lnet/minecraft/client/renderer/ShaderInstance; f_172595_
+	f_282124_ Lnet/minecraft/client/renderer/ShaderInstance; f_172635_
+	f_315867_ F f_172592_
+	f_315868_ Lnet/minecraft/client/renderer/ShaderInstance; f_172599_
+	f_315869_ Lnet/minecraft/client/renderer/ShaderInstance; f_172601_
+	f_315870_ I f_172634_
+	f_315871_ Z f_172636_
+	f_321122_ Z f_182638_
+net/minecraft/client/renderer/ItemInHandRenderer
+	f_316018_ F f_172842_
+	f_316019_ F f_172843_
+	f_316020_ F f_172844_
+	f_316021_ F f_172845_
+	f_316022_ F f_172846_
+	f_316023_ F f_172847_
+	f_316024_ F f_172848_
+	f_316025_ F f_172849_
+	f_316026_ F f_172850_
+	f_316027_ F f_172851_
+	f_316028_ F f_172852_
+	f_316029_ I f_172853_
+	f_316030_ I f_172854_
+	f_316031_ I f_172855_
+	f_316032_ F f_172856_
+	f_316033_ F f_172857_
+	f_316034_ F f_172858_
+	f_316035_ F f_172859_
+	f_316036_ F f_172860_
+	f_316037_ F f_172861_
+	f_316038_ F f_172862_
+	f_316039_ F f_172863_
+	f_316040_ F f_172864_
+	f_316041_ F f_172865_
+	f_316042_ F f_172866_
+	f_316043_ F f_172867_
+	f_316044_ F f_172868_
+	f_316045_ F f_172869_
+	f_316046_ F f_172870_
+	f_316047_ F f_172871_
+	f_316048_ F f_172872_
+	f_316049_ F f_172873_
+	f_316050_ F f_172874_
+	f_316051_ F f_172875_
+	f_316052_ F f_172876_
+	f_316053_ I f_172877_
+	f_316054_ I f_172878_
+	f_316055_ I f_172879_
+	f_316056_ F f_172880_
+	f_316057_ F f_172881_
+	f_316058_ F f_172882_
+	f_316059_ F f_172883_
+	f_316060_ F f_172884_
+	f_316061_ F f_172885_
+	f_316062_ F f_172886_
+	f_316063_ F f_172887_
+	f_316064_ F f_172888_
+	f_316065_ F f_172889_
+	f_316066_ F f_172890_
+	f_316067_ F f_172891_
+	f_316068_ F f_172892_
+	f_316069_ F f_172893_
+	f_316070_ F f_172894_
+	f_316071_ F f_172895_
+	f_316072_ F f_172896_
+	f_316073_ F f_172897_
+	f_316074_ F f_172898_
+	f_316075_ F f_172899_
+	f_316076_ F f_172900_
+	f_316077_ F f_172901_
+	f_316078_ F f_172902_
+	f_316079_ F f_172903_
+	f_316080_ F f_172904_
+	f_316081_ D f_172905_
+	f_316082_ F f_172906_
+	f_316083_ F f_172907_
+	f_316084_ F f_172908_
+	f_316085_ F f_172909_
+	f_316086_ F f_172910_
+	f_316087_ F f_172911_
+net/minecraft/client/renderer/ItemInHandRenderer$HandRenderSelection
+	f_205613_ Z f_172921_
+	f_205614_ Z f_172922_
+net/minecraft/client/renderer/LevelRenderer
+	f_205635_ Lnet/minecraft/client/renderer/culling/Frustum; f_172938_
+	f_205636_ Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderDispatcher; f_172946_
+	f_316089_ Lnet/minecraft/client/renderer/LevelRenderer$RenderInfoMap; f_172936_
+	f_316090_ I f_172937_
+	f_316091_ I f_172939_
+	f_316092_ I f_172940_
+	f_316093_ F f_172941_
+	f_316094_ I f_172942_
+	f_316095_ I f_172943_
+	f_316096_ I f_172944_
+	f_316097_ I f_172945_
+net/minecraft/client/renderer/LevelRenderer$RenderChunkInfo
+	f_316165_ I f_173020_
+net/minecraft/client/renderer/LevelRenderer$RenderInfoMap
+	f_316175_ [Lnet/minecraft/client/renderer/LevelRenderer$RenderChunkInfo; f_173030_
+	f_316176_ [Lnet/minecraft/client/renderer/LevelRenderer$RenderChunkInfo; f_173031_
+net/minecraft/client/renderer/LightTexture
+	f_316185_ I f_173040_
+	f_316186_ I f_173041_
+	f_316187_ I f_173042_
+net/minecraft/client/renderer/RenderStateShard
+	f_282752_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173063_
+	f_282753_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173064_
+	f_282754_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173065_
+	f_282755_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173066_
+	f_282756_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173067_
+	f_282757_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173068_
+	f_282758_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173069_
+	f_282759_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173070_
+	f_282760_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173071_
+	f_282761_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173072_
+	f_282762_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173073_
+	f_282763_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173074_
+	f_282764_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173075_
+	f_282765_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173076_
+	f_282766_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173077_
+	f_282767_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173078_
+	f_282768_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173079_
+	f_282769_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173080_
+	f_282770_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173081_
+	f_282771_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173082_
+	f_282772_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173083_
+	f_282773_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173084_
+	f_282774_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173085_
+	f_282775_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173086_
+	f_282776_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173088_
+	f_282777_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173091_
+	f_282778_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173092_
+	f_282779_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173093_
+	f_282780_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173094_
+	f_282781_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173095_
+	f_282782_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173096_
+	f_282783_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173097_
+	f_282784_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173098_
+	f_282785_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173099_
+	f_282786_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173100_
+	f_282787_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173101_
+	f_282788_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173102_
+	f_282789_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173103_
+	f_282790_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173104_
+	f_282791_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173105_
+	f_282792_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173106_
+	f_282793_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173107_
+	f_282794_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173108_
+	f_282795_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173109_
+	f_282796_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173110_
+	f_282797_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173111_
+	f_282798_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173112_
+	f_282799_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173113_
+	f_282800_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173114_
+	f_316208_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173087_
+	f_316209_ F f_173089_
+	f_316210_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173090_
+net/minecraft/client/renderer/RenderStateShard$MultiTextureStateShard
+	f_282839_ Ljava/util/Optional; f_173121_
+net/minecraft/client/renderer/RenderStateShard$MultiTextureStateShard$Builder
+	f_282850_ Lcom/google/common/collect/ImmutableList$Builder; f_173129_
+net/minecraft/client/renderer/RenderStateShard$ShaderStateShard
+	f_282868_ Ljava/util/Optional; f_173136_
+net/minecraft/client/renderer/RenderType
+	f_282752_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173063_
+	f_282753_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173064_
+	f_282754_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173065_
+	f_282755_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173066_
+	f_282756_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173067_
+	f_282757_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173068_
+	f_282758_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173069_
+	f_282759_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173070_
+	f_282760_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173071_
+	f_282761_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173072_
+	f_282762_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173073_
+	f_282763_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173074_
+	f_282764_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173075_
+	f_282765_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173076_
+	f_282767_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173078_
+	f_282768_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173079_
+	f_282769_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173080_
+	f_282770_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173081_
+	f_282771_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173082_
+	f_282772_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173083_
+	f_282773_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173084_
+	f_282774_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173085_
+	f_282775_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173086_
+	f_282776_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173088_
+	f_282777_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173091_
+	f_282778_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173092_
+	f_282779_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173093_
+	f_282780_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173094_
+	f_282781_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173095_
+	f_282791_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173105_
+	f_282792_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173106_
+	f_282793_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173107_
+	f_282794_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173108_
+	f_282795_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173109_
+	f_282796_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173110_
+	f_282797_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173111_
+	f_282798_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173112_
+	f_282799_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173113_
+	f_282800_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173114_
+	f_282903_ Lnet/minecraft/client/renderer/RenderType$CompositeRenderType; f_173152_
+	f_282904_ Lnet/minecraft/client/renderer/RenderType; f_173158_
+	f_282905_ Lnet/minecraft/client/renderer/RenderType; f_173159_
+	f_316208_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173087_
+	f_316210_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173090_
+	f_316212_ I f_173148_
+	f_316213_ I f_173149_
+	f_316214_ I f_173150_
+	f_316215_ I f_173151_
+	f_316216_ I f_173153_
+	f_316217_ I f_173154_
+	f_316218_ Ljava/util/function/Function; f_173155_
+	f_316219_ Ljava/util/function/Function; f_173156_
+	f_316220_ Ljava/util/function/Function; f_173157_
+	f_316221_ Ljava/util/function/Function; f_173175_
+	f_316222_ Ljava/util/function/Function; f_173176_
+	f_316223_ Ljava/util/function/BiFunction; f_173160_
+	f_316224_ Ljava/util/function/BiFunction; f_173161_
+	f_316225_ Ljava/util/function/Function; f_173162_
+	f_316226_ Ljava/util/function/Function; f_173163_
+	f_316227_ Ljava/util/function/BiFunction; f_173164_
+	f_316228_ Ljava/util/function/Function; f_173165_
+	f_316229_ Ljava/util/function/BiFunction; f_173166_
+	f_316230_ Ljava/util/function/Function; f_173167_
+	f_316231_ Ljava/util/function/Function; f_173168_
+	f_316232_ Ljava/util/function/Function; f_173169_
+	f_316233_ Ljava/util/function/Function; f_173170_
+	f_316234_ Ljava/util/function/Function; f_173171_
+	f_316235_ Ljava/util/function/Function; f_173172_
+	f_316236_ Ljava/util/function/Function; f_173173_
+	f_316237_ Ljava/util/function/Function; f_173174_
+	f_316238_ Ljava/util/function/Function; f_181442_
+	f_316239_ Ljava/util/function/Function; f_181443_
+net/minecraft/client/renderer/RenderType$CompositeRenderType
+	f_282766_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173077_
+	f_316296_ Ljava/util/function/BiFunction; f_173256_
+net/minecraft/client/renderer/RenderType$CompositeState
+	f_283017_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173274_
+net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder
+	f_283055_ Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard; f_173289_
+net/minecraft/client/renderer/ShaderInstance
+	f_283089_ Lcom/mojang/blaze3d/shaders/BlendMode; f_173302_
+	f_283090_ Ljava/util/List; f_173303_
+	f_283091_ Ljava/util/List; f_173304_
+	f_283092_ Lcom/mojang/blaze3d/shaders/Program; f_173305_
+	f_283093_ Lcom/mojang/blaze3d/shaders/Program; f_173306_
+	f_283094_ Lcom/mojang/blaze3d/vertex/VertexFormat; f_173307_
+	f_283095_ Lcom/mojang/blaze3d/shaders/Uniform; f_173308_
+	f_283096_ Lcom/mojang/blaze3d/shaders/Uniform; f_173309_
+	f_283097_ Lcom/mojang/blaze3d/shaders/Uniform; f_173310_
+	f_283098_ Lcom/mojang/blaze3d/shaders/Uniform; f_173311_
+	f_283099_ Lcom/mojang/blaze3d/shaders/Uniform; f_173312_
+	f_283100_ Lcom/mojang/blaze3d/shaders/Uniform; f_173313_
+	f_283101_ Lcom/mojang/blaze3d/shaders/Uniform; f_173314_
+	f_283102_ Lcom/mojang/blaze3d/shaders/Uniform; f_173315_
+	f_283103_ Lcom/mojang/blaze3d/shaders/Uniform; f_173316_
+	f_283104_ Lcom/mojang/blaze3d/shaders/Uniform; f_173317_
+	f_283105_ Lcom/mojang/blaze3d/shaders/Uniform; f_173318_
+	f_283106_ Lcom/mojang/blaze3d/shaders/Uniform; f_173319_
+	f_283107_ Lcom/mojang/blaze3d/shaders/Uniform; f_173320_
+	f_283108_ Lorg/apache/logging/log4j/Logger; f_173323_
+	f_283109_ Lcom/mojang/blaze3d/shaders/AbstractUniform; f_173324_
+	f_283110_ Lnet/minecraft/client/renderer/ShaderInstance; f_173326_
+	f_283111_ I f_173327_
+	f_283112_ Ljava/util/Map; f_173328_
+	f_283113_ Ljava/util/List; f_173329_
+	f_283114_ Ljava/util/List; f_173330_
+	f_283115_ Ljava/util/List; f_173331_
+	f_283116_ Ljava/util/List; f_173332_
+	f_283117_ Ljava/util/Map; f_173333_
+	f_283118_ I f_173299_
+	f_283119_ Ljava/lang/String; f_173300_
+	f_283120_ Z f_173301_
+	f_316311_ Ljava/lang/String; f_173321_
+	f_316312_ Ljava/lang/String; f_173322_
+	f_316313_ Z f_173325_
+net/minecraft/client/renderer/ShaderInstance$1
+	f_283153_ Ljava/util/Set; f_173369_
+net/minecraft/client/renderer/block/BlockRenderDispatcher
+	f_206377_ Lnet/minecraft/client/renderer/BlockEntityWithoutLevelRenderer; f_173397_
+net/minecraft/client/renderer/block/LiquidBlockRenderer
+	f_316325_ F f_173402_
+net/minecraft/client/renderer/block/ModelBlockRenderer
+	f_206446_ [Lnet/minecraft/core/Direction; f_173405_
+	f_316326_ I f_173403_
+	f_316327_ I f_173404_
+	f_316328_ I f_173406_
+net/minecraft/client/renderer/block/model/FaceBakery
+	f_316355_ I f_173433_
+	f_316356_ I f_173434_
+	f_316357_ I f_173435_
+	f_316358_ I f_173436_
+net/minecraft/client/renderer/block/model/ItemOverrides
+	f_206865_ [Lnet/minecraft/resources/ResourceLocation; f_173461_
+net/minecraft/client/renderer/block/model/ItemOverrides$BakedOverride
+	f_206888_ [Lnet/minecraft/client/renderer/block/model/ItemOverrides$PropertyMatcher; f_173480_
+	f_206889_ Lnet/minecraft/client/resources/model/BakedModel; f_173481_
+net/minecraft/client/renderer/block/model/ItemOverrides$PropertyMatcher
+	f_206904_ I f_173487_
+	f_206905_ F f_173488_
+net/minecraft/client/renderer/blockentity/BlockEntityRenderDispatcher
+	f_207231_ Lnet/minecraft/client/model/geom/EntityModelSet; f_173556_
+	f_207232_ Ljava/util/function/Supplier; f_173557_
+net/minecraft/client/renderer/blockentity/SignRenderer
+	f_207443_ Ljava/util/Map; f_173632_
+	f_207444_ Lnet/minecraft/client/gui/Font; f_173633_
+	f_316401_ I f_173627_
+	f_316402_ I f_173628_
+	f_316403_ Ljava/lang/String; f_173629_
+	f_316404_ I f_173630_
+	f_316405_ I f_173631_
+net/minecraft/client/renderer/blockentity/SignRenderer$SignModel
+	f_207472_ Lnet/minecraft/client/model/geom/ModelPart; f_173655_
+net/minecraft/client/renderer/blockentity/SkullBlockRenderer
+	f_207483_ Ljava/util/Map; f_173658_
+net/minecraft/client/renderer/chunk/ChunkRenderDispatcher
+	f_284367_ Lcom/mojang/blaze3d/vertex/VertexFormat; f_173708_
+	f_316423_ I f_173707_
+net/minecraft/client/renderer/chunk/ChunkRenderDispatcher$RenderChunk
+	f_316431_ I f_173716_
+	f_316432_ I f_173717_
+net/minecraft/client/renderer/chunk/VisGraph
+	f_316436_ I f_173723_
+	f_316437_ I f_173724_
+	f_316438_ I f_173725_
+	f_316439_ I f_173726_
+	f_316440_ I f_173727_
+	f_316441_ I f_173728_
+	f_316442_ I f_173729_
+	f_316443_ I f_173730_
+net/minecraft/client/renderer/entity/EntityRenderDispatcher
+	f_208681_ Lnet/minecraft/client/renderer/entity/ItemRenderer; f_173995_
+	f_208682_ Lnet/minecraft/client/model/geom/EntityModelSet; f_173996_
+net/minecraft/client/renderer/entity/EntityRenderer
+	f_208757_ Lnet/minecraft/client/gui/Font; f_174005_
+	f_316548_ F f_174006_
+net/minecraft/client/renderer/entity/EntityRenderers
+	f_208806_ Lorg/apache/logging/log4j/Logger; f_174030_
+	f_208807_ Ljava/util/Map; f_174031_
+	f_208808_ Ljava/util/Map; f_174032_
+	f_316549_ Ljava/lang/String; f_174029_
+net/minecraft/client/renderer/entity/ItemEntityRenderer
+	f_316566_ F f_174189_
+	f_316567_ I f_174190_
+	f_316568_ I f_174191_
+	f_316569_ I f_174192_
+	f_316570_ I f_174193_
+	f_316571_ F f_174194_
+	f_316572_ F f_174195_
+	f_316573_ F f_174196_
+net/minecraft/client/renderer/entity/ItemFrameRenderer
+	f_209276_ Lnet/minecraft/client/resources/model/ModelResourceLocation; f_174201_
+	f_209277_ Lnet/minecraft/client/resources/model/ModelResourceLocation; f_174202_
+	f_316574_ I f_174199_
+	f_316575_ I f_174200_
+net/minecraft/client/renderer/entity/ItemRenderer
+	f_209323_ Lnet/minecraft/client/renderer/BlockEntityWithoutLevelRenderer; f_174223_
+	f_316576_ I f_174218_
+	f_316577_ F f_174219_
+	f_316578_ F f_174220_
+	f_316579_ I f_174221_
+	f_316580_ I f_174222_
+net/minecraft/client/renderer/entity/LivingEntityRenderer
+	f_316594_ F f_174287_
+net/minecraft/client/renderer/entity/MobRenderer
+	f_316595_ I f_174302_
+net/minecraft/client/renderer/texture/AbstractTexture
+	f_316658_ I f_174680_
+net/minecraft/client/renderer/texture/HttpTexture
+	f_320373_ I f_181889_
+	f_320374_ I f_181890_
+	f_320375_ I f_181891_
+net/minecraft/client/renderer/texture/MipmapGenerator
+	f_316664_ I f_174686_
+net/minecraft/client/renderer/texture/MissingTextureAtlasSprite
+	f_316666_ I f_174688_
+	f_316667_ I f_174689_
+	f_316668_ Ljava/lang/String; f_174690_
+net/minecraft/client/renderer/texture/TextureAtlas
+	f_316675_ Ljava/lang/String; f_174697_
+net/minecraft/client/renderer/texture/TextureAtlasSprite
+	f_211646_ Lorg/apache/logging/log4j/Logger; f_174721_
+	f_211647_ Lnet/minecraft/resources/ResourceLocation; f_174722_
+	f_211648_ I f_174723_
+	f_211649_ I f_174724_
+	f_211650_ Lnet/minecraft/client/renderer/texture/TextureAtlasSprite$AnimatedTexture; f_174725_
+net/minecraft/client/renderer/texture/TextureAtlasSprite$AnimatedTexture
+	f_211694_ I f_174748_
+	f_211695_ I f_174749_
+	f_211696_ Ljava/util/List; f_174750_
+	f_211697_ I f_174751_
+	f_211698_ Lnet/minecraft/client/renderer/texture/TextureAtlasSprite$InterpolationData; f_174752_
+net/minecraft/client/renderer/texture/TextureAtlasSprite$FrameInfo
+	f_211735_ I f_174771_
+	f_211736_ I f_174772_
+net/minecraft/client/resources/metadata/animation/AnimationMetadataSection
+	f_316752_ Ljava/lang/String; f_174858_
+	f_316753_ I f_174859_
+	f_316754_ I f_174860_
+net/minecraft/client/resources/model/ModelBakery
+	f_316764_ I f_174875_
+	f_316765_ I f_174876_
+	f_316766_ I f_174877_
+	f_316767_ Ljava/lang/String; f_174878_
+	f_316768_ Ljava/lang/String; f_174879_
+	f_316769_ Ljava/lang/String; f_174880_
+	f_316770_ Ljava/lang/String; f_174881_
+net/minecraft/client/server/IntegratedServer
+	f_212532_ Lnet/minecraft/world/level/GameType; f_174966_
+	f_316849_ I f_174965_
+net/minecraft/core/Direction
+	f_289994_ Lcom/mojang/serialization/Codec; f_175356_
+net/minecraft/core/particles/ParticleTypes
+	f_214499_ Lnet/minecraft/core/particles/ParticleType; f_175820_
+	f_214500_ Lnet/minecraft/core/particles/SimpleParticleType; f_175822_
+	f_214501_ Lnet/minecraft/core/particles/SimpleParticleType; f_175823_
+	f_214502_ Lnet/minecraft/core/particles/SimpleParticleType; f_175824_
+	f_214503_ Lnet/minecraft/core/particles/SimpleParticleType; f_175825_
+	f_214504_ Lnet/minecraft/core/particles/SimpleParticleType; f_175826_
+	f_214505_ Lnet/minecraft/core/particles/SimpleParticleType; f_175827_
+	f_214506_ Lnet/minecraft/core/particles/SimpleParticleType; f_175832_
+	f_214507_ Lnet/minecraft/core/particles/SimpleParticleType; f_175833_
+	f_214508_ Lnet/minecraft/core/particles/SimpleParticleType; f_175834_
+	f_214509_ Lnet/minecraft/core/particles/SimpleParticleType; f_175821_
+	f_214510_ Lnet/minecraft/core/particles/ParticleType; f_175836_
+	f_317359_ Lnet/minecraft/core/particles/SimpleParticleType; f_175828_
+	f_317360_ Lnet/minecraft/core/particles/SimpleParticleType; f_175829_
+	f_317361_ Lnet/minecraft/core/particles/SimpleParticleType; f_175830_
+	f_317362_ Lnet/minecraft/core/particles/SimpleParticleType; f_175831_
+	f_317363_ Lnet/minecraft/core/particles/SimpleParticleType; f_175835_
+net/minecraft/network/syncher/SynchedEntityData
+	f_319324_ I f_179842_
+	f_319325_ I f_179843_
+net/minecraft/resources/ResourceLocation
+	f_319403_ C f_179907_
+	f_319404_ Ljava/lang/String; f_179908_
+	f_319405_ Ljava/lang/String; f_179909_
+net/minecraft/server/level/ChunkMap
+	f_142513_ Lnet/minecraft/world/level/entity/ChunkStatusUpdateListener; f_143031_
+	f_300167_ I f_143032_
+	f_300168_ I f_143033_
+	f_300169_ B f_143034_
+	f_300170_ B f_143035_
+	f_300171_ B f_143036_
+	f_300172_ I f_143037_
+	f_300173_ I f_143038_
+	f_320768_ Ljava/lang/String; f_182284_
+net/minecraft/server/level/DistanceManager
+	f_300333_ I f_143205_
+	f_300334_ I f_143206_
+net/minecraft/server/packs/VanillaPackResources
+	f_144290_ Lnet/minecraft/server/packs/metadata/pack/PackMetadataSection; f_143759_
+	f_320780_ Ljava/util/Map; f_182296_
+net/minecraft/server/packs/VanillaPackResources$1
+	f_226192_ Ljava/io/InputStream; f_143765_
+net/minecraft/sounds/SoundEvents
+	f_145024_ Lnet/minecraft/sounds/SoundEvent; f_144126_
+	f_145027_ Lnet/minecraft/sounds/SoundEvent; f_144129_
+	f_145028_ Lnet/minecraft/sounds/SoundEvent; f_144130_
+	f_145102_ Lnet/minecraft/sounds/SoundEvent; f_144211_
+	f_300744_ Lnet/minecraft/sounds/SoundEvent; f_144074_
+	f_300762_ Lnet/minecraft/sounds/SoundEvent; f_144178_
+net/minecraft/stats/Stats
+	f_300773_ Lnet/minecraft/resources/ResourceLocation; f_144256_
+net/minecraft/util/Mth
+	f_301039_ F f_144830_
+	f_301040_ F f_144831_
+	f_301041_ F f_144832_
+	f_301042_ F f_144833_
+	f_301043_ F f_144834_
+	f_301044_ F f_144835_
+	f_301045_ I f_144836_
+	f_301046_ F f_144837_
+	f_301047_ J f_144838_
+	f_301048_ J f_144839_
+	f_301049_ J f_144840_
+	f_301050_ J f_144841_
+	f_301051_ F f_144842_
+	f_301052_ D f_144843_
+	f_301053_ I f_144844_
+	f_301054_ I f_144845_
+net/minecraft/util/profiling/ActiveProfiler
+	f_301989_ Ljava/util/Set; f_145926_
+net/minecraft/util/profiling/ActiveProfiler$PathEntry
+	f_301995_ J f_145932_
+	f_301996_ J f_145933_
+	f_301997_ J f_145934_
+net/minecraft/util/profiling/metrics/MetricsRegistry
+	f_302130_ Lnet/minecraft/util/profiling/metrics/MetricsRegistry; f_146067_
+net/minecraft/util/valueproviders/ConstantFloat
+	f_302516_ Lnet/minecraft/util/valueproviders/ConstantFloat; f_146451_
+	f_302517_ Lcom/mojang/serialization/Codec; f_146452_
+	f_302518_ F f_146453_
+net/minecraft/util/valueproviders/FloatProviderType
+	f_302584_ Lnet/minecraft/util/valueproviders/FloatProviderType; f_146519_
+net/minecraft/world/entity/EntityType
+	f_149837_ Lnet/minecraft/world/entity/EntityType; f_147033_
+	f_149838_ Lnet/minecraft/world/entity/EntityType; f_147034_
+	f_149839_ Lnet/minecraft/world/entity/EntityType; f_147039_
+	f_302928_ Lnet/minecraft/world/entity/EntityType; f_147035_
+	f_302929_ Lnet/minecraft/world/entity/EntityType; f_147036_
+net/minecraft/world/entity/Mob
+	f_149382_ Z f_146808_
+	f_149383_ Z f_146809_
+	f_303055_ F f_147261_
+	f_303056_ F f_147262_
+	f_303057_ F f_147263_
+	f_303058_ Ljava/lang/String; f_147264_
+	f_303059_ I f_147265_
+	f_303060_ I f_147266_
+	f_303061_ I f_147267_
+	f_303062_ I f_147268_
+	f_303063_ F f_147269_
+	f_320817_ F f_182333_
+net/minecraft/world/entity/ai/goal/GoalSelector
+	f_303698_ I f_148095_
+net/minecraft/world/item/Items
+	f_160913_ Lnet/minecraft/world/item/Item; f_151063_
+	f_160945_ Lnet/minecraft/world/item/Item; f_151056_
+	f_160955_ Lnet/minecraft/world/item/Item; f_151059_
+	f_305312_ Lnet/minecraft/world/item/Item; f_151033_
+net/minecraft/world/item/alchemy/PotionUtils
+	f_305387_ Ljava/lang/String; f_151254_
+	f_305388_ Ljava/lang/String; f_151255_
+	f_305389_ Ljava/lang/String; f_151256_
+	f_305390_ I f_151257_
+net/minecraft/world/level/ChunkPos
+	f_305421_ J f_151375_
+	f_305422_ J f_151376_
+	f_305423_ I f_151377_
+	f_305424_ I f_151378_
+	f_305425_ I f_151379_
+	f_305426_ I f_151380_
+	f_305427_ I f_151381_
+net/minecraft/world/level/block/Blocks
+	f_165554_ Lnet/minecraft/world/level/block/Block; f_152475_
+	f_165558_ Lnet/minecraft/world/level/block/Block; f_152481_
+	f_165576_ Lnet/minecraft/world/level/block/Block; f_152499_
+	f_305965_ Lnet/minecraft/world/level/block/Block; f_152480_
+	f_305966_ Lnet/minecraft/world/level/block/Block; f_152538_
+net/minecraft/world/level/chunk/LevelChunkSection
+	f_307268_ I f_156455_
+	f_307269_ I f_156456_
+	f_307270_ I f_156457_
+net/minecraft/world/level/entity/EntitySection
+	f_175543_ Lorg/apache/logging/log4j/Logger; f_156826_
+	f_175544_ Lnet/minecraft/util/ClassInstanceMultiMap; f_156827_
+	f_175545_ Lnet/minecraft/world/level/entity/Visibility; f_156828_
+net/minecraft/world/level/entity/EntitySectionStorage
+	f_175609_ Ljava/lang/Class; f_156850_
+	f_175610_ Lit/unimi/dsi/fastutil/longs/Long2ObjectFunction; f_156851_
+	f_175611_ Lit/unimi/dsi/fastutil/longs/Long2ObjectMap; f_156852_
+	f_175612_ Lit/unimi/dsi/fastutil/longs/LongSortedSet; f_156853_
+net/minecraft/world/level/entity/TransientEntitySectionManager
+	f_175889_ Lorg/apache/logging/log4j/Logger; f_157635_
+	f_175890_ Lnet/minecraft/world/level/entity/LevelCallback; f_157636_
+	f_175891_ Lnet/minecraft/world/level/entity/EntityLookup; f_157637_
+	f_175892_ Lnet/minecraft/world/level/entity/EntitySectionStorage; f_157638_
+	f_175893_ Lit/unimi/dsi/fastutil/longs/LongSet; f_157639_
+	f_175894_ Lnet/minecraft/world/level/entity/LevelEntityGetter; f_157640_
+net/minecraft/world/level/entity/TransientEntitySectionManager$Callback
+	f_175515_ Lnet/minecraft/world/level/entity/EntityInLevelCallback; f_156799_
+	f_175933_ Lnet/minecraft/world/level/entity/EntityAccess; f_157668_
+	f_175934_ J f_157669_
+	f_175935_ Lnet/minecraft/world/level/entity/EntitySection; f_157670_
+net/minecraft/world/level/lighting/DynamicGraphMinFixedPoint
+	f_311809_ I f_164422_
+net/minecraft/world/level/material/Material
+	f_184881_ Lnet/minecraft/world/level/material/Material; f_164531_
+	f_184882_ Lnet/minecraft/world/level/material/Material; f_164532_
+	f_184883_ Lnet/minecraft/world/level/material/Material; f_164533_
+	f_311895_ Lnet/minecraft/world/level/material/Material; f_164530_
+net/minecraft/world/level/material/MaterialColor
+	f_311896_ Lnet/minecraft/world/level/material/MaterialColor; f_164534_
+	f_311897_ Lnet/minecraft/world/level/material/MaterialColor; f_164535_
+	f_311898_ Lnet/minecraft/world/level/material/MaterialColor; f_164536_

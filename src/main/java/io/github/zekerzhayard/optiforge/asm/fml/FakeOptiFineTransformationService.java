@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -31,18 +32,18 @@ public class FakeOptiFineTransformationService implements ITransformationService
     public FakeOptiFineTransformationService() {
         instance = this;
         try {
-            this.service = (ITransformationService) Class.forName("optifine.OptiFineTransformationService").newInstance();
-        } catch (Exception e) {
-            LOGGER.error("It looks like you do not put real OptiFine to the mods folder. Scan libraries folder to find OptiFine later.", e);
+            this.service = (ITransformationService) Class.forName("optifine.OptiFineTransformationService").getConstructor().newInstance();
+        } catch (ClassNotFoundException cnfe) {
+            // OptiForge 1.17.1 will force searching libraries folder.
+            // This part will be reserved because OptiFine may be compatible with forge in the future.
+            LOGGER.info("It looks like you do not put real OptiFine to the mods folder. Scan libraries folder to find OptiFine later.");
+        } catch (Throwable t) {
+            LOGGER.catching(t);
         }
     }
 
     public static FakeOptiFineTransformationService getInstance() {
-        if (instance == null) {
-            return new FakeOptiFineTransformationService();
-        } else {
-            return instance;
-        }
+        return Objects.requireNonNullElseGet(instance, FakeOptiFineTransformationService::new);
     }
 
     @Nonnull
@@ -59,13 +60,6 @@ public class FakeOptiFineTransformationService implements ITransformationService
     public void initialize(@Nonnull IEnvironment environment) {
         if (this.service != null) {
             this.service.initialize(environment);
-        }
-    }
-
-    @Override
-    public void beginScanning(@Nonnull IEnvironment environment) {
-        if (this.service != null) {
-            this.service.beginScanning(environment);
         }
     }
 
