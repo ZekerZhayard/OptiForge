@@ -11,7 +11,6 @@ import cpw.mods.modlauncher.api.ITransformationService;
 import cpw.mods.modlauncher.api.ITransformer;
 import io.github.zekerzhayard.optiforge.asm.fml.OptiForgeWrapperTransformationService;
 import io.github.zekerzhayard.optiforge.asm.transformers.ITransformerImpl;
-import io.github.zekerzhayard.optiforge.asm.transformers.OptiFineRemapper;
 import io.github.zekerzhayard.optiforge.asm.utils.ModuleUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.LogManager;
@@ -55,7 +54,6 @@ public class OptiForgeTransformationService implements ITransformationService {
         List<ITransformer> list = new ArrayList<>();
         // If OptiFine doesn't exist, these transformers shouldn't be applied because they are based on OptiFine classes.
         if (!Boolean.FALSE.equals(OptiForgeWrapperTransformationService.checked)) {
-            list.add(new OptiFineRemapper());
             ServiceLoader<ITransformerImpl> sl = ServiceLoader.load(ITransformerImpl.class, this.getClass().getClassLoader());
             for (ITransformerImpl t : sl) {
                 list.add(t);

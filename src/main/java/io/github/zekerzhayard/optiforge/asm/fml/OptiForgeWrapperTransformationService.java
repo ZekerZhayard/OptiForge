@@ -2,6 +2,7 @@ package io.github.zekerzhayard.optiforge.asm.fml;
 
 import java.net.URI;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import cpw.mods.modlauncher.api.IEnvironment;
 import cpw.mods.modlauncher.api.IModuleLayerManager;
 import cpw.mods.modlauncher.api.ITransformationService;
 import cpw.mods.modlauncher.api.ITransformer;
+import cpw.mods.modlauncher.api.LamdbaExceptionUtils;
 import io.github.zekerzhayard.optiforge.asm.fml.module.OptiFineJar;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.LogManager;
@@ -88,12 +90,12 @@ public class OptiForgeWrapperTransformationService implements ITransformationSer
 
     @Override
     public List<Resource> completeScan(IModuleLayerManager layerManager) {
-        try {
-            FileSystems.newFileSystem(URI.create("jar:" + VersionChecker.getOptiFinePath().orElseThrow().toAbsolutePath().toUri()), Map.of("create", "true"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return List.of(new Resource(IModuleLayerManager.Layer.GAME, List.of(new OptiFineJar(VersionChecker.getOptiFinePath().orElseThrow(), this.getTransformationServiceByName("OptiFine").orElseThrow()))));
+        List<Resource> resources = new ArrayList<>();
+        VersionChecker.getOptiFinePath().ifPresent(LamdbaExceptionUtils.rethrowConsumer(path -> {
+            FileSystems.newFileSystem(URI.create("jar:" + path.toAbsolutePath().toUri()), Map.of("create", "true"));
+            resources.add(new Resource(IModuleLayerManager.Layer.GAME, List.of(new OptiFineJar(path, this.getTransformationServiceByName("OptiFine").orElseThrow()))));
+        }));
+        return resources;
     }
 
     @Nonnull
