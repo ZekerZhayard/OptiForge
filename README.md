@@ -9,9 +9,8 @@
 
 1. Download [OptiFine](https://www.optifine.net/downloads) 1.17.1
 2. Download [OptiForge](https://github.com/ZekerZhayard/OptiForge/releases) at the release page
-3. Put OptiForge into the `mods` folder. **DO NOT put OptiFine into mods folder.**
-4. Install OptiFine via OptiFine installer (double-click the OptiFine jar).
-5. Launch Minecraft!
+3. Put the above mods into the `mods` folder.
+4. Launch Minecraft!
 
 *Notice: If you find a bug, please report it to OptiForge first unless you are sure it is an OptiFine bug.*
 
